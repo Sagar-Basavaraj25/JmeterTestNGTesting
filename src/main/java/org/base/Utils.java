@@ -5,15 +5,20 @@ import org.apache.jmeter.assertions.ResponseAssertion;
 import org.apache.jmeter.assertions.gui.AssertionGui;
 import org.apache.jmeter.config.Arguments;
 import org.apache.jmeter.config.CSVDataSet;
+import org.apache.jmeter.control.CriticalSectionController;
 import org.apache.jmeter.control.LoopController;
+import org.apache.jmeter.control.OnceOnlyController;
+import org.apache.jmeter.control.TransactionController;
+import org.apache.jmeter.control.gui.CriticalSectionControllerGui;
+import org.apache.jmeter.control.gui.OnceOnlyControllerGui;
 import org.apache.jmeter.control.gui.TestPlanGui;
+import org.apache.jmeter.control.gui.TransactionControllerGui;
 import org.apache.jmeter.engine.StandardJMeterEngine;
 import org.apache.jmeter.protocol.http.control.CacheManager;
 import org.apache.jmeter.protocol.http.control.CookieManager;
 import org.apache.jmeter.protocol.http.control.Header;
 import org.apache.jmeter.protocol.http.control.HeaderManager;
 import org.apache.jmeter.protocol.http.control.gui.HttpTestSampleGui;
-import org.apache.jmeter.protocol.http.gui.CacheManagerGui;
 import org.apache.jmeter.protocol.http.gui.CookiePanel;
 import org.apache.jmeter.protocol.http.gui.HeaderPanel;
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy;
@@ -316,4 +321,31 @@ public class Utils {
         CacheManager cacheManager = new CacheManager();
         //cacheManager.setProperty(TestElement.GUI_CLASS, CacheManagerGui);
     }
+    public ListedHashTree onceOnlyController(ListedHashTree threadGroup){
+        OnceOnlyController onceOnlyController = new OnceOnlyController();
+        onceOnlyController.setProperty(TestElement.GUI_CLASS, OnceOnlyControllerGui.class.getName());
+        onceOnlyController.setName("Only Once Controller");
+        onceOnlyController.setEnabled(true);
+        return threadGroup.add(onceOnlyController);
+    }
+    public ListedHashTree transactionController(ListedHashTree threadGroup){
+        TransactionController transactionController = new TransactionController();
+        transactionController.setProperty(TestElement.GUI_CLASS, TransactionControllerGui.class.getName());
+        transactionController.setProperty(TestElement.TEST_CLASS, TransactionController.class.getName());
+        transactionController.setName("Transaction Controller");
+        transactionController.setEnabled(true);
+        transactionController.setIncludeTimers(false);
+        transactionController.setGenerateParentSample(true);
+        transactionController.setComment("Transaction Controller Testing");
+        return threadGroup.add(transactionController);
+    }
+    public ListedHashTree criticalSectionController(ListedHashTree threadGroup){
+        CriticalSectionController criticalSectionController = new CriticalSectionController();
+        criticalSectionController.setProperty(TestElement.GUI_CLASS, CriticalSectionControllerGui.class.getName());
+        criticalSectionController.setProperty(TestElement.TEST_CLASS, CriticalSectionController.class.getName());
+        criticalSectionController.setName("Critical Section Controller");
+        criticalSectionController.setLockName("global_lock");
+        return threadGroup.add(criticalSectionController);
+    }
 }
+
