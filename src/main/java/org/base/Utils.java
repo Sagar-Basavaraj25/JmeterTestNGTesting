@@ -8,6 +8,8 @@ import org.apache.jmeter.config.CSVDataSet;
 import org.apache.jmeter.control.LoopController;
 import org.apache.jmeter.control.gui.TestPlanGui;
 import org.apache.jmeter.engine.StandardJMeterEngine;
+import org.apache.jmeter.extractor.json.jsonpath.JSONPostProcessor;
+import org.apache.jmeter.extractor.json.jsonpath.gui.JSONPostProcessorGui;
 import org.apache.jmeter.protocol.http.control.CacheManager;
 import org.apache.jmeter.protocol.http.control.CookieManager;
 import org.apache.jmeter.protocol.http.control.Header;
@@ -241,7 +243,6 @@ public class Utils {
                 variables.put(headerValue[i],uniqueNames);
             }
         }
-
         try (FileWriter writer = new FileWriter(fileName)) {
             String s="";
             for (int i=0;i<headerValue.length;i++){
@@ -253,14 +254,12 @@ public class Utils {
             }
             writer.append(s+"\n");
             List<List<String>> listOfValues = new ArrayList<>();
-
             for (Set<String> valueSet : variables.values()) {
                 listOfValues.add(new ArrayList<>(valueSet)); // Convert each Set to a List
             }
             int id = 1;
             for (int i = 0; i < 10; i++) {
                 List<String> currentRow = new ArrayList<>();
-
                 // Iterate over all lists and fetch the i-th element if available
                 for (List<String> valueList : listOfValues) {
                     if (i < valueList.size()) {
@@ -281,9 +280,7 @@ public class Utils {
                 writer.append("\n");
                 id++;
             }
-
             System.out.println("CSV file with unique random names generated successfully!");
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -314,6 +311,22 @@ public class Utils {
     }
     public void addCacheManager(ListedHashTree tree){
         CacheManager cacheManager = new CacheManager();
-        //cacheManager.setProperty(TestElement.GUI_CLASS, CacheManagerGui);
+        cacheManager.setProperty(TestElement.GUI_CLASS,CacheManagerGui.class.getName());
+        cacheManager.setProperty(TestElement.TEST_CLASS,CacheManager.class.getName());
+        cacheManager.setName("Cache Manager");
+        cacheManager.setClearEachIteration(true);
+        cacheManager.setEnabled(true);
+        tree.add(cacheManager);
+    }
+    public void JsonExtractor(ListedHashTree tree,String JsonPath,String JsonVariable){
+        JSONPostProcessor jsonExtractor = new JSONPostProcessor();
+        jsonExtractor.setProperty(TestElement.GUI_CLASS, JSONPostProcessorGui.class.getName());
+        jsonExtractor.setProperty(TestElement.TEST_CLASS,JSONPostProcessor.class.getName());
+        jsonExtractor.setName("JSON Extractor");
+        jsonExtractor.setRefNames(JsonVariable);  // Variable Name to Store Extracted Data
+        jsonExtractor.setJsonPathExpressions(JsonPath); // JSON Path Expression
+        jsonExtractor.setMatchNumbers("1"); // First occurrence
+        jsonExtractor.setDefaultValues("Not Found");
+        tree.add(jsonExtractor);
     }
 }
