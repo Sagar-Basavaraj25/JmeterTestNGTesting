@@ -1,0 +1,32 @@
+{
+  "scenario": {
+    "tps":20,
+    "duration":20,
+    "rampup":5,
+    "csv_variable": [
+      {
+        "var_name": "ID",
+        "var_constant":null,
+        "dynamic_type":"String",
+        "min_len": 3,
+        "max_len": 10
+      },
+      {
+        "var_name": "ID",
+        "var_constant":null,
+        "dynamic_type":"String",
+        "min_len": 3,
+        "max_len": 10
+      }
+    ],
+    "controller": {
+      "name":"only-once-controller",
+      "apiName":"signin",
+      "variable":"Access_token",
+      "jsonPath": ""
+    },
+    "api-order": {
+      "apis": ["create-user","update-user","delete-user"]
+    }
+    }
+}
