@@ -25,11 +25,11 @@ public class ExecutionFile {
 
         ListedHashTree hashTree= new ListedHashTree();
         ListedHashTree testPlan = utils.testPlan(testName, hashTree);
+        utils.addCacheManager(testPlan);
+        utils.addCookieManager(testPlan);
+        String filePath = "csvFiles/Global_config.csv";
+        utils.csvDataConfig(testPlan,filePath,variables);
         ListedHashTree threadGroup = utils.threadGroup("ThreadGroup",testPlan,20,1,30,1);
-        if(api.equalsIgnoreCase("null")){
-            String filePath = "csvFiles/Global_config.csv";
-            utils.csvDataConfig(testPlan,filePath,variables);
-        }
         JsonNode items = rootNode.get("item");
         for (JsonNode item : items) {
             String apiMethod = item.get("request").get("method").asText();
@@ -39,14 +39,13 @@ public class ExecutionFile {
                 JsonNode header = item.get("request").get("header");
                 utils.headerManager(sampler, header);
             }
-            if(apiName.equalsIgnoreCase(api)){
-                String filePath = "csvFiles/"+apiName+"config.csv";
-                utils.csvDataConfig(sampler,filePath,variables);
-            }
             if (apiMethod.equalsIgnoreCase("POST")) {
                 utils.responseAssertion("201", sampler);
             } else {
                 utils.responseAssertion("200", sampler);
+            }
+            if(apiName.equalsIgnoreCase("signin")){
+                utils.JsonExtractor(sampler,".*JSON","ID");
             }
         }
         // Save Test Plan to JMX File
