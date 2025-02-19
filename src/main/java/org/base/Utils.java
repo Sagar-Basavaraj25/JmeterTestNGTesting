@@ -224,25 +224,4 @@ public class Utils {
         } catch (Exception e) {
             e.printStackTrace(); // Handle exceptions
              }}
-
-    public void readJson()throws Exception{
-        JSONParser parser = new JSONParser();
-        JSONArray jsonArray = (JSONArray) parser.parse(new FileReader(
-                "payloads/dummy.json"));
-
-        for (Object o : jsonArray) {
-            JSONObject person = (JSONObject) o;
-
-//            String strName = (String) person.get("name");
-//            System.out.println("Name:" + strName);
-
-            JSONArray arrays = (JSONArray) person.get("item");
-            for (Object object : arrays) {
-                System.out.println("URL::::" + ((JSONObject)((JSONObject)((JSONObject)object).get("request")).get("url")).get("raw"));
-                System.out.println("testcase name:: "+((JSONObject)object).get("name"));
-
-            }
-
-        }
-    }
 }
