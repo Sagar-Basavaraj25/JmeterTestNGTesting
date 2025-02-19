@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Test Suite">
+    <test name="Test Case Execution">
+        <classes>
+            <class name="RandomUniqueNameGenerator"></class>
+            <class name="UniqueRandomNumberGenerator"></class>
+            <class name="ExecutionFile"/>
+        </classes>
+    </test>
+</suite>

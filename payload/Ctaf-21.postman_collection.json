@@ -1,0 +1,340 @@
+{
+	"info": {
+		"_postman_id": "d518bea3-3811-4ed6-a248-01db9975f4c4",
+		"name": "Ctaf-21",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38368999"
+	},
+	"item": [
+		{
+			"name": "signin",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"value": "http://192.168.161.21:3000"
+					},
+					{
+						"key": "Referer",
+						"value": "http://192.168.161.21:3000/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"usernameOrEmail\":\"pooja\",\"password\":\"u7lKSlXyBpOLUYF7kYpwgIjix6+nImjvEODJ2LgZ4kPFhhlbBA==\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.21:8082/api/auth/signin",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"21"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-user",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMzE2IiwiaWF0IjoxNzM5NDI3MjAwLCJleHAiOjE3NDAwMzIwMDB9.IG07lPEeIdTOBJlnX3VwjmUFgwO_xojz8dF2U_2GI9Nas_ypLVIK_ZP3shsbSTgCmin8QMNobMM_CyrV6EWGpA"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"value": "http://192.168.161.21:3000"
+					},
+					{
+						"key": "Referer",
+						"value": "http://192.168.161.21:3000/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"userName\":\"sagar\",\"firstName\":\"Tester\",\"lastName\":\"test\",\"email\":\"sagar.basavaraj@covalensedigital.com\",\"password\":\"Admin@1223\",\"userStatus\":\"ACTIVE\",\"roleName\":\"ADMIN\",\"emailNotification\":\"False\",\"projectDetails\":[]}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.21:8082/api/users/create/user",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"21"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"users",
+						"create",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-user",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMzE2IiwiaWF0IjoxNzM5NDI3MjAwLCJleHAiOjE3NDAwMzIwMDB9.IG07lPEeIdTOBJlnX3VwjmUFgwO_xojz8dF2U_2GI9Nas_ypLVIK_ZP3shsbSTgCmin8QMNobMM_CyrV6EWGpA"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"value": "http://192.168.161.21:3000"
+					},
+					{
+						"key": "Referer",
+						"value": "http://192.168.161.21:3000/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"userId\":2604,\"userName\":\"sagar\",\"firstName\":\"TesterSA\",\"lastName\":\"test\",\"email\":\"sagar.basavaraj@covalensedigital.com\",\"password\":\"$2a$10$SZa374JvXAflfiX29hET/.SAUJPOkUN8EVE1qlXUkvN4YT.A6zj02\",\"userStatus\":\"ACTIVE\",\"roleName\":\"ADMIN\",\"resend\":false,\"projectDetails\":[]}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.21:8082/api/users/update/user",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"21"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"users",
+						"update",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete-user",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMzE2IiwiaWF0IjoxNzM5NDI0NzU4LCJleHAiOjE3NDAwMjk1NTh9.mxqtxZpjhHd3RwDYlb8cm6jmQ6bVN9lu1FCVQwsxUYcCVjHpplKuEsV8F3gbb7eXKr3LvMfU9G7YXOwHxX_iJw"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Origin",
+						"value": "http://192.168.161.21:3000"
+					},
+					{
+						"key": "Referer",
+						"value": "http://192.168.161.21:3000/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"
+					}
+				],
+				"url": {
+					"raw": "http://192.168.161.21:8082/api/users/delete/user/2360",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"21"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"users",
+						"delete",
+						"user",
+						"2360"
+					]
+				},
+				"description": "Generated from cURL: curl 'http://192.168.161.21:8082/api/users/delete/user/2360' \\\r\n  -X 'DELETE' \\\r\n  -H 'Accept: application/json, text/plain, */*' \\\r\n  -H 'Accept-Language: en-US,en;q=0.9' \\\r\n  -H 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMzE2IiwiaWF0IjoxNzM5NDI0NzU4LCJleHAiOjE3NDAwMjk1NTh9.mxqtxZpjhHd3RwDYlb8cm6jmQ6bVN9lu1FCVQwsxUYcCVjHpplKuEsV8F3gbb7eXKr3LvMfU9G7YXOwHxX_iJw' \\\r\n  -H 'Connection: keep-alive' \\\r\n  -H 'Origin: http://192.168.161.21:3000' \\\r\n  -H 'Referer: http://192.168.161.21:3000/' \\\r\n  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36' \\\r\n  --insecure"
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMzE2IiwiaWF0IjoxNzM5NDI0MDc5LCJleHAiOjE3NDAwMjg4Nzl9.Hye7blOpGfrBqZgKe1wO72zFspuMZBZcKq3ojDe7YYfaECz5Fhd-izZyZ1nW4yVi6RWKj67VzsH30z9RbZ-_cg"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"value": "http://192.168.161.21:3000"
+					},
+					{
+						"key": "Referer",
+						"value": "http://192.168.161.21:3000/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"userId\":1316,\"projectId\":\"122099\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.21:8082/api/auth/logout",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"21"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

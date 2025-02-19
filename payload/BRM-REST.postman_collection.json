@@ -1,0 +1,1545 @@
+{
+	"info": {
+		"_postman_id": "5b152957-fd4e-4aa6-8470-bb9d8414a067",
+		"name": "BRM-REST",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25391780"
+	},
+	"item": [
+		{
+			"name": "getTransactionHistory",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9,te;q=0.8"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "DNT",
+						"value": "1"
+					},
+					{
+						"key": "Origin",
+						"value": "http://localhost:3000"
+					},
+					{
+						"key": "Pragma",
+						"value": "no-cache"
+					},
+					{
+						"key": "Referer",
+						"value": "http://localhost:3000/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "correlationId",
+						"value": "3065a374-aabd-48cf-bf53-ad2d175c6af4"
+					},
+					{
+						"key": "destination",
+						"value": "brm"
+					},
+					{
+						"key": "operation",
+						"value": "transactionHistory"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "srDate",
+						"value": "1734081303383"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    // \"accountNumber\": \"610808.00001\",\r\n    \"msisdn\": \"1382000108\"\r\n    // \"startDate\": \"2024-08-01T12:00:00\",\r\n    // \"endDate\": \"2024-09-01T12:00:00\"\r\n    // // \"amountFrom\": \"\",\r\n    // \"amountTo\": \"\",\r\n    // \"pymtMethodCode\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/payment/transactionHistory",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"payment",
+						"transactionHistory"
+					]
+				},
+				"description": "Generated from cURL: curl 'http://192.168.161.92:9092/csmart-brmservices/brm/v1/payment/transactionHistory' \\\n  -H 'Accept: application/json' \\\n  -H 'Accept-Language: en-US,en;q=0.9,te;q=0.8' \\\n  -H 'Cache-Control: no-cache' \\\n  -H 'Connection: keep-alive' \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'DNT: 1' \\\n  -H 'Origin: http://localhost:3000' \\\n  -H 'Pragma: no-cache' \\\n  -H 'Referer: http://localhost:3000/' \\\n  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36' \\\n  -H 'correlationId: 3065a374-aabd-48cf-bf53-ad2d175c6af4' \\\n  -H 'destination: MOM' \\\n  -H 'operation: transactionHistory' \\\n  -H 'source: Selfcare' \\\n  -H 'srDate: 1734081303383' \\\n  --data-raw '{\"accountNumber\":\"200145.00001\",\"msisdn\":\"7100000228\",\"startDate\":\"2024-08-01T12:00:00\",\"endDate\":\"2024-09-01T12:00:00\"}' \\\n  --insecure"
+			},
+			"response": []
+		},
+		{
+			"name": "subscriberStatus",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9,te;q=0.8"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "DNT",
+						"value": "1"
+					},
+					{
+						"key": "Origin",
+						"value": "http://localhost:3000"
+					},
+					{
+						"key": "Pragma",
+						"value": "no-cache"
+					},
+					{
+						"key": "Referer",
+						"value": "http://localhost:3000/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "correlationId",
+						"value": "3065a374-aabd-48cf-bf53-ad2d175c6af4"
+					},
+					{
+						"key": "destination",
+						"value": "brm"
+					},
+					{
+						"key": "operation",
+						"value": "subscriberStatus"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "srDate",
+						"value": "1734081303383"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n    \"accountNumber\": \"613912.00001\",\r\n    \"msisdn\": \"7100001322\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/account/subscriberStatus",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"account",
+						"subscriberStatus"
+					]
+				},
+				"description": "Generated from cURL: curl 'http://192.168.161.92:9092/csmart-brmservices/brm/v1/payment/transactionHistory' \\\n  -H 'Accept: application/json' \\\n  -H 'Accept-Language: en-US,en;q=0.9,te;q=0.8' \\\n  -H 'Cache-Control: no-cache' \\\n  -H 'Connection: keep-alive' \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'DNT: 1' \\\n  -H 'Origin: http://localhost:3000' \\\n  -H 'Pragma: no-cache' \\\n  -H 'Referer: http://localhost:3000/' \\\n  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36' \\\n  -H 'correlationId: 3065a374-aabd-48cf-bf53-ad2d175c6af4' \\\n  -H 'destination: MOM' \\\n  -H 'operation: transactionHistory' \\\n  -H 'source: Selfcare' \\\n  -H 'srDate: 1734081303383' \\\n  --data-raw '{\"accountNumber\":\"200145.00001\",\"msisdn\":\"7100000228\",\"startDate\":\"2024-08-01T12:00:00\",\"endDate\":\"2024-09-01T12:00:00\"}' \\\n  --insecure"
+			},
+			"response": []
+		},
+		{
+			"name": "getHlr",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9,te;q=0.8"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "DNT",
+						"value": "1"
+					},
+					{
+						"key": "Origin",
+						"value": "http://localhost:3000"
+					},
+					{
+						"key": "Pragma",
+						"value": "no-cache"
+					},
+					{
+						"key": "Referer",
+						"value": "http://localhost:3000/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "correlationId",
+						"value": "3065a374-aabd-48cf-bf53-ad2d175c6af4"
+					},
+					{
+						"key": "destination",
+						"value": "brm"
+					},
+					{
+						"key": "operation",
+						"value": "hlr"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "srDate",
+						"value": "1734081303383"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"phlr\": \"SMC\",\r\n    \"hlrId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/inventory/hlr",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"inventory",
+						"hlr"
+					]
+				},
+				"description": "Generated from cURL: curl 'http://192.168.161.92:9092/csmart-brmservices/brm/v1/payment/transactionHistory' \\\n  -H 'Accept: application/json' \\\n  -H 'Accept-Language: en-US,en;q=0.9,te;q=0.8' \\\n  -H 'Cache-Control: no-cache' \\\n  -H 'Connection: keep-alive' \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'DNT: 1' \\\n  -H 'Origin: http://localhost:3000' \\\n  -H 'Pragma: no-cache' \\\n  -H 'Referer: http://localhost:3000/' \\\n  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36' \\\n  -H 'correlationId: 3065a374-aabd-48cf-bf53-ad2d175c6af4' \\\n  -H 'destination: MOM' \\\n  -H 'operation: transactionHistory' \\\n  -H 'source: Selfcare' \\\n  -H 'srDate: 1734081303383' \\\n  --data-raw '{\"accountNumber\":\"200145.00001\",\"msisdn\":\"7100000228\",\"startDate\":\"2024-08-01T12:00:00\",\"endDate\":\"2024-09-01T12:00:00\"}' \\\n  --insecure"
+			},
+			"response": []
+		},
+		{
+			"name": "getMsisdnSimImsi",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9,te;q=0.8"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "DNT",
+						"value": "1"
+					},
+					{
+						"key": "Origin",
+						"value": "http://localhost:3000"
+					},
+					{
+						"key": "Pragma",
+						"value": "no-cache"
+					},
+					{
+						"key": "Referer",
+						"value": "http://localhost:3000/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "correlationId",
+						"value": "3065a374-aabd-48cf-bf53-ad2d175c6af4"
+					},
+					{
+						"key": "destination",
+						"value": "MOM"
+					},
+					{
+						"key": "operation",
+						"value": "msisdn"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "srDate",
+						"value": "1734081303383"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"imsi\": \"963298210449\",\r\n    \"sim\": \"963321449\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/account/msisdn",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"account",
+						"msisdn"
+					]
+				},
+				"description": "Generated from cURL: curl 'http://192.168.161.92:9092/csmart-brmservices/brm/v1/payment/transactionHistory' \\\n  -H 'Accept: application/json' \\\n  -H 'Accept-Language: en-US,en;q=0.9,te;q=0.8' \\\n  -H 'Cache-Control: no-cache' \\\n  -H 'Connection: keep-alive' \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'DNT: 1' \\\n  -H 'Origin: http://localhost:3000' \\\n  -H 'Pragma: no-cache' \\\n  -H 'Referer: http://localhost:3000/' \\\n  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36' \\\n  -H 'correlationId: 3065a374-aabd-48cf-bf53-ad2d175c6af4' \\\n  -H 'destination: MOM' \\\n  -H 'operation: transactionHistory' \\\n  -H 'source: Selfcare' \\\n  -H 'srDate: 1734081303383' \\\n  --data-raw '{\"accountNumber\":\"200145.00001\",\"msisdn\":\"7100000228\",\"startDate\":\"2024-08-01T12:00:00\",\"endDate\":\"2024-09-01T12:00:00\"}' \\\n  --insecure"
+			},
+			"response": []
+		},
+		{
+			"name": "getMsisdnClass",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9,te;q=0.8"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "DNT",
+						"value": "1"
+					},
+					{
+						"key": "Origin",
+						"value": "http://localhost:3000"
+					},
+					{
+						"key": "Pragma",
+						"value": "no-cache"
+					},
+					{
+						"key": "Referer",
+						"value": "http://localhost:3000/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "correlationId",
+						"value": "3065a374-aabd-48cf-bf53-ad2d175c6af4"
+					},
+					{
+						"key": "destination",
+						"value": "brm"
+					},
+					{
+						"key": "operation",
+						"value": "msisdnClass"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "srDate",
+						"value": "1734081303383"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"msisdnClass\": \"CEO\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/inventory/msisdnClass",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"inventory",
+						"msisdnClass"
+					]
+				},
+				"description": "Generated from cURL: curl 'http://192.168.161.92:9092/csmart-brmservices/brm/v1/payment/transactionHistory' \\\n  -H 'Accept: application/json' \\\n  -H 'Accept-Language: en-US,en;q=0.9,te;q=0.8' \\\n  -H 'Cache-Control: no-cache' \\\n  -H 'Connection: keep-alive' \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'DNT: 1' \\\n  -H 'Origin: http://localhost:3000' \\\n  -H 'Pragma: no-cache' \\\n  -H 'Referer: http://localhost:3000/' \\\n  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36' \\\n  -H 'correlationId: 3065a374-aabd-48cf-bf53-ad2d175c6af4' \\\n  -H 'destination: MOM' \\\n  -H 'operation: transactionHistory' \\\n  -H 'source: Selfcare' \\\n  -H 'srDate: 1734081303383' \\\n  --data-raw '{\"accountNumber\":\"200145.00001\",\"msisdn\":\"7100000228\",\"startDate\":\"2024-08-01T12:00:00\",\"endDate\":\"2024-09-01T12:00:00\"}' \\\n  --insecure"
+			},
+			"response": []
+		},
+		{
+			"name": "customerDetails",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9,te;q=0.8"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "DNT",
+						"value": "1"
+					},
+					{
+						"key": "Origin",
+						"value": "http://localhost:3000"
+					},
+					{
+						"key": "Pragma",
+						"value": "no-cache"
+					},
+					{
+						"key": "Referer",
+						"value": "http://localhost:3000/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "correlationId",
+						"value": "3065a374-aabd-48cf-bf53-ad2d175c6af4"
+					},
+					{
+						"key": "destination",
+						"value": "brm"
+					},
+					{
+						"key": "operation",
+						"value": "customerDetails"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "srDate",
+						"value": "1734081303383"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customerRef\": \"612469\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/account/customerDetails",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"account",
+						"customerDetails"
+					]
+				},
+				"description": "Generated from cURL: curl 'http://192.168.161.92:9092/csmart-brmservices/brm/v1/payment/transactionHistory' \\\n  -H 'Accept: application/json' \\\n  -H 'Accept-Language: en-US,en;q=0.9,te;q=0.8' \\\n  -H 'Cache-Control: no-cache' \\\n  -H 'Connection: keep-alive' \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'DNT: 1' \\\n  -H 'Origin: http://localhost:3000' \\\n  -H 'Pragma: no-cache' \\\n  -H 'Referer: http://localhost:3000/' \\\n  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36' \\\n  -H 'correlationId: 3065a374-aabd-48cf-bf53-ad2d175c6af4' \\\n  -H 'destination: MOM' \\\n  -H 'operation: transactionHistory' \\\n  -H 'source: Selfcare' \\\n  -H 'srDate: 1734081303383' \\\n  --data-raw '{\"accountNumber\":\"200145.00001\",\"msisdn\":\"7100000228\",\"startDate\":\"2024-08-01T12:00:00\",\"endDate\":\"2024-09-01T12:00:00\"}' \\\n  --insecure"
+			},
+			"response": []
+		},
+		{
+			"name": "getMsisdnType",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9,te;q=0.8"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "DNT",
+						"value": "1"
+					},
+					{
+						"key": "Origin",
+						"value": "http://localhost:3000"
+					},
+					{
+						"key": "Pragma",
+						"value": "no-cache"
+					},
+					{
+						"key": "Referer",
+						"value": "http://localhost:3000/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "correlationId",
+						"value": "3065a374-aabd-48cf-bf53-ad2d175c6af4"
+					},
+					{
+						"key": "destination",
+						"value": "brm"
+					},
+					{
+						"key": "operation",
+						"value": "msisdnType"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "srDate",
+						"value": "1734081303383"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"typeId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/inventory/msisdnType",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"inventory",
+						"msisdnType"
+					]
+				},
+				"description": "Generated from cURL: curl 'http://192.168.161.92:9092/csmart-brmservices/brm/v1/payment/transactionHistory' \\\n  -H 'Accept: application/json' \\\n  -H 'Accept-Language: en-US,en;q=0.9,te;q=0.8' \\\n  -H 'Cache-Control: no-cache' \\\n  -H 'Connection: keep-alive' \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'DNT: 1' \\\n  -H 'Origin: http://localhost:3000' \\\n  -H 'Pragma: no-cache' \\\n  -H 'Referer: http://localhost:3000/' \\\n  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36' \\\n  -H 'correlationId: 3065a374-aabd-48cf-bf53-ad2d175c6af4' \\\n  -H 'destination: MOM' \\\n  -H 'operation: transactionHistory' \\\n  -H 'source: Selfcare' \\\n  -H 'srDate: 1734081303383' \\\n  --data-raw '{\"accountNumber\":\"200145.00001\",\"msisdn\":\"7100000228\",\"startDate\":\"2024-08-01T12:00:00\",\"endDate\":\"2024-09-01T12:00:00\"}' \\\n  --insecure"
+			},
+			"response": []
+		},
+		{
+			"name": "getDealerInfo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9,te;q=0.8"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "DNT",
+						"value": "1"
+					},
+					{
+						"key": "Origin",
+						"value": "http://localhost:3000"
+					},
+					{
+						"key": "Pragma",
+						"value": "no-cache"
+					},
+					{
+						"key": "Referer",
+						"value": "http://localhost:3000/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "correlationId",
+						"value": "3065a374-aabd-48cf-bf53-ad2d175c6af4"
+					},
+					{
+						"key": "destination",
+						"value": "brm"
+					},
+					{
+						"key": "operation",
+						"value": "dealerInfo"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "srDate",
+						"value": "1734081303383"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"dealerCode\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/inventory/dealerInfo",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"inventory",
+						"dealerInfo"
+					]
+				},
+				"description": "Generated from cURL: curl 'http://192.168.161.92:9092/csmart-brmservices/brm/v1/payment/transactionHistory' \\\n  -H 'Accept: application/json' \\\n  -H 'Accept-Language: en-US,en;q=0.9,te;q=0.8' \\\n  -H 'Cache-Control: no-cache' \\\n  -H 'Connection: keep-alive' \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'DNT: 1' \\\n  -H 'Origin: http://localhost:3000' \\\n  -H 'Pragma: no-cache' \\\n  -H 'Referer: http://localhost:3000/' \\\n  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36' \\\n  -H 'correlationId: 3065a374-aabd-48cf-bf53-ad2d175c6af4' \\\n  -H 'destination: MOM' \\\n  -H 'operation: transactionHistory' \\\n  -H 'source: Selfcare' \\\n  -H 'srDate: 1734081303383' \\\n  --data-raw '{\"accountNumber\":\"200145.00001\",\"msisdn\":\"7100000228\",\"startDate\":\"2024-08-01T12:00:00\",\"endDate\":\"2024-09-01T12:00:00\"}' \\\n  --insecure"
+			},
+			"response": []
+		},
+		{
+			"name": "subscriberDetails",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9,te;q=0.8"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "DNT",
+						"value": "1"
+					},
+					{
+						"key": "Origin",
+						"value": "http://localhost:3000"
+					},
+					{
+						"key": "Pragma",
+						"value": "no-cache"
+					},
+					{
+						"key": "Referer",
+						"value": "http://localhost:3000/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "correlationId",
+						"value": "3065a374-aabd-48cf-bf53-ad2d175c6af4"
+					},
+					{
+						"key": "destination",
+						"value": "brm"
+					},
+					{
+						"key": "operation",
+						"value": "subscriberDetails"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "srDate",
+						"value": "1734081303383"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountNumber\": \"613912.00001\",\r\n    \"msisdn\": \"7100001322\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/account/subscriberDetails",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"account",
+						"subscriberDetails"
+					]
+				},
+				"description": "Generated from cURL: curl 'http://192.168.161.92:9092/csmart-brmservices/brm/v1/payment/transactionHistory' \\\n  -H 'Accept: application/json' \\\n  -H 'Accept-Language: en-US,en;q=0.9,te;q=0.8' \\\n  -H 'Cache-Control: no-cache' \\\n  -H 'Connection: keep-alive' \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'DNT: 1' \\\n  -H 'Origin: http://localhost:3000' \\\n  -H 'Pragma: no-cache' \\\n  -H 'Referer: http://localhost:3000/' \\\n  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36' \\\n  -H 'correlationId: 3065a374-aabd-48cf-bf53-ad2d175c6af4' \\\n  -H 'destination: MOM' \\\n  -H 'operation: transactionHistory' \\\n  -H 'source: Selfcare' \\\n  -H 'srDate: 1734081303383' \\\n  --data-raw '{\"accountNumber\":\"200145.00001\",\"msisdn\":\"7100000228\",\"startDate\":\"2024-08-01T12:00:00\",\"endDate\":\"2024-09-01T12:00:00\"}' \\\n  --insecure"
+			},
+			"response": []
+		},
+		{
+			"name": "customerOtherDetails",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9,te;q=0.8"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "DNT",
+						"value": "1"
+					},
+					{
+						"key": "Origin",
+						"value": "http://localhost:3000"
+					},
+					{
+						"key": "Pragma",
+						"value": "no-cache"
+					},
+					{
+						"key": "Referer",
+						"value": "http://localhost:3000/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "correlationId",
+						"value": "3065a374-aabd-48cf-bf53-ad2d175c6af4"
+					},
+					{
+						"key": "destination",
+						"value": "brm"
+					},
+					{
+						"key": "operation",
+						"value": "customerOtherDetails"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "srDate",
+						"value": "1734081303383"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customerRef\": \"200075\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/account/customerOtherDetails",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"account",
+						"customerOtherDetails"
+					]
+				},
+				"description": "Generated from cURL: curl 'http://192.168.161.92:9092/csmart-brmservices/brm/v1/payment/transactionHistory' \\\n  -H 'Accept: application/json' \\\n  -H 'Accept-Language: en-US,en;q=0.9,te;q=0.8' \\\n  -H 'Cache-Control: no-cache' \\\n  -H 'Connection: keep-alive' \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'DNT: 1' \\\n  -H 'Origin: http://localhost:3000' \\\n  -H 'Pragma: no-cache' \\\n  -H 'Referer: http://localhost:3000/' \\\n  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36' \\\n  -H 'correlationId: 3065a374-aabd-48cf-bf53-ad2d175c6af4' \\\n  -H 'destination: MOM' \\\n  -H 'operation: transactionHistory' \\\n  -H 'source: Selfcare' \\\n  -H 'srDate: 1734081303383' \\\n  --data-raw '{\"accountNumber\":\"200145.00001\",\"msisdn\":\"7100000228\",\"startDate\":\"2024-08-01T12:00:00\",\"endDate\":\"2024-09-01T12:00:00\"}' \\\n  --insecure"
+			},
+			"response": []
+		},
+		{
+			"name": "subscriberOtherDetails",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9,te;q=0.8"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "DNT",
+						"value": "1"
+					},
+					{
+						"key": "Origin",
+						"value": "http://localhost:3000"
+					},
+					{
+						"key": "Pragma",
+						"value": "no-cache"
+					},
+					{
+						"key": "Referer",
+						"value": "http://localhost:3000/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "correlationId",
+						"value": "3065a374-aabd-48cf-bf53-ad2d175c6af4"
+					},
+					{
+						"key": "destination",
+						"value": "brm"
+					},
+					{
+						"key": "operation",
+						"value": "subscriberOtherDetails"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "srDate",
+						"value": "1734081303383"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountNumber\": \"613912.00001\",\r\n    \"msisdn\": \"7100001322\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/account/subscriberOtherDetails",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"account",
+						"subscriberOtherDetails"
+					]
+				},
+				"description": "Generated from cURL: curl 'http://192.168.161.92:9092/csmart-brmservices/brm/v1/payment/transactionHistory' \\\n  -H 'Accept: application/json' \\\n  -H 'Accept-Language: en-US,en;q=0.9,te;q=0.8' \\\n  -H 'Cache-Control: no-cache' \\\n  -H 'Connection: keep-alive' \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'DNT: 1' \\\n  -H 'Origin: http://localhost:3000' \\\n  -H 'Pragma: no-cache' \\\n  -H 'Referer: http://localhost:3000/' \\\n  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36' \\\n  -H 'correlationId: 3065a374-aabd-48cf-bf53-ad2d175c6af4' \\\n  -H 'destination: MOM' \\\n  -H 'operation: transactionHistory' \\\n  -H 'source: Selfcare' \\\n  -H 'srDate: 1734081303383' \\\n  --data-raw '{\"accountNumber\":\"200145.00001\",\"msisdn\":\"7100000228\",\"startDate\":\"2024-08-01T12:00:00\",\"endDate\":\"2024-09-01T12:00:00\"}' \\\n  --insecure"
+			},
+			"response": []
+		},
+		{
+			"name": "installmentBonusInfo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "correlationId",
+						"value": "kejr"
+					},
+					{
+						"key": "srDate",
+						"value": "kbewj"
+					},
+					{
+						"key": "operation",
+						"value": "bonusHistoryInfo"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "destination",
+						"value": "brm"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"accountNumber\": \"613243\",\n    \"msisdn\": \"3711728022135\",\n    \"startDate\":\"2024-09-10T00:00:02\",\n    \"endDate\":\"2024-12-30T00:00:00\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/bonus/bonusHistoryInfo",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"bonus",
+						"bonusHistoryInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bonusHistoryInfo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "correlationId",
+						"value": "kejr"
+					},
+					{
+						"key": "srDate",
+						"value": "kbewj"
+					},
+					{
+						"key": "operation",
+						"value": "bonusHistoryInfo"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "destination",
+						"value": "brm"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"accountNumber\": \"613243\",\n    \"msisdn\": \"3711728022135\",\n    \"startDate\":\"2024-09-10T00:00:02\",\n    \"endDate\":\"2024-12-30T00:00:00\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.92:9093/dx-sync/brm/v1/bonus/bonusHistoryInfo",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"92"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"bonus",
+						"bonusHistoryInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "billHistory",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "correlationId",
+						"value": "kejr"
+					},
+					{
+						"key": "srDate",
+						"value": "kbewj"
+					},
+					{
+						"key": "operation",
+						"value": "bill"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "destination",
+						"value": "brm"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n//     \"customerRef\": \"610931.00001\",\n    \"msisdn\": \"7100002201\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/account/bill",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"account",
+						"bill"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPlanDetails",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "operation",
+						"value": "getPlanDetails"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "correlationId",
+						"value": "coor123"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "srDate",
+						"value": "fgg"
+					},
+					{
+						"key": "destination",
+						"value": "brm"
+					},
+					{
+						"key": "serviceProvider",
+						"value": "crm"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"planName\": \"ST_POC_59_SMS_CHARGING_PKG_20231222\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/account/getPlanDetails",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"account",
+						"getPlanDetails"
+					],
+					"query": [
+						{
+							"key": null,
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAccount",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "correlationId",
+						"value": "123454321"
+					},
+					{
+						"key": "srdate",
+						"value": "23432132"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "operation",
+						"value": "getAccounts"
+					},
+					{
+						"key": "destination",
+						"value": "BrmServices"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"customerRef\": \"610513\",\n    \"accountNumber\": \"610513.00001\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/account/getAccounts",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"account",
+						"getAccounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "accountBalanceDetails",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "correlationId",
+						"value": "123454321"
+					},
+					{
+						"key": "srdate",
+						"value": "23432132"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "operation",
+						"value": "accountBalanceDetails"
+					},
+					{
+						"key": "destination",
+						"value": "brm"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"accountNumber\": \"616259.00001\",\n    \"msisdn\": \"7100002084\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/account/accountBalanceDetails",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"account",
+						"accountBalanceDetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getVendorInfo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9,te;q=0.8"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "DNT",
+						"value": "1"
+					},
+					{
+						"key": "Origin",
+						"value": "http://localhost:3000"
+					},
+					{
+						"key": "Pragma",
+						"value": "no-cache"
+					},
+					{
+						"key": "Referer",
+						"value": "http://localhost:3000/"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "correlationId",
+						"value": "3065a374-aabd-48cf-bf53-ad2d175c6af4"
+					},
+					{
+						"key": "destination",
+						"value": "brm"
+					},
+					{
+						"key": "operation",
+						"value": "vendorInfo"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "srDate",
+						"value": "1734081303383"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"vendorName\": \"Vendor 1\",\r\n    \"vendorId\": \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/inventory/vendorInfo",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"inventory",
+						"vendorInfo"
+					]
+				},
+				"description": "Generated from cURL: curl 'http://192.168.161.92:9092/csmart-brmservices/brm/v1/payment/transactionHistory' \\\n  -H 'Accept: application/json' \\\n  -H 'Accept-Language: en-US,en;q=0.9,te;q=0.8' \\\n  -H 'Cache-Control: no-cache' \\\n  -H 'Connection: keep-alive' \\\n  -H 'Content-Type: application/json;charset=UTF-8' \\\n  -H 'DNT: 1' \\\n  -H 'Origin: http://localhost:3000' \\\n  -H 'Pragma: no-cache' \\\n  -H 'Referer: http://localhost:3000/' \\\n  -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36' \\\n  -H 'correlationId: 3065a374-aabd-48cf-bf53-ad2d175c6af4' \\\n  -H 'destination: MOM' \\\n  -H 'operation: transactionHistory' \\\n  -H 'source: Selfcare' \\\n  -H 'srDate: 1734081303383' \\\n  --data-raw '{\"accountNumber\":\"200145.00001\",\"msisdn\":\"7100000228\",\"startDate\":\"2024-08-01T12:00:00\",\"endDate\":\"2024-09-01T12:00:00\"}' \\\n  --insecure"
+			},
+			"response": []
+		}
+	]
+}
