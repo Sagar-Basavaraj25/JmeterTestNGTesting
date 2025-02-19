@@ -8,27 +8,30 @@ import org.apache.jmeter.config.CSVDataSet;
 import org.apache.jmeter.control.LoopController;
 import org.apache.jmeter.control.gui.TestPlanGui;
 import org.apache.jmeter.engine.StandardJMeterEngine;
+import org.apache.jmeter.protocol.http.control.CacheManager;
+import org.apache.jmeter.protocol.http.control.CookieManager;
 import org.apache.jmeter.protocol.http.control.Header;
 import org.apache.jmeter.protocol.http.control.HeaderManager;
 import org.apache.jmeter.protocol.http.control.gui.HttpTestSampleGui;
+import org.apache.jmeter.protocol.http.gui.CacheManagerGui;
+import org.apache.jmeter.protocol.http.gui.CookiePanel;
 import org.apache.jmeter.protocol.http.gui.HeaderPanel;
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy;
 import org.apache.jmeter.testbeans.gui.TestBeanGUI;
+import org.apache.jmeter.testelement.TestElement;
 import org.apache.jmeter.testelement.TestPlan;
-import org.apache.jmeter.threads.ThreadGroup;
 import org.apache.jmeter.threads.gui.ThreadGroupGui;
+import org.apache.jmeter.threads.ThreadGroup;
 import org.apache.jmeter.util.JMeterUtils;
+import org.apache.jorphan.collections.HashTree;
 import org.apache.jorphan.collections.ListedHashTree;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Properties;
+import java.util.*;
 
 public class Utils {
     public static Properties properties = new Properties();
@@ -57,15 +60,6 @@ public class Utils {
         JMeterUtils.loadJMeterProperties(jmeterHome + "/bin/jmeter.properties");
         JMeterUtils.initLocale();
     }
-    public int deriveUsers(int tps, int durationSec, double apiResponseTime){
-        //To calculate the actual number of threads required, we need to estimate the "throughput" of a single thread in terms of how many transactions it can complete in 1 second.
-        //Transaction per thread per sec = (1/API response time)
-//        double transPerThreadsPerSec = (1/apiResponseTime);
-        //Thread = (Desired tps / Transaction per thread per sec )
-        int numThreads = (int)(tps*apiResponseTime);
-        System.out.println("Numbers of Users :" + numThreads);
-        return numThreads;
-    }
 
     public ListedHashTree testPlan(String testPlanName, ListedHashTree tree){
         TestPlan testPlan = new TestPlan(testPlanName);
@@ -86,13 +80,12 @@ public class Utils {
         }
         tree.add(headerManager);
     }
-    public ListedHashTree threadGroup(String ThreadGroupName,ListedHashTree testplan,int tps,int rampUpCount, int durationSec, double apiResponseTime, int loops){
+    public ListedHashTree threadGroup(String ThreadGroupName,ListedHashTree testplan,int NumThreads,int rampUpCount, int durationSec, int loops){
         ThreadGroup threadGroup= new ThreadGroup();
         threadGroup.setProperty("TestElement.test_class", ThreadGroup.class.getName());
         threadGroup.setProperty("TestElement.gui_class", ThreadGroupGui.class.getName());
         threadGroup.setName(ThreadGroupName);
-        int numThread = deriveUsers( tps, durationSec, apiResponseTime);
-        threadGroup.setNumThreads(numThread);
+        threadGroup.setNumThreads(NumThreads);
         threadGroup.setRampUp(rampUpCount);
         threadGroup.setScheduler(true);
         threadGroup.setProperty("ThreadGroup.on_sample_error", "continue");
@@ -154,7 +147,7 @@ public class Utils {
         }
         return content;
     }
-    public void responseAssertion(String statusCode, ListedHashTree tree){
+    public void responseAssertion(String statusCode, HashTree tree){
         ResponseAssertion responseAssertion = new ResponseAssertion();
         responseAssertion.setProperty("TestElement.gui_class", AssertionGui.class.getName());
         responseAssertion.setProperty("TestElement.test_class", ResponseAssertion.class.getName());
@@ -165,24 +158,34 @@ public class Utils {
 //        return responseAssertion;
         tree.add(responseAssertion);
     }
-
     // Create CSV Data Set Config
-    public void csvDataSet(ListedHashTree tree) {
+    public void csvDataConfig(ListedHashTree tree,String filename,String[] name){
+        System.out.println(filename);
+        generateCsvFile(filename,name);
         CSVDataSet csvDataSet = new CSVDataSet();
         csvDataSet.setName("CSV Data Set Config");
         csvDataSet.setProperty("TestElement.gui_class", TestBeanGUI.class.getName());
         csvDataSet.setProperty("TestElement.test_class", CSVDataSet.class.getName());
-        csvDataSet.setProperty("filename", "unique_random_numbers.csv"); // Set CSV File path if needed
+        csvDataSet.setDelimiter(",");
+        csvDataSet.setProperty("filename",filename);
+        String variableName="";
+        for(int i=0;i< name.length;i++) {
+            if(i!=name.length-1){
+                variableName=variableName+name[i]+",";
+            }else{
+                variableName=variableName+name[i];
+            }
+        }
+        csvDataSet.setProperty("variableNames",variableName);
         csvDataSet.setProperty("fileEncoding","UTF-8");
-        csvDataSet.setProperty("variableNames","ID");
-        csvDataSet.setProperty("delimiter", ",");
-        csvDataSet.setProperty("quotedData", "false");
-        csvDataSet.setProperty("ignoreFirstLine", "true");
-        csvDataSet.setProperty("recycle", "true");
-        csvDataSet.setProperty("stopThread", "false");
+        csvDataSet.setProperty("ignoreFirstLine",true);
+        csvDataSet.setProperty("quotedData",false);
+        csvDataSet.setProperty("recycle", true);
+        csvDataSet.setProperty("stopThread",false);
         csvDataSet.setProperty("shareMode", "shareMode.all");
         tree.add(csvDataSet);
     }
+
     public LoopController loopController(int loops){
         LoopController loopController = new LoopController();
         loopController.setLoops(loops);
@@ -210,18 +213,107 @@ public class Utils {
             String command = "jmeter -n -t "+filename+" -l "+logs+" -e -o "+report;
             System.out.println("command===>" + command);
 
-             ProcessBuilder processBuilder = new ProcessBuilder();
-             processBuilder.command("cmd.exe", "/c", command);
-             Process process = processBuilder.start();
-             // Read the output of the command
-             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-             String line;
-             while ((line = reader.readLine()) != null) {
-                 System.out.println(line);
-                  }
-             int exitCode = process.waitFor();
-             System.out.println("Command exited with code: " + exitCode);
+            ProcessBuilder processBuilder = new ProcessBuilder();
+            processBuilder.command("cmd.exe", "/c", command);
+            Process process = processBuilder.start();
+            // Read the output of the command
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+            int exitCode = process.waitFor();
+            System.out.println("Command exited with code: " + exitCode);
         } catch (Exception e) {
             e.printStackTrace(); // Handle exceptions
-             }}
+        }
+    }
+    public void generateCsvFile(String fileName,String[] headerValue){
+        Map<String,Set<String>> variables = new LinkedHashMap<String,Set<String>>();
+        Random random = new Random();
+        for(int i=0;i< headerValue.length;i++){
+            if(!headerValue[i].equalsIgnoreCase("ID")){
+                Set<String> uniqueNames = new HashSet<>();
+                while (uniqueNames.size() < 10) {
+                    String name = generateRandomName(random, 6, 10); // Generates a name of length 6-10
+                    uniqueNames.add(name);
+                }
+                variables.put(headerValue[i],uniqueNames);
+            }
+        }
+
+        try (FileWriter writer = new FileWriter(fileName)) {
+            String s="";
+            for (int i=0;i<headerValue.length;i++){
+                if(s.equalsIgnoreCase("")){
+                    s=s+headerValue[i];
+                }else{
+                    s= s+","+headerValue[i];
+                }
+            }
+            writer.append(s+"\n");
+            List<List<String>> listOfValues = new ArrayList<>();
+
+            for (Set<String> valueSet : variables.values()) {
+                listOfValues.add(new ArrayList<>(valueSet)); // Convert each Set to a List
+            }
+            int id = 1;
+            for (int i = 0; i < 10; i++) {
+                List<String> currentRow = new ArrayList<>();
+
+                // Iterate over all lists and fetch the i-th element if available
+                for (List<String> valueList : listOfValues) {
+                    if (i < valueList.size()) {
+                        currentRow.add(valueList.get(i));
+                    } else {
+                        currentRow.add("N/A"); // Placeholder if a list is shorter
+                    }
+                }
+                // Print output in required format
+                writer.append(id + ",");
+                for (int j=0;j<currentRow.size();j++) {
+                    if(j==currentRow.size()-1){
+                        writer.append(currentRow.get(j));
+                    }else{
+                        writer.append(currentRow.get(j)+",");
+                    }
+                }
+                writer.append("\n");
+                id++;
+            }
+
+            System.out.println("CSV file with unique random names generated successfully!");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static String generateRandomName(Random random, int minLen, int maxLen) {
+        int nameLength = minLen + random.nextInt(maxLen - minLen + 1);
+        StringBuilder name = new StringBuilder();
+
+        // Generate first letter uppercase
+        name.append((char) ('A' + random.nextInt(26)));
+
+        // Generate rest of the letters as lowercase
+        for (int i = 1; i < nameLength; i++) {
+            name.append((char) ('a' + random.nextInt(26)));
+        }
+
+        return name.toString();
+    }
+    public void addCookieManager(ListedHashTree tree){
+        CookieManager cookieManager = new CookieManager();
+        cookieManager.setProperty(TestElement.GUI_CLASS, CookiePanel.class.getName());
+        cookieManager.setProperty(TestElement.TEST_CLASS, CookieManager.class.getName());
+        cookieManager.setName("Cookie Manager");
+        cookieManager.setEnabled(true);
+        cookieManager.setClearEachIteration(true);
+        tree.add(cookieManager);
+    }
+    public void addCacheManager(ListedHashTree tree){
+        CacheManager cacheManager = new CacheManager();
+        //cacheManager.setProperty(TestElement.GUI_CLASS, CacheManagerGui);
+    }
 }
