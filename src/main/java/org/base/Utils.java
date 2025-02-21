@@ -167,23 +167,15 @@ public class Utils {
         tree.add(responseAssertion);
     }
     // Create CSV Data Set Config
-    public void csvDataConfig(ListedHashTree tree,String filename,String[] name){
-        System.out.println(filename);
-        generateCsvFile(filename,name);
+    public void csvDataConfig(ListedHashTree tree,String filename,JsonNode csvVariables){
+        //System.out.println(filename);
+        String variableName = generateCsvFile1(filename,csvVariables);
         CSVDataSet csvDataSet = new CSVDataSet();
         csvDataSet.setName("CSV Data Set Config");
         csvDataSet.setProperty("TestElement.gui_class", TestBeanGUI.class.getName());
         csvDataSet.setProperty("TestElement.test_class", CSVDataSet.class.getName());
         csvDataSet.setDelimiter(",");
         csvDataSet.setProperty("filename",filename);
-        String variableName="";
-        for(int i=0;i< name.length;i++) {
-            if(i!=name.length-1){
-                variableName=variableName+name[i]+",";
-            }else{
-                variableName=variableName+name[i];
-            }
-        }
         csvDataSet.setProperty("variableNames",variableName);
         csvDataSet.setProperty("fileEncoding","UTF-8");
         csvDataSet.setProperty("ignoreFirstLine",true);
@@ -242,7 +234,7 @@ public class Utils {
         for(int i=0;i< headerValue.length;i++){
             if(!headerValue[i].equalsIgnoreCase("ID")){
                 Set<String> uniqueNames = new HashSet<>();
-                while (uniqueNames.size() < 10) {
+                while (uniqueNames.size() < 1000) {
                     String name = generateRandomName(random, 6, 10); // Generates a name of length 6-10
                     uniqueNames.add(name);
                 }
@@ -264,7 +256,7 @@ public class Utils {
                 listOfValues.add(new ArrayList<>(valueSet)); // Convert each Set to a List
             }
             int id = 1;
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 1000; i++) {
                 List<String> currentRow = new ArrayList<>();
                 // Iterate over all lists and fetch the i-th element if available
                 for (List<String> valueList : listOfValues) {
@@ -317,14 +309,14 @@ public class Utils {
     }
     public void addCacheManager(ListedHashTree tree){
         CacheManager cacheManager = new CacheManager();
-        cacheManager.setProperty(TestElement.GUI_CLASS,CacheManagerGui.class.getName());
+        cacheManager.setProperty(TestElement.GUI_CLASS, CacheManagerGui.class.getName());
         cacheManager.setProperty(TestElement.TEST_CLASS,CacheManager.class.getName());
         cacheManager.setName("Cache Manager");
         cacheManager.setClearEachIteration(true);
         cacheManager.setEnabled(true);
         tree.add(cacheManager);
     }
-    public void JsonExtractor(ListedHashTree tree,String JsonPath,String JsonVariable){
+    public void jsonExtractor(ListedHashTree tree,String JsonPath,String JsonVariable){
         JSONPostProcessor jsonExtractor = new JSONPostProcessor();
         jsonExtractor.setProperty(TestElement.GUI_CLASS, JSONPostProcessorGui.class.getName());
         jsonExtractor.setProperty(TestElement.TEST_CLASS,JSONPostProcessor.class.getName());
@@ -360,6 +352,77 @@ public class Utils {
         criticalSectionController.setName("Critical Section Controller");
         criticalSectionController.setLockName("global_lock");
         return threadGroup.add(criticalSectionController);
+    }
+    public String generateCsvFile1(String fileName,JsonNode csvVariables){
+        String headerValue="";
+        Map<String,Set<String>> variables = new LinkedHashMap<String,Set<String>>();
+        Random random = new Random();
+        for(JsonNode csvVariable : csvVariables){
+            String variableName = csvVariable.get("var_name").asText();
+            Set<String> uniqueNames = new LinkedHashSet<String>();
+            Set<Integer> uniqueNumbers = new LinkedHashSet<Integer>();
+            String prefix="";
+            int min_len=csvVariable.get("min_len").asInt();
+            int max_len=csvVariable.get("max_len").asInt();
+            if(!csvVariable.get("var_constant").isNull()){
+                prefix = csvVariable.get("var_constant").asText();
+                int prefix_len = prefix.length();
+                min_len = min_len-prefix_len;
+                max_len = max_len-prefix_len;
+            }
+            String varType = csvVariable.get("dynamic_type").asText();
+            while (uniqueNames.size() < 1000) {
+                if(varType.equalsIgnoreCase("String")){
+                    String name = prefix+generateRandomName(random,min_len,max_len);
+                    uniqueNames.add(name);
+                } else if (varType.equalsIgnoreCase("Number")) {
+                    String num = prefix + random.nextInt(100) + 1; // Range: 1 to 100,000
+                    uniqueNames.add(num);
+                }
+            }
+            variables.put(variableName,uniqueNames);
+        }
+        for(Map.Entry<String,Set<String>> entryset : variables.entrySet()){
+                if(headerValue.equals("")){
+                    headerValue=headerValue+entryset.getKey();
+                }else{
+                    headerValue=headerValue+","+entryset.getKey();
+                }
+        }
+        try (FileWriter writer = new FileWriter(fileName)) {
+            writer.append(headerValue+"\n");
+            List<List<String>> listOfValues = new ArrayList<>();
+            for (Set<String> valueSet : variables.values()) {
+                listOfValues.add(new ArrayList<>(valueSet)); // Convert each Set to a List
+            }
+            int id = 1;
+            for (int i = 0; i < 1000; i++) {
+                List<String> currentRow = new ArrayList<>();
+                // Iterate over all lists and fetch the i-th element if available
+                for (List<String> valueList : listOfValues) {
+                    if (i < valueList.size()) {
+                        currentRow.add(valueList.get(i));
+                    } else {
+                        currentRow.add("N/A"); // Placeholder if a list is shorter
+                    }
+                }
+                // Print output in required format
+                writer.append(id + ",");
+                for (int j=0;j<currentRow.size();j++) {
+                    if(j==currentRow.size()-1){
+                        writer.append(currentRow.get(j));
+                    }else{
+                        writer.append(currentRow.get(j)+",");
+                    }
+                }
+                writer.append("\n");
+                id++;
+            }
+            System.out.println("CSV file with unique random names generated successfully!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return headerValue;
     }
 }
 

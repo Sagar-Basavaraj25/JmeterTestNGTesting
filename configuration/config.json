@@ -1,6 +1,8 @@
 {
   "_comments":"create this for Scenarios",
-  "scenario": {
+  "payloadFile":"payload/Ctaf-21.postman_collection.json",
+  "scenario":[{
+    "name": "Scenario1",
     "tps":20,
     "duration":20,
     "rampup":5,
@@ -20,14 +22,12 @@
         "max_len": 10
       }
     ],
-    "controller": {
+    "controller": [{
       "name":"only-once-controller",
-      "apiName":"signin",
+      "apiName":["signin"],
       "variable":"Access_token",
       "jsonPath": ""
-    },
-    "api-order": {
-      "apis": ["create-user","update-user","delete-user"]
-    }
-    }
+    }],
+      "api_order": ["create-user","update-user","delete-user"]
+    }]
 }

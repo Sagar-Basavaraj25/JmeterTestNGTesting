@@ -28,7 +28,7 @@ public class ExecutionFile {
         utils.addCacheManager(testPlan);
         utils.addCookieManager(testPlan);
         String filePath = "csvFiles/Global_config.csv";
-        utils.csvDataConfig(testPlan,filePath,variables);
+        //utils.csvDataConfig(testPlan,filePath,variables);
         ListedHashTree threadGroup = utils.threadGroup("ThreadGroup",testPlan,20,1,30,1);
         JsonNode items = rootNode.get("item");
         for (JsonNode item : items) {
@@ -45,7 +45,7 @@ public class ExecutionFile {
                 utils.responseAssertion("200", sampler);
             }
             if(apiName.equalsIgnoreCase("signin")){
-                utils.JsonExtractor(sampler,".*JSON","ID");
+               // utils.JsonExtractor(sampler,".*JSON","ID");
             }
         }
         // Save Test Plan to JMX File
