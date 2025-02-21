@@ -3,19 +3,24 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.jmeter.save.SaveService;
 import org.apache.jorphan.collections.ListedHashTree;
 import org.base.Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class JmeterExecution {
+    private static final Logger log = LoggerFactory.getLogger(JmeterExecution.class);
+
     public static void main(String[] args) throws Exception {
         Utils utils = new Utils();
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode configRootNode = mapper.readTree(new File("configuration/config.json"));
+        ObjectMapper mapper1 = new ObjectMapper();
+        ObjectMapper mapper2 = new ObjectMapper();
+        JsonNode configRootNode = mapper1.readTree(new File("configuration/config.json"));
         String payload = configRootNode.get("payloadFile").asText();
-        JsonNode rootNode = mapper.readTree(new File(payload));
+        log.info("Payload filepath : "+payload);
+        JsonNode rootNode = mapper2.readTree(new File(payload));
         String testName = rootNode.get("info").get("name").asText();
+        log.info("TestPlan Name :"+testName);
         ListedHashTree hashTree = new ListedHashTree();
         ListedHashTree testPlan = utils.testPlan(testName, hashTree);
         utils.addCookieManager(testPlan);
@@ -24,9 +29,9 @@ public class JmeterExecution {
         for (JsonNode scenario : scenarios) {
             int tps = scenario.get("tps").asInt();
             int duration = scenario.get("duration").asInt();
-            int rampup = scenario.get("rampup").asInt();
+            int rampUp = scenario.get("rampUp").asInt();
             String tGName = scenario.get("name").asText();
-            ListedHashTree thread = utils.threadGroup(tGName, testPlan, (duration * tps), rampup, duration, 1);
+            ListedHashTree thread = utils.threadGroup(tGName, testPlan, (duration * tps), rampUp, duration, 1);
             JsonNode csvVariables = scenario.get("csv_variable");
             JsonNode controllers = scenario.get("controller");
             JsonNode items = rootNode.get("item");
@@ -37,7 +42,7 @@ public class JmeterExecution {
                 if (!controller.get("name").isNull()) {
                     String controlName = controller.get("name").asText();
                     JsonNode apis = controller.get("apiName");
-                    if (!controlName.equalsIgnoreCase("only-once")) {
+                    if (controlName.equalsIgnoreCase("only-once")) {
                         ListedHashTree onlyOnce = utils.onceOnlyController(thread);
                         for (JsonNode api : apis) {
                             for (JsonNode item : items) {
@@ -88,7 +93,6 @@ public class JmeterExecution {
                         }
                     }
                 }
-
             }
             JsonNode apis = scenario.get("api_order");
             for (JsonNode api : apis) {

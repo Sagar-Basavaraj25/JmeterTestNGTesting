@@ -31,7 +31,6 @@ import org.apache.jmeter.testelement.TestPlan;
 import org.apache.jmeter.threads.gui.ThreadGroupGui;
 import org.apache.jmeter.threads.ThreadGroup;
 import org.apache.jmeter.util.JMeterUtils;
-import org.apache.jorphan.collections.HashTree;
 import org.apache.jorphan.collections.ListedHashTree;
 
 import java.io.*;
@@ -103,7 +102,10 @@ public class Utils {
     }
 
     public ListedHashTree httpSampler(JsonNode item, ListedHashTree threadGroup){
-        String path = "",method,protocol,body = "";
+        StringBuilder path = new StringBuilder();
+        String method;
+        String protocol;
+        String body = "";
         int port= item.get("request").get("url").get("port").asInt();
         StringBuilder domain = new StringBuilder();
         method = item.get("request").get("method").asText();
@@ -114,7 +116,7 @@ public class Utils {
             body = item.get("request").get("body").get("raw").asText();
         }
         for(JsonNode subpath : pathNode){
-            path = path+"/"+subpath.asText();
+            path.append("/").append(subpath.asText());
         }
         for (int i = 0; i < domainNode.size(); i++) {
             domain.append(domainNode.get(i).asText());
@@ -128,7 +130,7 @@ public class Utils {
         httpSampler.setName(item.get("name").asText());
         httpSampler.setMethod(method);
         httpSampler.setDomain(String.valueOf(domain));
-        httpSampler.setPath(path);
+        httpSampler.setPath(path.toString());
         httpSampler.setPort(port);
         httpSampler.setProtocol(protocol);
         httpSampler.setFollowRedirects(true);
@@ -155,7 +157,7 @@ public class Utils {
         }
         return content;
     }
-    public void responseAssertion(String statusCode, HashTree tree){
+    public void responseAssertion(String statusCode, ListedHashTree tree){
         ResponseAssertion responseAssertion = new ResponseAssertion();
         responseAssertion.setProperty("TestElement.gui_class", AssertionGui.class.getName());
         responseAssertion.setProperty("TestElement.test_class", ResponseAssertion.class.getName());
@@ -376,7 +378,7 @@ public class Utils {
                     String name = prefix+generateRandomName(random,min_len,max_len);
                     uniqueNames.add(name);
                 } else if (varType.equalsIgnoreCase("Number")) {
-                    String num = prefix + random.nextInt(100) + 1; // Range: 1 to 100,000
+                    String num = prefix + getRandomNumber(min_len,max_len); // Range: 1 to 100,000
                     uniqueNames.add(num);
                 }
             }
@@ -423,6 +425,15 @@ public class Utils {
             e.printStackTrace();
         }
         return headerValue;
+    }
+    public static int getRandomNumber(int minDigits, int maxDigits) {
+        Random random = new Random();
+
+        // Compute min and max values based on the number of digits
+        int min = (int) Math.pow(10, minDigits - 1);
+        int max = (int) Math.pow(10, maxDigits) - 1;
+
+        return random.nextInt(max - min + 1) + min;
     }
 }
 
