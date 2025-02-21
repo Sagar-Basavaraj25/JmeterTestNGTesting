@@ -397,7 +397,6 @@ public class Utils {
             for (Set<String> valueSet : variables.values()) {
                 listOfValues.add(new ArrayList<>(valueSet)); // Convert each Set to a List
             }
-            int id = 1;
             for (int i = 0; i < 1000; i++) {
                 List<String> currentRow = new ArrayList<>();
                 // Iterate over all lists and fetch the i-th element if available
@@ -409,7 +408,6 @@ public class Utils {
                     }
                 }
                 // Print output in required format
-                writer.append(id + ",");
                 for (int j=0;j<currentRow.size();j++) {
                     if(j==currentRow.size()-1){
                         writer.append(currentRow.get(j));
@@ -418,7 +416,6 @@ public class Utils {
                     }
                 }
                 writer.append("\n");
-                id++;
             }
             System.out.println("CSV file with unique random names generated successfully!");
         } catch (IOException e) {
