@@ -13,6 +13,7 @@ public class JmeterExecution {
 
     public static void main(String[] args) throws Exception {
         Utils utils = new Utils();
+        utils.initJmeter();
         ObjectMapper mapper1 = new ObjectMapper();
         ObjectMapper mapper2 = new ObjectMapper();
         JsonNode configRootNode = mapper1.readTree(new File("configuration/config.json"));
@@ -28,19 +29,24 @@ public class JmeterExecution {
         JsonNode scenarios = configRootNode.get("scenario");
         for (JsonNode scenario : scenarios) {
             int tps = scenario.get("tps").asInt();
+            log.info("TPS value: "+tps);
             int duration = scenario.get("duration").asInt();
+            log.info("Duration value: "+duration);
             int rampUp = scenario.get("rampUp").asInt();
+            log.info("RampUp value: "+rampUp);
             String tGName = scenario.get("name").asText();
+            log.info("ThreadGroup Name: "+tGName);
             ListedHashTree thread = utils.threadGroup(tGName, testPlan, (duration * tps), rampUp, duration, 1);
             JsonNode csvVariables = scenario.get("csv_variable");
             JsonNode controllers = scenario.get("controller");
             JsonNode items = rootNode.get("item");
             if (!csvVariables.isNull()) {
-                utils.csvDataConfig(thread, "csvFiles/" + testName + ".csv", csvVariables);
+                utils.csvDataConfig(thread, "csvFiles/" + scenario.get("name").asText() + ".csv", csvVariables);
             }
             for (JsonNode controller : controllers) {
                 if (!controller.get("name").isNull()) {
                     String controlName = controller.get("name").asText();
+                    log.info("Controller Name: "+controlName);
                     JsonNode apis = controller.get("apiName");
                     if (controlName.equalsIgnoreCase("only-once")) {
                         ListedHashTree onlyOnce = utils.onceOnlyController(thread);
@@ -76,12 +82,12 @@ public class JmeterExecution {
                             }
                         }
                     } else if (controlName.equalsIgnoreCase("critical-section")) {
-                        ListedHashTree crticialSection = utils.criticalSectionController(thread);
+                        ListedHashTree criticalSection = utils.criticalSectionController(thread);
                         for (JsonNode api : apis) {
                             for (JsonNode item : items) {
                                 String apiMethod = item.get("request").get("method").asText();
                                 if (api.asText().equalsIgnoreCase(item.get("name").asText())) {
-                                    ListedHashTree sampler = utils.httpSampler(item, crticialSection);
+                                    ListedHashTree sampler = utils.httpSampler(item, criticalSection);
                                     if (apiMethod.equalsIgnoreCase("POST")) {
                                         utils.responseAssertion("201", sampler);
                                     } else {
@@ -94,6 +100,7 @@ public class JmeterExecution {
                     }
                 }
             }
+            log.info("Controllers are added successfully");
             JsonNode apis = scenario.get("api_order");
             for (JsonNode api : apis) {
                 for (JsonNode item : items) {
@@ -108,11 +115,13 @@ public class JmeterExecution {
                     }
                 }
             }
+            log.info("apis added Successfully" );
         }
         // Save Test Plan to JMX File
         String jmxFile = utils.JMXFileCreator(testName);
         try (FileOutputStream fos = new FileOutputStream(jmxFile)) {
             SaveService.saveTree(hashTree, fos);
         }
+        utils.runJmxFile(jmxFile);
     }
 }

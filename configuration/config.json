@@ -3,31 +3,68 @@
   "payloadFile":"payload/Ctaf-21.postman_collection.json",
   "scenario":[{
     "name": "Scenario1",
-    "tps":20,
-    "duration":20,
-    "rampUp":5,
+    "tps":1,
+    "duration":1,
+    "rampUp":0,
     "csv_variable": [
       {
         "var_name": "ID",
         "var_constant":null,
-        "dynamic_type":"String",
+        "dynamic_type":"Number",
         "min_len": 3,
-        "max_len": 10
+        "max_len": 5
       },
       {
         "var_name": "NAME",
-        "var_constant":null,
-        "dynamic_type":"Number",
+        "var_constant":"N",
+        "dynamic_type":"String",
         "min_len": 3,
-        "max_len": 10
+        "max_len": 5
       }
     ],
     "controller": [{
-      "name":"only-once-controller",
+      "name":"only-once",
       "apiName":["signin"],
       "variable":"Access_token",
-      "jsonPath": ""
+      "jsonPath": "$.{token}"
     }],
       "api_order": ["create-user","update-user","delete-user"]
-    }]
+    },
+    {
+      "name": "Scenario2",
+      "tps":1,
+      "duration":5,
+      "rampUp":1,
+      "csv_variable": [
+        {
+          "var_name": "ID",
+          "var_constant":null,
+          "dynamic_type":"Number",
+          "min_len": 10,
+          "max_len": 10
+        },
+        {
+          "var_name": "NAME",
+          "var_constant":null,
+          "dynamic_type":"String",
+          "min_len": 10,
+          "max_len": 10
+        },
+        {
+          "var_name": "PROJECT",
+          "var_constant":null,
+          "dynamic_type":"String",
+          "min_len": 10,
+          "max_len": 10
+        }
+      ],
+      "controller": [{
+        "name":"transaction",
+        "apiName":["signin","create-user","update-user","delete-user"],
+        "variable":null,
+        "jsonPath": null
+      }],
+      "api_order": []
+    }
+  ]
 }
