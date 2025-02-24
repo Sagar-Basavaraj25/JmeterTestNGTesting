@@ -213,7 +213,7 @@ public class Utils {
             String logs = "target/jmeterLogs/" + dateString + ".jtl";
             String report = "target/jmeterReports/"+dateString;
             String command = "jmeter -n -t "+filename+" -l "+logs+" -e -o "+report;
-            System.out.println("command===>" + command);
+            //System.out.println("command===>" + command);
 
             ProcessBuilder processBuilder = new ProcessBuilder();
             processBuilder.command("cmd.exe", "/c", command);
@@ -228,61 +228,6 @@ public class Utils {
             System.out.println("Command exited with code: " + exitCode);
         } catch (Exception e) {
             e.printStackTrace(); // Handle exceptions
-        }
-    }
-    public void generateCsvFile(String fileName,String[] headerValue){
-        Map<String,Set<String>> variables = new LinkedHashMap<String,Set<String>>();
-        Random random = new Random();
-        for(int i=0;i< headerValue.length;i++){
-            if(!headerValue[i].equalsIgnoreCase("ID")){
-                Set<String> uniqueNames = new HashSet<>();
-                while (uniqueNames.size() < 1000) {
-                    String name = generateRandomName(random, 6, 10); // Generates a name of length 6-10
-                    uniqueNames.add(name);
-                }
-                variables.put(headerValue[i],uniqueNames);
-            }
-        }
-        try (FileWriter writer = new FileWriter(fileName)) {
-            String s="";
-            for (int i=0;i<headerValue.length;i++){
-                if(s.equalsIgnoreCase("")){
-                    s=s+headerValue[i];
-                }else{
-                    s= s+","+headerValue[i];
-                }
-            }
-            writer.append(s+"\n");
-            List<List<String>> listOfValues = new ArrayList<>();
-            for (Set<String> valueSet : variables.values()) {
-                listOfValues.add(new ArrayList<>(valueSet)); // Convert each Set to a List
-            }
-            int id = 1;
-            for (int i = 0; i < 1000; i++) {
-                List<String> currentRow = new ArrayList<>();
-                // Iterate over all lists and fetch the i-th element if available
-                for (List<String> valueList : listOfValues) {
-                    if (i < valueList.size()) {
-                        currentRow.add(valueList.get(i));
-                    } else {
-                        currentRow.add("N/A"); // Placeholder if a list is shorter
-                    }
-                }
-                // Print output in required format
-                writer.append(id + ",");
-                for (int j=0;j<currentRow.size();j++) {
-                    if(j==currentRow.size()-1){
-                        writer.append(currentRow.get(j));
-                    }else{
-                        writer.append(currentRow.get(j)+",");
-                    }
-                }
-                writer.append("\n");
-                id++;
-            }
-            System.out.println("CSV file with unique random names generated successfully!");
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -304,7 +249,7 @@ public class Utils {
         CookieManager cookieManager = new CookieManager();
         cookieManager.setProperty(TestElement.GUI_CLASS, CookiePanel.class.getName());
         cookieManager.setProperty(TestElement.TEST_CLASS, CookieManager.class.getName());
-        cookieManager.setName("Cookie Manager");
+        cookieManager.setName("HTTP Cookie Manager");
         cookieManager.setEnabled(true);
         cookieManager.setClearEachIteration(true);
         tree.add(cookieManager);
@@ -313,9 +258,10 @@ public class Utils {
         CacheManager cacheManager = new CacheManager();
         cacheManager.setProperty(TestElement.GUI_CLASS, CacheManagerGui.class.getName());
         cacheManager.setProperty(TestElement.TEST_CLASS,CacheManager.class.getName());
-        cacheManager.setName("Cache Manager");
+        cacheManager.setName("HTTP Cache Manager");
         cacheManager.setClearEachIteration(true);
         cacheManager.setEnabled(true);
+        cacheManager.setUseExpires(true);
         tree.add(cacheManager);
     }
     public void jsonExtractor(ListedHashTree tree,String JsonPath,String JsonVariable){
