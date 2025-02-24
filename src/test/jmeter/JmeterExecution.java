@@ -41,7 +41,7 @@ public class JmeterExecution {
             JsonNode controllers = scenario.get("controller");
             JsonNode items = rootNode.get("item");
             if (!csvVariables.isNull()) {
-                utils.csvDataConfig(thread, "csvFiles/" + scenario.get("name").asText() + ".csv", csvVariables);
+                utils.csvDataConfig(thread, "csvFiles/" + testName+scenario.get("name").asText() + ".csv", csvVariables);
             }
             for (JsonNode controller : controllers) {
                 if (!controller.get("name").isNull()) {
@@ -55,6 +55,10 @@ public class JmeterExecution {
                                 String apiMethod = item.get("request").get("method").asText();
                                 if (api.asText().equalsIgnoreCase(item.get("name").asText())) {
                                     ListedHashTree sampler = utils.httpSampler(item, onlyOnce);
+                                    if (!item.get("request").get("header").isNull()) {
+                                        JsonNode header = item.get("request").get("header");
+                                        utils.headerManager(sampler, header);
+                                    }
                                     if (apiMethod.equalsIgnoreCase("POST")) {
                                         utils.responseAssertion("201", sampler);
                                     } else {
@@ -71,12 +75,15 @@ public class JmeterExecution {
                                 String apiMethod = item.get("request").get("method").asText();
                                 if (api.asText().equalsIgnoreCase(item.get("name").asText())) {
                                     ListedHashTree sampler = utils.httpSampler(item, transaction);
+                                    if (!item.get("request").get("header").isNull()) {
+                                        JsonNode header = item.get("request").get("header");
+                                        utils.headerManager(sampler, header);
+                                    }
                                     if (apiMethod.equalsIgnoreCase("POST")) {
                                         utils.responseAssertion("201", sampler);
                                     } else {
                                         utils.responseAssertion("200", sampler);
                                     }
-                                    utils.responseAssertion("200", sampler);
                                     //utils.jsonExtractor(sampler,controller.get("jsonPath").asText(),controller.get("variable").asText());
                                 }
                             }
@@ -88,6 +95,10 @@ public class JmeterExecution {
                                 String apiMethod = item.get("request").get("method").asText();
                                 if (api.asText().equalsIgnoreCase(item.get("name").asText())) {
                                     ListedHashTree sampler = utils.httpSampler(item, criticalSection);
+                                    if (!item.get("request").get("header").isNull()) {
+                                        JsonNode header = item.get("request").get("header");
+                                        utils.headerManager(sampler, header);
+                                    }
                                     if (apiMethod.equalsIgnoreCase("POST")) {
                                         utils.responseAssertion("201", sampler);
                                     } else {
@@ -107,6 +118,10 @@ public class JmeterExecution {
                     if (api.asText().equalsIgnoreCase(item.get("name").asText())) {
                         String apiMethod = item.get("request").get("method").asText();
                         ListedHashTree sampler = utils.httpSampler(item, thread);
+                        if (!item.get("request").get("header").isNull()) {
+                            JsonNode header = item.get("request").get("header");
+                            utils.headerManager(sampler, header);
+                        }
                         if (apiMethod.equalsIgnoreCase("POST")) {
                             utils.responseAssertion("201", sampler);
                         } else {
@@ -122,6 +137,6 @@ public class JmeterExecution {
         try (FileOutputStream fos = new FileOutputStream(jmxFile)) {
             SaveService.saveTree(hashTree, fos);
         }
-        utils.runJmxFile(jmxFile);
+        //utils.runJmxFile(jmxFile);
     }
 }
