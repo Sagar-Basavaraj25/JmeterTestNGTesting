@@ -32,6 +32,8 @@ import org.apache.jmeter.threads.gui.ThreadGroupGui;
 import org.apache.jmeter.threads.ThreadGroup;
 import org.apache.jmeter.util.JMeterUtils;
 import org.apache.jorphan.collections.ListedHashTree;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -41,6 +43,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Utils {
+    private static final Logger log = LoggerFactory.getLogger(Utils.class);
     public static Properties properties = new Properties();
     public static String loadProperties(String key) {
         try (InputStream input = new FileInputStream("configuration/config.properties")) {
@@ -66,6 +69,7 @@ public class Utils {
         JMeterUtils.setJMeterHome(jmeterHome);
         JMeterUtils.loadJMeterProperties(jmeterHome + "/bin/jmeter.properties");
         JMeterUtils.initLocale();
+        log.info("Jmeter Engine Started : ");
     }
 
     public ListedHashTree testPlan(String testPlanName, ListedHashTree tree){
@@ -74,6 +78,7 @@ public class Utils {
         testPlan.setProperty("TestElement.test_class", TestPlan.class.getName());
         Arguments userDefinedVars = new Arguments();
         testPlan.setUserDefinedVariables(userDefinedVars);
+        log.info("Test Plan added to HashTree : ");
         return tree.add(testPlan);
     }
 
@@ -86,18 +91,23 @@ public class Utils {
             headerManager.add(new Header(head.get("key").asText(),head.get("value").asText()));
         }
         tree.add(headerManager);
+        log.info("Header Manager added : ");
     }
     public ListedHashTree threadGroup(String ThreadGroupName,ListedHashTree testplan,int NumThreads,int rampUpCount, int durationSec, int loops){
         ThreadGroup threadGroup= new ThreadGroup();
         threadGroup.setProperty("TestElement.test_class", ThreadGroup.class.getName());
         threadGroup.setProperty("TestElement.gui_class", ThreadGroupGui.class.getName());
         threadGroup.setName(ThreadGroupName);
+        log.info("Thread Group name : " + ThreadGroupName);
         threadGroup.setNumThreads(NumThreads);
+        log.info("Number of the Threads : " + NumThreads);
         threadGroup.setRampUp(rampUpCount);
+        log.info("Ramp Up count : " + rampUpCount);
         threadGroup.setScheduler(true);
         threadGroup.setProperty("ThreadGroup.on_sample_error", "continue");
         threadGroup.setDuration(durationSec);
         threadGroup.setSamplerController(loopController(loops));
+        log.info("Thread Group added to TestPlan : ");
         return testplan.add(threadGroup);
     }
 
