@@ -1,0 +1,225 @@
+2025-02-24 11:09:52 [main] WARN  org.apache.jmeter.util.JMeterUtils - Exception 'Cannot invoke "java.util.Properties.getProperty(String, String)" because "org.apache.jmeter.util.JMeterUtils.appProperties" is null' occurred when fetching boolean property:'server.exitaftertest', defaulting to: false
+2025-02-24 11:09:52 [main] WARN  org.apache.jmeter.util.JMeterUtils - Exception 'Cannot invoke "java.util.Properties.getProperty(String, String)" because "org.apache.jmeter.util.JMeterUtils.appProperties" is null' occurred when fetching boolean property:'jmeterengine.remote.system.exit', defaulting to: false
+2025-02-24 11:09:52 [main] WARN  org.apache.jmeter.util.JMeterUtils - Exception 'Cannot invoke "java.util.Properties.getProperty(String, String)" because "org.apache.jmeter.util.JMeterUtils.appProperties" is null' occurred when fetching boolean property:'jmeterengine.stopfail.system.exit', defaulting to: true
+2025-02-24 11:09:52 [main] WARN  org.apache.jmeter.util.JMeterUtils - Exception 'Cannot invoke "java.util.Properties.getProperty(String, String)" because "org.apache.jmeter.util.JMeterUtils.appProperties" is null' occurred when fetching boolean property:'jmeterengine.force.system.exit', defaulting to: false
+2025-02-24 11:09:52 [main] INFO  org.apache.jmeter.util.JMeterUtils - Setting Locale to en_IN
+2025-02-24 11:09:52 [main] INFO  org.base.Utils - Jmeter Engine Started : 
+2025-02-24 11:09:52 [main] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-02-24 11:09:52 [main] INFO  org.apache.jmeter.protocol.http.control.CacheManager - Will only cache the following methods: [GET]
+2025-02-24 11:09:52 [main] INFO  org.apache.jmeter.protocol.http.control.CookieManager - Settings: Delete null: true Check: true Allow variable: true Save: false Prefix: COOKIE_
+2025-02-24 11:09:52 [main] INFO  org.base.Utils - Thread Group name : ThreadGroup
+2025-02-24 11:09:52 [main] INFO  org.base.Utils - Number of the Threads : 20
+2025-02-24 11:09:52 [main] INFO  org.base.Utils - Ramp Up count : 1
+2025-02-24 11:09:52 [main] INFO  org.base.Utils - Thread Group added to TestPlan : 
+2025-02-24 11:09:52 [main] INFO  org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase - Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-02-24 11:09:52 [main] INFO  org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase - Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-02-24 11:09:52 [main] INFO  org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase - Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-02-24 11:09:52 [main] INFO  org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase - Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-02-24 11:09:52 [main] INFO  org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase - Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2025-02-24 11:09:52 [main] INFO  org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase - Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2025-02-24 11:09:52 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:09:52 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:09:52 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:09:52 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:09:52 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:09:52 [main] INFO  org.apache.jmeter.save.SaveService - Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2025-02-24 11:09:52 [main] INFO  org.apache.jmeter.save.SaveService - Using SaveService properties version 5.0
+2025-02-24 11:09:52 [main] INFO  org.apache.jmeter.save.SaveService - Using SaveService properties file encoding UTF-8
+2025-02-24 11:09:52 [main] WARN  org.apache.jmeter.save.SaveService - Can't register a converter: com.blazemeter.jmeter.citrix.sampler.CitrixSampleResultConverter
+java.lang.ClassNotFoundException: com.blazemeter.jmeter.citrix.sampler.CitrixSampleResultConverter
+	at jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641) ~[?:?]
+	at jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188) ~[?:?]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:525) ~[?:?]
+	at java.lang.Class.forName0(Native Method) ~[?:?]
+	at java.lang.Class.forName(Class.java:375) ~[?:?]
+	at org.apache.jmeter.save.SaveService.registerConverter(SaveService.java:280) ~[ApacheJMeter_core-5.6.3.jar:5.6.3]
+	at org.apache.jmeter.save.SaveService.registerConverter(SaveService.java:256) [ApacheJMeter_core-5.6.3.jar:5.6.3]
+	at org.apache.jmeter.save.SaveService.initProps(SaveService.java:242) [ApacheJMeter_core-5.6.3.jar:5.6.3]
+	at org.apache.jmeter.save.SaveService.<clinit>(SaveService.java:161) [ApacheJMeter_core-5.6.3.jar:5.6.3]
+	at ExecutionFile.main(ExecutionFile.java:54) [test-classes/:?]
+2025-02-24 11:10:14 [main] WARN  org.apache.jmeter.util.JMeterUtils - Exception 'Cannot invoke "java.util.Properties.getProperty(String, String)" because "org.apache.jmeter.util.JMeterUtils.appProperties" is null' occurred when fetching boolean property:'server.exitaftertest', defaulting to: false
+2025-02-24 11:10:14 [main] WARN  org.apache.jmeter.util.JMeterUtils - Exception 'Cannot invoke "java.util.Properties.getProperty(String, String)" because "org.apache.jmeter.util.JMeterUtils.appProperties" is null' occurred when fetching boolean property:'jmeterengine.remote.system.exit', defaulting to: false
+2025-02-24 11:10:14 [main] WARN  org.apache.jmeter.util.JMeterUtils - Exception 'Cannot invoke "java.util.Properties.getProperty(String, String)" because "org.apache.jmeter.util.JMeterUtils.appProperties" is null' occurred when fetching boolean property:'jmeterengine.stopfail.system.exit', defaulting to: true
+2025-02-24 11:10:14 [main] WARN  org.apache.jmeter.util.JMeterUtils - Exception 'Cannot invoke "java.util.Properties.getProperty(String, String)" because "org.apache.jmeter.util.JMeterUtils.appProperties" is null' occurred when fetching boolean property:'jmeterengine.force.system.exit', defaulting to: false
+2025-02-24 11:10:14 [main] INFO  org.apache.jmeter.util.JMeterUtils - Setting Locale to en_IN
+2025-02-24 11:10:14 [main] INFO  org.base.Utils - Jmeter Engine Started : 
+2025-02-24 11:10:14 [main] INFO  JmeterExecution - Payload filepath : payload/Ctaf-21.postman_collection.json
+2025-02-24 11:10:14 [main] INFO  JmeterExecution - TestPlan Name :Ctaf-21
+2025-02-24 11:10:14 [main] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-02-24 11:10:14 [main] INFO  org.apache.jmeter.protocol.http.control.CookieManager - Settings: Delete null: true Check: true Allow variable: true Save: false Prefix: COOKIE_
+2025-02-24 11:10:14 [main] INFO  org.apache.jmeter.protocol.http.control.CacheManager - Will only cache the following methods: [GET]
+2025-02-24 11:10:14 [main] INFO  JmeterExecution - TPS value: 1
+2025-02-24 11:10:14 [main] INFO  JmeterExecution - Duration value: 1
+2025-02-24 11:10:14 [main] INFO  JmeterExecution - RampUp value: 0
+2025-02-24 11:10:14 [main] INFO  JmeterExecution - ThreadGroup Name: Scenario1
+2025-02-24 11:10:14 [main] INFO  org.base.Utils - Thread Group name : Scenario1
+2025-02-24 11:10:14 [main] INFO  org.base.Utils - Number of the Threads : 1
+2025-02-24 11:10:14 [main] INFO  org.base.Utils - Ramp Up count : 0
+2025-02-24 11:10:14 [main] INFO  org.base.Utils - Thread Group added to TestPlan : 
+2025-02-24 11:10:14 [main] INFO  JmeterExecution - Controller Name: only-once
+2025-02-24 11:10:14 [main] INFO  org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase - Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-02-24 11:10:14 [main] INFO  org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase - Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-02-24 11:10:14 [main] INFO  org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase - Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-02-24 11:10:14 [main] INFO  org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase - Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-02-24 11:10:14 [main] INFO  org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase - Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2025-02-24 11:10:14 [main] INFO  org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase - Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2025-02-24 11:10:14 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:10:14 [main] INFO  JmeterExecution - Controllers are added successfully
+2025-02-24 11:10:14 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:10:14 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:10:14 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:10:14 [main] INFO  JmeterExecution - apis added Successfully
+2025-02-24 11:10:14 [main] INFO  JmeterExecution - TPS value: 1
+2025-02-24 11:10:14 [main] INFO  JmeterExecution - Duration value: 5
+2025-02-24 11:10:14 [main] INFO  JmeterExecution - RampUp value: 1
+2025-02-24 11:10:14 [main] INFO  JmeterExecution - ThreadGroup Name: Scenario2
+2025-02-24 11:10:14 [main] INFO  org.base.Utils - Thread Group name : Scenario2
+2025-02-24 11:10:14 [main] INFO  org.base.Utils - Number of the Threads : 5
+2025-02-24 11:10:14 [main] INFO  org.base.Utils - Ramp Up count : 1
+2025-02-24 11:10:14 [main] INFO  org.base.Utils - Thread Group added to TestPlan : 
+2025-02-24 11:10:14 [main] INFO  JmeterExecution - Controller Name: transaction
+2025-02-24 11:10:14 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:10:14 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:10:14 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:10:14 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:10:14 [main] INFO  JmeterExecution - Controllers are added successfully
+2025-02-24 11:10:14 [main] INFO  JmeterExecution - apis added Successfully
+2025-02-24 11:10:14 [main] INFO  org.apache.jmeter.save.SaveService - Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2025-02-24 11:10:15 [main] INFO  org.apache.jmeter.save.SaveService - Using SaveService properties version 5.0
+2025-02-24 11:10:15 [main] INFO  org.apache.jmeter.save.SaveService - Using SaveService properties file encoding UTF-8
+2025-02-24 11:10:15 [main] WARN  org.apache.jmeter.save.SaveService - Can't register a converter: com.blazemeter.jmeter.citrix.sampler.CitrixSampleResultConverter
+java.lang.ClassNotFoundException: com.blazemeter.jmeter.citrix.sampler.CitrixSampleResultConverter
+	at jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641) ~[?:?]
+	at jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188) ~[?:?]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:525) ~[?:?]
+	at java.lang.Class.forName0(Native Method) ~[?:?]
+	at java.lang.Class.forName(Class.java:375) ~[?:?]
+	at org.apache.jmeter.save.SaveService.registerConverter(SaveService.java:280) ~[ApacheJMeter_core-5.6.3.jar:5.6.3]
+	at org.apache.jmeter.save.SaveService.registerConverter(SaveService.java:256) [ApacheJMeter_core-5.6.3.jar:5.6.3]
+	at org.apache.jmeter.save.SaveService.initProps(SaveService.java:242) [ApacheJMeter_core-5.6.3.jar:5.6.3]
+	at org.apache.jmeter.save.SaveService.<clinit>(SaveService.java:161) [ApacheJMeter_core-5.6.3.jar:5.6.3]
+	at JmeterExecution.main(JmeterExecution.java:138) [test-classes/:?]
+2025-02-24 11:10:52 [main] WARN  org.apache.jmeter.util.JMeterUtils - Exception 'Cannot invoke "java.util.Properties.getProperty(String, String)" because "org.apache.jmeter.util.JMeterUtils.appProperties" is null' occurred when fetching boolean property:'server.exitaftertest', defaulting to: false
+2025-02-24 11:10:52 [main] WARN  org.apache.jmeter.util.JMeterUtils - Exception 'Cannot invoke "java.util.Properties.getProperty(String, String)" because "org.apache.jmeter.util.JMeterUtils.appProperties" is null' occurred when fetching boolean property:'jmeterengine.remote.system.exit', defaulting to: false
+2025-02-24 11:10:52 [main] WARN  org.apache.jmeter.util.JMeterUtils - Exception 'Cannot invoke "java.util.Properties.getProperty(String, String)" because "org.apache.jmeter.util.JMeterUtils.appProperties" is null' occurred when fetching boolean property:'jmeterengine.stopfail.system.exit', defaulting to: true
+2025-02-24 11:10:52 [main] WARN  org.apache.jmeter.util.JMeterUtils - Exception 'Cannot invoke "java.util.Properties.getProperty(String, String)" because "org.apache.jmeter.util.JMeterUtils.appProperties" is null' occurred when fetching boolean property:'jmeterengine.force.system.exit', defaulting to: false
+2025-02-24 11:10:52 [main] INFO  org.apache.jmeter.util.JMeterUtils - Setting Locale to en_IN
+2025-02-24 11:10:52 [main] INFO  org.base.Utils - Jmeter Engine Started : 
+2025-02-24 11:10:52 [main] INFO  JmeterExecution - Payload filepath : payload/Ctaf-21.postman_collection.json
+2025-02-24 11:10:52 [main] INFO  JmeterExecution - TestPlan Name :Ctaf-21
+2025-02-24 11:10:52 [main] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-02-24 11:10:52 [main] INFO  org.apache.jmeter.protocol.http.control.CookieManager - Settings: Delete null: true Check: true Allow variable: true Save: false Prefix: COOKIE_
+2025-02-24 11:10:52 [main] INFO  org.apache.jmeter.protocol.http.control.CacheManager - Will only cache the following methods: [GET]
+2025-02-24 11:10:52 [main] INFO  JmeterExecution - TPS value: 1
+2025-02-24 11:10:52 [main] INFO  JmeterExecution - Duration value: 1
+2025-02-24 11:10:52 [main] INFO  JmeterExecution - RampUp value: 0
+2025-02-24 11:10:52 [main] INFO  JmeterExecution - ThreadGroup Name: Scenario1
+2025-02-24 11:10:52 [main] INFO  org.base.Utils - Thread Group name : Scenario1
+2025-02-24 11:10:52 [main] INFO  org.base.Utils - Number of the Threads : 1
+2025-02-24 11:10:52 [main] INFO  org.base.Utils - Ramp Up count : 0
+2025-02-24 11:10:52 [main] INFO  org.base.Utils - Thread Group added to TestPlan : 
+2025-02-24 11:10:52 [main] INFO  JmeterExecution - Controller Name: only-once
+2025-02-24 11:10:52 [main] INFO  org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase - Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-02-24 11:10:52 [main] INFO  org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase - Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-02-24 11:10:52 [main] INFO  org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase - Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-02-24 11:10:52 [main] INFO  org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase - Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-02-24 11:10:52 [main] INFO  org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase - Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2025-02-24 11:10:52 [main] INFO  org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase - Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2025-02-24 11:10:52 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:10:52 [main] INFO  JmeterExecution - Controllers are added successfully
+2025-02-24 11:10:52 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:10:52 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:10:52 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:10:52 [main] INFO  JmeterExecution - apis added Successfully
+2025-02-24 11:10:52 [main] INFO  JmeterExecution - TPS value: 1
+2025-02-24 11:10:52 [main] INFO  JmeterExecution - Duration value: 5
+2025-02-24 11:10:52 [main] INFO  JmeterExecution - RampUp value: 1
+2025-02-24 11:10:52 [main] INFO  JmeterExecution - ThreadGroup Name: Scenario2
+2025-02-24 11:10:52 [main] INFO  org.base.Utils - Thread Group name : Scenario2
+2025-02-24 11:10:52 [main] INFO  org.base.Utils - Number of the Threads : 5
+2025-02-24 11:10:52 [main] INFO  org.base.Utils - Ramp Up count : 1
+2025-02-24 11:10:52 [main] INFO  org.base.Utils - Thread Group added to TestPlan : 
+2025-02-24 11:10:52 [main] INFO  JmeterExecution - Controller Name: transaction
+2025-02-24 11:10:52 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:10:52 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:10:52 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:10:52 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:10:52 [main] INFO  JmeterExecution - Controllers are added successfully
+2025-02-24 11:10:52 [main] INFO  JmeterExecution - apis added Successfully
+2025-02-24 11:10:53 [main] INFO  org.apache.jmeter.save.SaveService - Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2025-02-24 11:10:53 [main] INFO  org.apache.jmeter.save.SaveService - Using SaveService properties version 5.0
+2025-02-24 11:10:53 [main] INFO  org.apache.jmeter.save.SaveService - Using SaveService properties file encoding UTF-8
+2025-02-24 11:10:53 [main] WARN  org.apache.jmeter.save.SaveService - Can't register a converter: com.blazemeter.jmeter.citrix.sampler.CitrixSampleResultConverter
+java.lang.ClassNotFoundException: com.blazemeter.jmeter.citrix.sampler.CitrixSampleResultConverter
+	at jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641) ~[?:?]
+	at jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188) ~[?:?]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:525) ~[?:?]
+	at java.lang.Class.forName0(Native Method) ~[?:?]
+	at java.lang.Class.forName(Class.java:375) ~[?:?]
+	at org.apache.jmeter.save.SaveService.registerConverter(SaveService.java:280) ~[ApacheJMeter_core-5.6.3.jar:5.6.3]
+	at org.apache.jmeter.save.SaveService.registerConverter(SaveService.java:256) [ApacheJMeter_core-5.6.3.jar:5.6.3]
+	at org.apache.jmeter.save.SaveService.initProps(SaveService.java:242) [ApacheJMeter_core-5.6.3.jar:5.6.3]
+	at org.apache.jmeter.save.SaveService.<clinit>(SaveService.java:161) [ApacheJMeter_core-5.6.3.jar:5.6.3]
+	at JmeterExecution.main(JmeterExecution.java:138) [test-classes/:?]
+2025-02-24 11:16:47 [main] WARN  org.apache.jmeter.util.JMeterUtils - Exception 'Cannot invoke "java.util.Properties.getProperty(String, String)" because "org.apache.jmeter.util.JMeterUtils.appProperties" is null' occurred when fetching boolean property:'server.exitaftertest', defaulting to: false
+2025-02-24 11:16:47 [main] WARN  org.apache.jmeter.util.JMeterUtils - Exception 'Cannot invoke "java.util.Properties.getProperty(String, String)" because "org.apache.jmeter.util.JMeterUtils.appProperties" is null' occurred when fetching boolean property:'jmeterengine.remote.system.exit', defaulting to: false
+2025-02-24 11:16:47 [main] WARN  org.apache.jmeter.util.JMeterUtils - Exception 'Cannot invoke "java.util.Properties.getProperty(String, String)" because "org.apache.jmeter.util.JMeterUtils.appProperties" is null' occurred when fetching boolean property:'jmeterengine.stopfail.system.exit', defaulting to: true
+2025-02-24 11:16:47 [main] WARN  org.apache.jmeter.util.JMeterUtils - Exception 'Cannot invoke "java.util.Properties.getProperty(String, String)" because "org.apache.jmeter.util.JMeterUtils.appProperties" is null' occurred when fetching boolean property:'jmeterengine.force.system.exit', defaulting to: false
+2025-02-24 11:16:47 [main] INFO  org.apache.jmeter.util.JMeterUtils - Setting Locale to en_IN
+2025-02-24 11:16:47 [main] INFO  org.base.Utils - Jmeter Engine Started : 
+2025-02-24 11:16:48 [main] INFO  JmeterExecution - Payload filepath : payload/Ctaf-21.postman_collection.json
+2025-02-24 11:16:48 [main] INFO  JmeterExecution - TestPlan Name :Ctaf-21
+2025-02-24 11:16:48 [main] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-02-24 11:16:48 [main] INFO  org.apache.jmeter.protocol.http.control.CookieManager - Settings: Delete null: true Check: true Allow variable: true Save: false Prefix: COOKIE_
+2025-02-24 11:16:48 [main] INFO  org.apache.jmeter.protocol.http.control.CacheManager - Will only cache the following methods: [GET]
+2025-02-24 11:16:48 [main] INFO  JmeterExecution - TPS value: 1
+2025-02-24 11:16:48 [main] INFO  JmeterExecution - Duration value: 1
+2025-02-24 11:16:48 [main] INFO  JmeterExecution - RampUp value: 0
+2025-02-24 11:16:48 [main] INFO  JmeterExecution - ThreadGroup Name: Scenario1
+2025-02-24 11:16:48 [main] INFO  org.base.Utils - Thread Group name : Scenario1
+2025-02-24 11:16:48 [main] INFO  org.base.Utils - Number of the Threads : 1
+2025-02-24 11:16:48 [main] INFO  org.base.Utils - Ramp Up count : 0
+2025-02-24 11:16:48 [main] INFO  org.base.Utils - Thread Group added to TestPlan : 
+2025-02-24 11:16:48 [main] INFO  JmeterExecution - Controller Name: only-once
+2025-02-24 11:16:48 [main] INFO  org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase - Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-02-24 11:16:48 [main] INFO  org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase - Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-02-24 11:16:48 [main] INFO  org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase - Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-02-24 11:16:48 [main] INFO  org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase - Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-02-24 11:16:48 [main] INFO  org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase - Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2025-02-24 11:16:48 [main] INFO  org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase - Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2025-02-24 11:16:48 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:16:48 [main] INFO  JmeterExecution - Controllers are added successfully
+2025-02-24 11:16:48 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:16:48 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:16:48 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:16:48 [main] INFO  JmeterExecution - apis added Successfully
+2025-02-24 11:16:48 [main] INFO  JmeterExecution - TPS value: 1
+2025-02-24 11:16:48 [main] INFO  JmeterExecution - Duration value: 5
+2025-02-24 11:16:48 [main] INFO  JmeterExecution - RampUp value: 1
+2025-02-24 11:16:48 [main] INFO  JmeterExecution - ThreadGroup Name: Scenario2
+2025-02-24 11:16:48 [main] INFO  org.base.Utils - Thread Group name : Scenario2
+2025-02-24 11:16:48 [main] INFO  org.base.Utils - Number of the Threads : 5
+2025-02-24 11:16:48 [main] INFO  org.base.Utils - Ramp Up count : 1
+2025-02-24 11:16:48 [main] INFO  org.base.Utils - Thread Group added to TestPlan : 
+2025-02-24 11:16:48 [main] INFO  JmeterExecution - Controller Name: transaction
+2025-02-24 11:16:48 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:16:48 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:16:48 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:16:48 [main] INFO  org.base.Utils - Header Manager added : 
+2025-02-24 11:16:48 [main] INFO  JmeterExecution - Controllers are added successfully
+2025-02-24 11:16:48 [main] INFO  JmeterExecution - apis added Successfully
+2025-02-24 11:16:48 [main] INFO  org.apache.jmeter.save.SaveService - Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2025-02-24 11:16:48 [main] INFO  org.apache.jmeter.save.SaveService - Using SaveService properties version 5.0
+2025-02-24 11:16:48 [main] INFO  org.apache.jmeter.save.SaveService - Using SaveService properties file encoding UTF-8
+2025-02-24 11:16:48 [main] WARN  org.apache.jmeter.save.SaveService - Can't register a converter: com.blazemeter.jmeter.citrix.sampler.CitrixSampleResultConverter
+java.lang.ClassNotFoundException: com.blazemeter.jmeter.citrix.sampler.CitrixSampleResultConverter
+	at jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641) ~[?:?]
+	at jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188) ~[?:?]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:525) ~[?:?]
+	at java.lang.Class.forName0(Native Method) ~[?:?]
+	at java.lang.Class.forName(Class.java:375) ~[?:?]
+	at org.apache.jmeter.save.SaveService.registerConverter(SaveService.java:280) ~[ApacheJMeter_core-5.6.3.jar:5.6.3]
+	at org.apache.jmeter.save.SaveService.registerConverter(SaveService.java:256) [ApacheJMeter_core-5.6.3.jar:5.6.3]
+	at org.apache.jmeter.save.SaveService.initProps(SaveService.java:242) [ApacheJMeter_core-5.6.3.jar:5.6.3]
+	at org.apache.jmeter.save.SaveService.<clinit>(SaveService.java:161) [ApacheJMeter_core-5.6.3.jar:5.6.3]
+	at JmeterExecution.main(JmeterExecution.java:138) [test-classes/:?]
