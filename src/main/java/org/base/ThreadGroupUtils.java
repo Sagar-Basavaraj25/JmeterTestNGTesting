@@ -1,5 +1,6 @@
 package org.base;
 
+import com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroup;
 import org.apache.jmeter.control.LoopController;
 import org.apache.jmeter.threads.ThreadGroup;
 import org.apache.jmeter.threads.gui.ThreadGroupGui;
@@ -33,5 +34,16 @@ public class ThreadGroupUtils {
         log.info("Loop Controller - Set Continue forever - true");
         loopController.initialize();
         return loopController;
+    }
+    public ListedHashTree concurrentThreadGroup(ListedHashTree testPlan,String threadGroupName,int NumThreads, int rampUp,int step, int durationSec, int loops){
+        ConcurrencyThreadGroup threadGroup = new ConcurrencyThreadGroup();
+        threadGroup.setName(threadGroupName);
+        threadGroup.setProperty("ThreadGroup.on_sample_error", "continue");
+        threadGroup.setProperty("TargetLevel", NumThreads);
+        threadGroup.setProperty("RampUp", rampUp);
+        threadGroup.setProperty("Steps", step);
+        threadGroup.setProperty("Hold", durationSec);
+        threadGroup.setProperty("Unit", "S");
+        return testPlan.add(threadGroup);
     }
 }

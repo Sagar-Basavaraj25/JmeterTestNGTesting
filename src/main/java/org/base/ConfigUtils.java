@@ -1,6 +1,7 @@
 package org.base;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.github.javafaker.Faker;
 import org.apache.jmeter.config.CSVDataSet;
 import org.apache.jmeter.protocol.http.control.CacheManager;
 import org.apache.jmeter.protocol.http.control.CookieManager;
@@ -21,7 +22,6 @@ import java.util.*;
 
 public class ConfigUtils {
     private static final Logger log = LoggerFactory.getLogger(ConfigUtils.class);
-
     public void headerManager(ListedHashTree tree, JsonNode header){
         HeaderManager headerManager = new HeaderManager();
         headerManager.setName("HTTP Header Manager");
@@ -84,6 +84,9 @@ public class ConfigUtils {
         cacheManager.setUseExpires(true);
         tree.add(cacheManager);
     }
+    public void addCsvData(JsonNode csvVariables){
+
+    }
     public String generateCsvFile(String fileName,JsonNode csvVariables){
         String headerValue="";
         Map<String, Set<String>> variables = new LinkedHashMap<String,Set<String>>();
@@ -101,14 +104,20 @@ public class ConfigUtils {
                 max_len = max_len-prefix_len;
             }
             String varType = csvVariable.get("dynamic_type").asText();
+            String randomValue="";
+            switch (varType){
+                case "String":
+                    randomValue=prefix+generateRandomName(random,min_len,max_len);
+                    break;
+                case "Number":
+                    randomValue=prefix + getRandomNumber(min_len,max_len);
+                case "email":
+                    Faker faker = new Faker();
+                    randomValue=faker.internet().emailAddress();
+
+            }
             while (uniqueNames.size() < 1000) {
-                if(varType.equalsIgnoreCase("String")){
-                    String name = prefix+generateRandomName(random,min_len,max_len);
-                    uniqueNames.add(name);
-                } else if (varType.equalsIgnoreCase("Number")) {
-                    String num = prefix + getRandomNumber(min_len,max_len); // Range: 1 to 100,000
-                    uniqueNames.add(num);
-                }
+                uniqueNames.add(randomValue);
             }
             variables.put(variableName,uniqueNames);
         }
