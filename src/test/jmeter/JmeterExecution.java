@@ -1,5 +1,7 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.apache.jmeter.engine.StandardJMeterEngine;
 import org.apache.jmeter.save.SaveService;
 import org.apache.jorphan.collections.ListedHashTree;
 import org.base.Utils;
@@ -13,14 +15,13 @@ public class JmeterExecution {
 
     public static void main(String[] args) throws Exception {
         Utils utils = new Utils();
-        utils.initJmeter();
-        ObjectMapper mapper1 = new ObjectMapper();
-        ObjectMapper mapper2 = new ObjectMapper();
-        JsonNode configRootNode = mapper1.readTree(new File("configuration/config.json"));
+        StandardJMeterEngine jMeterEngine= utils.initJmeter();
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode configRootNode = mapper.readTree(new File("configuration/config.json"));
         String payload = configRootNode.get("payloadFile").asText();
         log.info("Payload filepath : "+payload);
-        JsonNode rootNode = mapper2.readTree(new File(payload));
-        String testName = rootNode.get("info").get("name").asText();
+        JsonNode payloadrootNode = mapper.readTree(new File(payload));
+        String testName = payloadrootNode.get("info").get("name").asText();
         log.info("TestPlan Name :"+testName);
         ListedHashTree hashTree = new ListedHashTree();
         ListedHashTree testPlan = utils.testPlan(testName, hashTree);
@@ -36,11 +37,37 @@ public class JmeterExecution {
             log.info("RampUp value: "+rampUp);
             String tGName = scenario.get("name").asText();
             log.info("ThreadGroup Name: "+tGName);
-            ListedHashTree thread = utils.threadGroup(tGName, testPlan, (duration * tps), rampUp, duration, 1);
+           // Double respTime = scenario.get("responseTime").asDouble();
+            ListedHashTree thread = utils.threadGroup(tGName, testPlan, tps, rampUp, duration, 1);
             JsonNode csvVariables = scenario.get("csv_variable");
             JsonNode controllers = scenario.get("controller");
-            JsonNode items = rootNode.get("item");
+            JsonNode items = payloadrootNode.get("item");
             if (!csvVariables.isNull()) {
+                for(JsonNode csvVariable : csvVariables){
+                    JsonNode apis = csvVariable.get("apis");
+                    String varName = csvVariable.get("var_name").asText();
+                    for(JsonNode api: apis){
+                        String apiName = api.get("apiName").asText();
+                        String attribute = api.get("attribute").asText();
+                        for(JsonNode item:items){
+                            System.out.println(apiName+" : "+item.get("name").asText());
+                            if(apiName.equalsIgnoreCase(item.get("name").asText())){
+                                String text = item.get("request").get("body").get("raw").asText();
+                                System.out.println(text);
+                                JsonNode jsonNode = mapper.readTree(text);
+                                ObjectNode objectNode = (ObjectNode) jsonNode;
+                                String variable = "${"+varName+"}";
+                                objectNode.put(attribute,variable);
+                                System.out.println("ObjectNode direct "+objectNode);
+                                System.out.println(mapper.writeValueAsString(objectNode));
+                                ObjectNode object = (ObjectNode) item.get("request").get("body");
+                                object.put("raw",mapper.writeValueAsString(objectNode));
+
+                            }
+                        }
+
+                    }
+                }
                 utils.csvDataConfig(thread, "csvFiles/" + testName+scenario.get("name").asText() + ".csv", csvVariables);
             }
             for (JsonNode controller : controllers) {
@@ -137,6 +164,16 @@ public class JmeterExecution {
         try (FileOutputStream fos = new FileOutputStream(jmxFile)) {
             SaveService.saveTree(hashTree, fos);
         }
+//        Summariser summariser = new Summariser("summary");
+//
+//        // Create JTL result collector to store results
+//        String jtlFile = "results.jtl";
+//        ResultCollector resultCollector = new ResultCollector(summariser);
+//        resultCollector.setFilename(jtlFile);
+//        hashTree.add(hashTree.getArray()[0], resultCollector);
+//        jMeterEngine.configure(hashTree);
+//        jMeterEngine.run();
+//        System.out.println("JMeter execution completed. Results saved in: " + jtlFile);
         //utils.runJmxFile(jmxFile);
     }
 }

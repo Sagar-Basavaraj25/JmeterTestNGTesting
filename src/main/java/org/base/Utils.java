@@ -13,6 +13,7 @@ import org.apache.jmeter.control.gui.CriticalSectionControllerGui;
 import org.apache.jmeter.control.gui.OnceOnlyControllerGui;
 import org.apache.jmeter.control.gui.TestPlanGui;
 import org.apache.jmeter.control.gui.TransactionControllerGui;
+import org.apache.jmeter.engine.JMeterEngine;
 import org.apache.jmeter.engine.StandardJMeterEngine;
 import org.apache.jmeter.extractor.json.jsonpath.JSONPostProcessor;
 import org.apache.jmeter.extractor.json.jsonpath.gui.JSONPostProcessorGui;
@@ -55,7 +56,7 @@ public class Utils {
         }
         return properties.getProperty(key);
     }
-    public void initJmeter(){
+    public StandardJMeterEngine initJmeter(){
         String jmeterHome = System.getenv("JMETER_HOME");
         System.out.println(jmeterHome);
         if (jmeterHome == null) {
@@ -67,9 +68,10 @@ public class Utils {
 
         // Initialize JMeter Properties
         JMeterUtils.setJMeterHome(jmeterHome);
-        JMeterUtils.loadJMeterProperties(jmeterHome + "/bin/jmeter.properties");
+        JMeterUtils.loadJMeterProperties(jmeterHome+"/bin/jmeter.properties");
         JMeterUtils.initLocale();
         log.info("Jmeter Engine Started : ");
+        return jmeterEngine;
     }
 
     public ListedHashTree testPlan(String testPlanName, ListedHashTree tree){
@@ -373,7 +375,8 @@ public class Utils {
                 }
                 writer.append("\n");
             }
-            System.out.println("CSV file with unique random names generated successfully!");
+            writer.close();
+            System.out.println("CSV file generated successfully: "+fileName);
         } catch (IOException e) {
             e.printStackTrace();
         }
