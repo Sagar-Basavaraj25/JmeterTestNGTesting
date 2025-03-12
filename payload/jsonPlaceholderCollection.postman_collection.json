@@ -16,7 +16,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"title\": \"foo\", \"body\": \"bar\", \"userId\": ${ID}}",
+					"raw": "{\"title\": \"foo\", \"body\": \"bar\", \"userId\": \"Kannan\"}",
 					"options": {
 						"raw": {
 							"language": "json"
