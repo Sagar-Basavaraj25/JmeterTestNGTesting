@@ -1,7 +1,12 @@
 package org.base;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.javafaker.Faker;
+import kg.apc.jmeter.reporters.ConsoleStatusLogger;
+import kg.apc.jmeter.reporters.ConsoleStatusLoggerGui;
 import org.apache.jmeter.config.CSVDataSet;
 import org.apache.jmeter.protocol.http.control.CacheManager;
 import org.apache.jmeter.protocol.http.control.CookieManager;
@@ -22,6 +27,7 @@ import java.util.*;
 
 public class ConfigUtils {
     private static final Logger log = LoggerFactory.getLogger(ConfigUtils.class);
+    ObjectMapper mapper = new ObjectMapper();
     public void headerManager(ListedHashTree tree, JsonNode header){
         HeaderManager headerManager = new HeaderManager();
         headerManager.setName("HTTP Header Manager");
@@ -34,7 +40,6 @@ public class ConfigUtils {
         log.info("Header Manager added : ");
     }
     public void csvDataConfig(ListedHashTree tree,String filename,JsonNode csvVariables){
-        //System.out.println(filename);
         String variableName = generateCsvFile(filename,csvVariables);
         CSVDataSet csvDataSet = new CSVDataSet();
         csvDataSet.setName("CSV Data Set Config");
@@ -84,10 +89,39 @@ public class ConfigUtils {
         cacheManager.setUseExpires(true);
         tree.add(cacheManager);
     }
-    public void addCsvData(JsonNode csvVariables){
-
+    public void changePayloadData(JsonNode csvVariables,JsonNode items) throws JsonProcessingException {
+        try {
+            for (JsonNode csvVariable : csvVariables) {
+                JsonNode apis = csvVariable.get("apis");
+                String varName = csvVariable.get("var_name").asText();
+                for (JsonNode api : apis) {
+                    String apiName = api.get("apiName").asText();
+                    String attribute = api.get("attribute").asText();
+                    for (JsonNode item : items) {
+                        System.out.println(apiName + " : " + item.get("name").asText());
+                        if (apiName.equalsIgnoreCase(item.get("name").asText())) {
+                            String text = item.get("request").get("body").get("raw").asText();
+                            System.out.println(text);
+                            JsonNode jsonNode = mapper.readTree(text);
+                            ObjectNode objectNode = (ObjectNode) jsonNode;
+                            String variable = "${" + varName + "}";
+                            objectNode.put(attribute, variable);
+                            System.out.println("ObjectNode direct " + objectNode);
+                            System.out.println(mapper.writeValueAsString(objectNode));
+                            ObjectNode object = (ObjectNode) item.get("request").get("body");
+                            object.put("raw", mapper.writeValueAsString(objectNode));
+                            log.info("Successfully changed the "+attribute+" value in "+apiName+" to "+variable);
+                        }
+                    }
+                }
+            }
+        }catch (Exception e){
+            log.error("Error in changing the Payload Data"+e.getMessage());
+            throw new RuntimeException("Cannot change the Payoad Data");
+        }
     }
     public String generateCsvFile(String fileName,JsonNode csvVariables){
+        Faker faker = new Faker();
         String headerValue="";
         Map<String, Set<String>> variables = new LinkedHashMap<String,Set<String>>();
         Random random = new Random();
@@ -105,18 +139,18 @@ public class ConfigUtils {
             }
             String varType = csvVariable.get("dynamic_type").asText();
             String randomValue="";
-            switch (varType){
-                case "String":
-                    randomValue=prefix+generateRandomName(random,min_len,max_len);
-                    break;
-                case "Number":
-                    randomValue=prefix + getRandomNumber(min_len,max_len);
-                case "email":
-                    Faker faker = new Faker();
-                    randomValue=faker.internet().emailAddress();
-
-            }
             while (uniqueNames.size() < 1000) {
+                switch (varType.toLowerCase()){
+                    case "string":
+                        randomValue=prefix+generateRandomName(random,min_len,max_len);
+                        break;
+                    case "number":
+                        randomValue=prefix + getRandomNumber(min_len,max_len);
+                        break;
+                    case "email":
+                        randomValue=faker.internet().emailAddress();
+                        break;
+                }
                 uniqueNames.add(randomValue);
             }
             variables.put(variableName,uniqueNames);
@@ -169,5 +203,12 @@ public class ConfigUtils {
         int max = (int) Math.pow(10, maxDigits) - 1;
 
         return random.nextInt(max - min + 1) + min;
+    }
+    public void consoleLogger(ListedHashTree testplan){
+        ConsoleStatusLogger consoleLog = new ConsoleStatusLogger();
+        consoleLog.setProperty("TestElement.gui_class", ConsoleStatusLoggerGui.class.getName());
+        consoleLog.setProperty("TestElement.test_class", ConsoleStatusLogger.class.getName());
+        consoleLog.setName("jp@gc - Console Status Logger");
+        testplan.add(consoleLog);
     }
 }

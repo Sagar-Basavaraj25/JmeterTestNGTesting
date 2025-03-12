@@ -14,7 +14,7 @@ import java.io.FileOutputStream;
 
         public static void main(String[] args) throws Exception {
             Utils utils = new Utils();
-            StandardJMeterEngine jMeterEngine = utils.initJmeter();
+            utils.initJmeter();
             ObjectMapper mapper = new ObjectMapper();
 
             // Read Configuration JSON
@@ -36,7 +36,7 @@ import java.io.FileOutputStream;
             // Process Scenarios
             JsonNode scenarios = configRootNode.get("scenario");
             for (JsonNode scenario : scenarios) {
-                Utils.processScenario(scenario, payloadRootNode, testPlan, utils, mapper, testName);
+                 Utils.processScenario(scenario, payloadRootNode, testPlan, utils, mapper, testName);
             }
 
             // Save Test Plan to JMX File
