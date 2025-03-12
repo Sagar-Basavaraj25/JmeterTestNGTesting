@@ -1,6 +1,8 @@
 package org.base;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.jmeter.assertions.ResponseAssertion;
 import org.apache.jmeter.assertions.gui.AssertionGui;
 import org.apache.jmeter.config.Arguments;
@@ -390,6 +392,114 @@ public class Utils {
         int max = (int) Math.pow(10, maxDigits) - 1;
 
         return random.nextInt(max - min + 1) + min;
+    }
+
+    public static void processScenario(JsonNode scenario, JsonNode payloadRootNode, ListedHashTree testPlan, Utils utils, ObjectMapper mapper, String testName) throws Exception {
+        String scenarioName = scenario.get("name").asText();
+        int tps = scenario.get("tps").asInt();
+        int duration = scenario.get("duration").asInt();
+        int rampUp = scenario.get("rampUp").asInt();
+
+        log.info("Processing Scenario: {}, TPS: {}, Duration: {}, RampUp: {}", scenarioName, tps, duration, rampUp);
+
+        ListedHashTree threadGroup = utils.threadGroup(scenarioName, testPlan, tps, rampUp, duration, 1);
+        JsonNode csvVariables = scenario.get("csv_variable");
+        JsonNode controllers = scenario.get("controller");
+        JsonNode jsonExtractors = scenario.get("JsonExtractor");
+        JsonNode apiItems = payloadRootNode.get("item");
+
+        // Process CSV Variables
+        if (!csvVariables.isNull()) {
+            processCsvVariables(csvVariables, apiItems, mapper);
+            utils.csvDataConfig(threadGroup, "csvFiles/" + testName + scenarioName + ".csv", csvVariables);
+        }
+
+        // Process Controllers
+        for (JsonNode controller : controllers) {
+            processController(controller, apiItems, threadGroup, utils, jsonExtractors);
+        }
+
+        // Process API Order
+        processApiOrder(scenario.get("api_order"), apiItems, threadGroup, utils, jsonExtractors);
+
+        log.info("Scenario '{}' processed successfully", scenarioName);
+    }
+
+    public static void processCsvVariables(JsonNode csvVariables, JsonNode apiItems, ObjectMapper mapper) throws Exception {
+        for (JsonNode csvVariable : csvVariables) {
+            String varName = csvVariable.get("var_name").asText();
+            JsonNode apis = csvVariable.get("Apis");
+
+            for (JsonNode api : apis) {
+                String apiName = api.get("apiName").asText();
+                String attribute = api.get("attribute").asText();
+
+                for (JsonNode item : apiItems) {
+                    if (apiName.equalsIgnoreCase(item.get("name").asText())) {
+                        JsonNode requestBody = item.get("request").get("body").get("raw");
+                        ObjectNode jsonNode = (ObjectNode) mapper.readTree(requestBody.asText());
+
+                        jsonNode.put(attribute, "${" + varName + "}");
+                        ((ObjectNode) item.get("request").get("body")).put("raw", mapper.writeValueAsString(jsonNode));
+                    }
+                }
+            }
+        }
+    }
+
+    public static void processController(JsonNode controller, JsonNode apiItems, ListedHashTree threadGroup, Utils utils, JsonNode jsonExtractors) {
+        String controlName = controller.get("name").asText();
+        log.info("Processing Controller: {}", controlName);
+
+        ListedHashTree controllerTree;
+        switch (controlName.toLowerCase()) {
+            case "only-once":
+                controllerTree = utils.onceOnlyController(threadGroup);
+                break;
+            case "transaction":
+                controllerTree = utils.transactionController(threadGroup);
+                break;
+            case "critical-section":
+                controllerTree = utils.criticalSectionController(threadGroup);
+                break;
+            default:
+                log.warn("Unknown Controller: {}", controlName);
+                return;
+        }
+
+        for (JsonNode api : controller.get("apiName")) {
+            addHttpSampler(api.asText(), apiItems, controllerTree, utils, jsonExtractors);
+        }
+    }
+
+    public static void processApiOrder(JsonNode apiOrder, JsonNode apiItems, ListedHashTree threadGroup, Utils utils, JsonNode jsonExtractors) {
+        for (JsonNode api : apiOrder) {
+            addHttpSampler(api.asText(), apiItems, threadGroup, utils, jsonExtractors);
+        }
+    }
+
+    public static void addHttpSampler(String apiName, JsonNode apiItems, ListedHashTree parentTree, Utils utils, JsonNode jsonExtractors) {
+        for (JsonNode item : apiItems) {
+            if (apiName.equalsIgnoreCase(item.get("name").asText())) {
+                String apiMethod = item.get("request").get("method").asText();
+                ListedHashTree samplerTree = utils.httpSampler(item, parentTree);
+
+                if (!item.get("request").get("header").isNull()) {
+                    utils.headerManager(samplerTree, item.get("request").get("header"));
+                }
+                utils.responseAssertion(apiMethod.equalsIgnoreCase("POST") ? "201" : "200", samplerTree);
+                addJsonExtractors(apiName, jsonExtractors, samplerTree, utils);
+            }
+        }
+    }
+
+    public static void addJsonExtractors(String apiName, JsonNode jsonExtractors, ListedHashTree samplerTree, Utils utils) {
+        for (JsonNode jsonExtractor : jsonExtractors) {
+            if (apiName.equalsIgnoreCase(jsonExtractor.get("api_name").asText())) {
+                utils.jsonExtractor(samplerTree, jsonExtractor.get("jsonPath").asText(), jsonExtractor.get("variable").asText());
+                log.info("Added JSON Extractor to API: {}", apiName);
+            }
+        }
     }
 }
 
