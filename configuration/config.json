@@ -1,5 +1,5 @@
 {
-  "_comments":"create this for Scenarios",
+  "_comments":"Configure this for ThreadGroups, Note: Scenarios are acts like TreadGroup here. Please use 'only-once','transaction','critical-section' Key words for cotrollers",
   "payloadFile":"payload/Ctaf-21.postman_collection.json",
   "scenario":[{
     "name": "Scenario1",
@@ -8,63 +8,61 @@
     "rampUp":0,
     "csv_variable": [
       {
-        "var_name": "ID",
+        "var_name": "userName",
         "var_constant":null,
-        "dynamic_type":"Number",
+        "dynamic_type":"String",
         "min_len": 3,
-        "max_len": 5
+        "max_len": 5,
+        "Apis": [{
+          "apiName": "create-user",
+          "attribute": "userName"
+        }]
       },
       {
-        "var_name": "NAME",
+        "var_name": "userName",
         "var_constant":"N",
         "dynamic_type":"String",
         "min_len": 3,
-        "max_len": 5
+        "max_len": 5,
+        "Apis": [{
+          "apiName": "update-user",
+          "attribute": "userName"
+        }]
+      },
+      {
+        "var_name": "userId",
+        "var_constant": null,
+        "dynamic_type":"Number",
+        "min_len": 4,
+        "max_len": 4,
+        "Apis": [{
+          "apiName": "update-user",
+          "attribute": "userId"
+        }]
       }
     ],
-    "controller": [{
+    "controller": [
+      {
       "name":"only-once",
-      "apiName":["signin"],
-      "variable":"Access_token",
-      "jsonPath": "$.{token}"
+      "apiName":["signin"]
     }],
-      "api_order": ["create-user","update-user","delete-user"]
+    "JsonExtractor": [{
+      "variable":"Access_token",
+      "jsonPath": "$.{token}",
+      "api_name": "signin",
+      "target_apis": ["create-user","update-user","delete-user"],
+      "target_type": "header",
+      "target_value": "Authorization"
     },
-    {
-      "name": "Scenario2",
-      "tps":1,
-      "duration":5,
-      "rampUp":1,
-      "csv_variable": [
-        {
-          "var_name": "ID",
-          "var_constant":null,
-          "dynamic_type":"Number",
-          "min_len": 10,
-          "max_len": 10
-        },
-        {
-          "var_name": "NAME",
-          "var_constant":null,
-          "dynamic_type":"String",
-          "min_len": 10,
-          "max_len": 10
-        },
-        {
-          "var_name": "PROJECT",
-          "var_constant":null,
-          "dynamic_type":"String",
-          "min_len": 10,
-          "max_len": 10
-        }
-      ],
-      "controller": [{
-        "name":"transaction",
-        "apiName":["signin","create-user","update-user","delete-user"],
-        "variable":null,
-        "jsonPath": null
+      {
+        "variable":"Test",
+        "jsonPath": "$.{Test}",
+        "api_name": "create-user",
+        "target_apis": ["update-user","delete-user"],
+        "target_type": "header",
+        "target_value": "Authorization"
       }],
-      "api_order": []
+      "api_order": ["create-user","update-user","delete-user"]
     }
   ]
 }
