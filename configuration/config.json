@@ -1,70 +1,39 @@
 {
   "_comments":"create this for Scenarios",
-  "payloadFile":"payload/Ctaf-21.postman_collection.json",
+  "payloadFile":"payload/jsonPlaceholderCollection.postman_collection.json",
   "scenario":[{
     "name": "Scenario1",
-    "tps":1,
-    "duration":1,
-    "rampUp":0,
+    "test_type":"load",
+    "tps":10,
+    "duration":30,
+    "rampUp":2,
     "csv_variable": [
       {
-        "var_name": "ID",
+        "var_name": "userid",
         "var_constant":null,
         "dynamic_type":"Number",
-        "min_len": 3,
-        "max_len": 5
-      },
-      {
-        "var_name": "NAME",
-        "var_constant":"N",
-        "dynamic_type":"String",
-        "min_len": 3,
-        "max_len": 5
-      }
-    ],
-    "controller": [{
-      "name":"only-once",
-      "apiName":["signin"],
-      "variable":"Access_token",
-      "jsonPath": "$.{token}"
-    }],
-      "api_order": ["create-user","update-user","delete-user"]
-    },
-    {
-      "name": "Scenario2",
-      "tps":1,
-      "duration":5,
-      "rampUp":1,
-      "csv_variable": [
-        {
-          "var_name": "ID",
-          "var_constant":null,
-          "dynamic_type":"Number",
-          "min_len": 10,
-          "max_len": 10
-        },
-        {
-          "var_name": "NAME",
-          "var_constant":null,
-          "dynamic_type":"String",
-          "min_len": 10,
-          "max_len": 10
-        },
-        {
-          "var_name": "PROJECT",
-          "var_constant":null,
-          "dynamic_type":"String",
-          "min_len": 10,
-          "max_len": 10
-        }
-      ],
-      "controller": [{
-        "name":"transaction",
-        "apiName":["signin","create-user","update-user","delete-user"],
-        "variable":null,
-        "jsonPath": null
+        "min_len": 1,
+        "max_len": 3,
+        "apis": [{
+          "apiName": "Dummy_API",
+          "attribute": "userId"
+        }]
       }],
-      "api_order": []
-    }
+    "JsonExtractor":{
+      "apiName":"",
+      "variableName":"ID",
+      "JsonPath":"",
+      "targets":[{
+        "apiName":"",
+        "Type":"",
+        "VariableName": ""
+      }]
+    },
+    "controller": [{
+      "name":null,
+      "apiName":["signin"]
+    }],
+    "api_order": ["Dummy_API"]
+  }
   ]
 }

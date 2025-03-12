@@ -2,7 +2,8 @@ package org.base;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import kg.apc.jmeter.reporters.ConsoleStatusLogger;
+import kg.apc.jmeter.reporters.ConsoleStatusLoggerGui;
 import org.apache.jmeter.assertions.ResponseAssertion;
 import org.apache.jmeter.assertions.gui.AssertionGui;
 import org.apache.jmeter.config.Arguments;
@@ -28,6 +29,7 @@ import org.apache.jmeter.protocol.http.gui.CacheManagerGui;
 import org.apache.jmeter.protocol.http.gui.CookiePanel;
 import org.apache.jmeter.protocol.http.gui.HeaderPanel;
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy;
+import org.apache.jmeter.samplers.SampleEvent;
 import org.apache.jmeter.testbeans.gui.TestBeanGUI;
 import org.apache.jmeter.testelement.TestElement;
 import org.apache.jmeter.testelement.TestPlan;
@@ -116,11 +118,16 @@ public class Utils {
     }
 
     public ListedHashTree httpSampler(JsonNode item, ListedHashTree threadGroup){
+        HTTPSamplerProxy httpSampler = new HTTPSamplerProxy();
         StringBuilder path = new StringBuilder();
         String method;
         String protocol;
-        String body = "";
-        int port= item.get("request").get("url").get("port").asInt();
+        String body=null;
+        int port;
+        if(item.get("request").get("url").has("port")){
+            port= item.get("request").get("url").get("port").asInt();
+            httpSampler.setPort(port);
+        }
         StringBuilder domain = new StringBuilder();
         method = item.get("request").get("method").asText();
         protocol = item.get("request").get("url").get("protocol").asText();
@@ -138,14 +145,12 @@ public class Utils {
                 domain.append(".");
             }
         }
-        HTTPSamplerProxy httpSampler = new HTTPSamplerProxy();
         httpSampler.setProperty("TestElement.gui_class", HttpTestSampleGui.class.getName());
         httpSampler.setProperty("TestElement.test_class",HTTPSamplerProxy.class.getName());
         httpSampler.setName(item.get("name").asText());
         httpSampler.setMethod(method);
         httpSampler.setDomain(String.valueOf(domain));
         httpSampler.setPath(path.toString());
-        httpSampler.setPort(port);
         httpSampler.setProtocol(protocol);
         httpSampler.setFollowRedirects(true);
         httpSampler.setUseKeepAlive(true);
@@ -205,7 +210,7 @@ public class Utils {
     public LoopController loopController(int loops){
         LoopController loopController = new LoopController();
         loopController.setLoops(loops);
-        loopController.setContinueForever(false);
+        loopController.setContinueForever(true);
         loopController.initialize();
         return loopController;
     }
@@ -333,7 +338,7 @@ public class Utils {
                 max_len = max_len-prefix_len;
             }
             String varType = csvVariable.get("dynamic_type").asText();
-            while (uniqueNames.size() < 1000) {
+            while (uniqueNames.size() < 500) {
                 if(varType.equalsIgnoreCase("String")){
                     String name = prefix+generateRandomName(random,min_len,max_len);
                     uniqueNames.add(name);
@@ -393,112 +398,44 @@ public class Utils {
 
         return random.nextInt(max - min + 1) + min;
     }
+    public void reportCreation(String filename) {
+        try {
+            LocalDateTime today = LocalDateTime.now();
+            String dateString = today.format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+            String report = "target/jmeterReports/"+dateString;
+            String command = "jmeter -g "+filename+" -o "+report;
+            //System.out.println("command===>" + command);
 
-    public static void processScenario(JsonNode scenario, JsonNode payloadRootNode, ListedHashTree testPlan, Utils utils, ObjectMapper mapper, String testName) throws Exception {
-        String scenarioName = scenario.get("name").asText();
-        int tps = scenario.get("tps").asInt();
-        int duration = scenario.get("duration").asInt();
-        int rampUp = scenario.get("rampUp").asInt();
-
-        log.info("Processing Scenario: {}, TPS: {}, Duration: {}, RampUp: {}", scenarioName, tps, duration, rampUp);
-
-        ListedHashTree threadGroup = utils.threadGroup(scenarioName, testPlan, tps, rampUp, duration, 1);
-        JsonNode csvVariables = scenario.get("csv_variable");
-        JsonNode controllers = scenario.get("controller");
-        JsonNode jsonExtractors = scenario.get("JsonExtractor");
-        JsonNode apiItems = payloadRootNode.get("item");
-
-        // Process CSV Variables
-        if (!csvVariables.isNull()) {
-            processCsvVariables(csvVariables, apiItems, mapper);
-            utils.csvDataConfig(threadGroup, "csvFiles/" + testName + scenarioName + ".csv", csvVariables);
-        }
-
-        // Process Controllers
-        for (JsonNode controller : controllers) {
-            processController(controller, apiItems, threadGroup, utils, jsonExtractors);
-        }
-
-        // Process API Order
-        processApiOrder(scenario.get("api_order"), apiItems, threadGroup, utils, jsonExtractors);
-
-        log.info("Scenario '{}' processed successfully", scenarioName);
-    }
-
-    public static void processCsvVariables(JsonNode csvVariables, JsonNode apiItems, ObjectMapper mapper) throws Exception {
-        for (JsonNode csvVariable : csvVariables) {
-            String varName = csvVariable.get("var_name").asText();
-            JsonNode apis = csvVariable.get("Apis");
-
-            for (JsonNode api : apis) {
-                String apiName = api.get("apiName").asText();
-                String attribute = api.get("attribute").asText();
-
-                for (JsonNode item : apiItems) {
-                    if (apiName.equalsIgnoreCase(item.get("name").asText())) {
-                        JsonNode requestBody = item.get("request").get("body").get("raw");
-                        ObjectNode jsonNode = (ObjectNode) mapper.readTree(requestBody.asText());
-
-                        jsonNode.put(attribute, "${" + varName + "}");
-                        ((ObjectNode) item.get("request").get("body")).put("raw", mapper.writeValueAsString(jsonNode));
-                    }
-                }
+            ProcessBuilder processBuilder = new ProcessBuilder();
+            processBuilder.command("cmd.exe", "/c", command);
+            Process process = processBuilder.start();
+            // Read the output of the command
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
             }
+            int exitCode = process.waitFor();
+            System.out.println("Command exited with code: " + exitCode);
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle exceptions
         }
     }
-
-    public static void processController(JsonNode controller, JsonNode apiItems, ListedHashTree threadGroup, Utils utils, JsonNode jsonExtractors) {
-        String controlName = controller.get("name").asText();
-        log.info("Processing Controller: {}", controlName);
-
-        ListedHashTree controllerTree;
-        switch (controlName.toLowerCase()) {
-            case "only-once":
-                controllerTree = utils.onceOnlyController(threadGroup);
-                break;
-            case "transaction":
-                controllerTree = utils.transactionController(threadGroup);
-                break;
-            case "critical-section":
-                controllerTree = utils.criticalSectionController(threadGroup);
-                break;
-            default:
-                log.warn("Unknown Controller: {}", controlName);
-                return;
-        }
-
-        for (JsonNode api : controller.get("apiName")) {
-            addHttpSampler(api.asText(), apiItems, controllerTree, utils, jsonExtractors);
-        }
+    public void consoleLogger(ListedHashTree testplan){
+        ConsoleStatusLogger consoleLog = new ConsoleStatusLogger();
+        consoleLog.setProperty("TestElement.gui_class", ConsoleStatusLoggerGui.class.getName());
+        consoleLog.setProperty("TestElement.test_class", ConsoleStatusLogger.class.getName());
+        consoleLog.setName("jp@gc - Console Status Logger");
+       // CustomConsoleLogger consoleLog = new CustomConsoleLogger();
+        testplan.add(consoleLog);
     }
-
-    public static void processApiOrder(JsonNode apiOrder, JsonNode apiItems, ListedHashTree threadGroup, Utils utils, JsonNode jsonExtractors) {
-        for (JsonNode api : apiOrder) {
-            addHttpSampler(api.asText(), apiItems, threadGroup, utils, jsonExtractors);
-        }
-    }
-
-    public static void addHttpSampler(String apiName, JsonNode apiItems, ListedHashTree parentTree, Utils utils, JsonNode jsonExtractors) {
-        for (JsonNode item : apiItems) {
-            if (apiName.equalsIgnoreCase(item.get("name").asText())) {
-                String apiMethod = item.get("request").get("method").asText();
-                ListedHashTree samplerTree = utils.httpSampler(item, parentTree);
-
-                if (!item.get("request").get("header").isNull()) {
-                    utils.headerManager(samplerTree, item.get("request").get("header"));
-                }
-                utils.responseAssertion(apiMethod.equalsIgnoreCase("POST") ? "201" : "200", samplerTree);
-                addJsonExtractors(apiName, jsonExtractors, samplerTree, utils);
-            }
-        }
-    }
-
-    public static void addJsonExtractors(String apiName, JsonNode jsonExtractors, ListedHashTree samplerTree, Utils utils) {
-        for (JsonNode jsonExtractor : jsonExtractors) {
-            if (apiName.equalsIgnoreCase(jsonExtractor.get("api_name").asText())) {
-                utils.jsonExtractor(samplerTree, jsonExtractor.get("jsonPath").asText(), jsonExtractor.get("variable").asText());
-                log.info("Added JSON Extractor to API: {}", apiName);
-            }
+    public static boolean isValidJSON(String json) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.readTree(json);
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 }
