@@ -166,17 +166,6 @@ public class Utils {
         return threadGroup.add(httpSampler);
     }
 
-    public String readPayload( String fileName ) {
-        String content = null;
-        try {
-            String projPath = System.getProperty("user.dir");
-            content = Files.readString(Path.of(projPath+"/payload/"+ fileName + ".json"));
-            System.out.println(content);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return content;
-    }
     public void responseAssertion(String statusCode, ListedHashTree tree){
         ResponseAssertion responseAssertion = new ResponseAssertion();
         responseAssertion.setProperty("TestElement.gui_class", AssertionGui.class.getName());
@@ -444,7 +433,8 @@ public class Utils {
         int tps = scenario.get("tps").asInt();
         int duration = scenario.get("duration").asInt();
         int rampUp = scenario.get("rampUp").asInt();
-
+        
+        
         log.info("Processing Scenario: {}, TPS: {}, Duration: {}, RampUp: {}", scenarioName, tps, duration, rampUp);
 
         ListedHashTree threadGroup = utils.threadGroup(scenarioName, testPlan, tps, rampUp, duration, 1);
@@ -452,25 +442,30 @@ public class Utils {
         JsonNode controllers = scenario.get("controller");
         JsonNode jsonExtractors = scenario.get("JsonExtractor");
         JsonNode apiItems = payloadRootNode.get("item");
-
+        Map<String, JsonNode> apiMap = new HashMap<String,JsonNode>();
+        for(JsonNode item: apiItems){
+            if (item.has("name")) {
+                apiMap.put(item.get("name").asText(), item);
+            }
+        }
         // Process CSV Variables
         if (!csvVariables.isNull()) {
-            processCsvVariables(csvVariables, apiItems, mapper);
+            processCsvVariables(csvVariables, apiMap, mapper);
             utils.csvDataConfig(threadGroup, "csvFiles/" + testName + scenarioName + ".csv", csvVariables);
         }
 
         // Process Controllers
         for (JsonNode controller : controllers) {
-            processController(controller, apiItems, threadGroup, utils, jsonExtractors);
+            processController(controller, apiMap, threadGroup, utils, jsonExtractors);
         }
 
         // Process API Order
-        processApiOrder(scenario.get("api_order"), apiItems, threadGroup, utils, jsonExtractors);
+        processApiOrder(scenario.get("api_order"), apiMap, threadGroup, utils, jsonExtractors);
 
         log.info("Scenario '{}' processed successfully", scenarioName);
     }
 
-    public static void processCsvVariables(JsonNode csvVariables, JsonNode apiItems, ObjectMapper mapper) throws Exception {
+    public static void processCsvVariables(JsonNode csvVariables, Map<String,JsonNode> apiMap, ObjectMapper mapper) throws Exception {
         for (JsonNode csvVariable : csvVariables) {
             String varName = csvVariable.get("var_name").asText();
             JsonNode apis = csvVariable.get("Apis");
@@ -478,20 +473,18 @@ public class Utils {
             for (JsonNode api : apis) {
                 String apiName = api.get("apiName").asText();
                 String attribute = api.get("attribute").asText();
-
-                for (JsonNode item : apiItems) {
-                    if (apiName.equalsIgnoreCase(item.get("name").asText())) {
+                JsonNode item = apiMap.get(apiName);
+                if (apiName.equalsIgnoreCase(item.get("name").asText())) {
                         JsonNode requestBody = item.get("request").get("body").get("raw");
                         ObjectNode jsonNode = (ObjectNode) mapper.readTree(requestBody.asText());
 
                         jsonNode.put(attribute, "${" + varName + "}");
                         ((ObjectNode) item.get("request").get("body")).put("raw", mapper.writeValueAsString(jsonNode));
                     }
-                }
             }
         }
     }
-        public static void processController(JsonNode controller, JsonNode apiItems, ListedHashTree threadGroup, Utils utils, JsonNode jsonExtractors) {
+        public static void processController(JsonNode controller, Map<String,JsonNode> apiItems, ListedHashTree threadGroup, Utils utils, JsonNode jsonExtractors) {
             String controlName = controller.get("name").asText();
             log.info("Processing Controller: {}", controlName);
 
@@ -516,15 +509,15 @@ public class Utils {
             }
         }
 
-        public static void processApiOrder(JsonNode apiOrder, JsonNode apiItems, ListedHashTree threadGroup, Utils utils, JsonNode jsonExtractors) {
+        public static void processApiOrder(JsonNode apiOrder, Map<String,JsonNode> apiItems, ListedHashTree threadGroup, Utils utils, JsonNode jsonExtractors) {
             for (JsonNode api : apiOrder) {
                 addHttpSampler(api.asText(), apiItems, threadGroup, utils, jsonExtractors);
             }
         }
 
-        public static void addHttpSampler(String apiName, JsonNode apiItems, ListedHashTree parentTree, Utils utils, JsonNode jsonExtractors) {
-            for (JsonNode item : apiItems) {
-                if (apiName.equalsIgnoreCase(item.get("name").asText())) {
+        public static void addHttpSampler(String apiName, Map<String,JsonNode> apiItems, ListedHashTree parentTree, Utils utils, JsonNode jsonExtractors) {
+            JsonNode item = apiItems.get(apiName);
+            if (apiName.equalsIgnoreCase(item.get("name").asText())) {
                     String apiMethod = item.get("request").get("method").asText();
                     ListedHashTree samplerTree = utils.httpSampler(item, parentTree);
 
@@ -535,7 +528,6 @@ public class Utils {
                     addJsonExtractors(apiName, jsonExtractors, samplerTree, utils);
                 }
             }
-        }
         public static void addJsonExtractors(String apiName, JsonNode jsonExtractors, ListedHashTree samplerTree, Utils utils)
         {
             for (JsonNode jsonExtractor : jsonExtractors) {
