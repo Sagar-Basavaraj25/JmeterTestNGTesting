@@ -4,12 +4,18 @@ import com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroup;
 import com.blazemeter.jmeter.threads.concurrency.ConcurrencyThreadGroupGui;
 import com.fasterxml.jackson.databind.JsonNode;
 import kg.apc.jmeter.threads.UltimateThreadGroup;
+import kg.apc.jmeter.threads.UltimateThreadGroupGui;
 import org.apache.jmeter.control.LoopController;
+import org.apache.jmeter.testelement.TestElement;
+import org.apache.jmeter.testelement.property.CollectionProperty;
+import org.apache.jmeter.testelement.property.StringProperty;
 import org.apache.jmeter.threads.ThreadGroup;
 import org.apache.jmeter.threads.gui.ThreadGroupGui;
 import org.apache.jorphan.collections.ListedHashTree;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
 
 public class ThreadGroupUtils {
     private static final Logger log = LoggerFactory.getLogger(ThreadGroupUtils.class);
@@ -66,11 +72,34 @@ public class ThreadGroupUtils {
         threadGroup.setProperty("Steps", step);
         threadGroup.setProperty("Hold", duration);
         threadGroup.setProperty("Unit", "S");
+        threadGroup.setSamplerController(loopController(loopCount));
         return testPlan.add(threadGroup);
     }
     public ListedHashTree ulimateThreadGroup(ListedHashTree testPlan,JsonNode scenario){
         UltimateThreadGroup threadGroup = new UltimateThreadGroup();
+        threadGroup.setProperty(TestElement.TEST_CLASS,UltimateThreadGroup.class.getName());
+        threadGroup.setProperty(TestElement.GUI_CLASS, UltimateThreadGroupGui.class.getName());
+        threadGroup.setName(scenario.get("name").asText());
+        JsonNode ultimateArray = scenario.get("ultimate");
+        CollectionProperty rows = new CollectionProperty();
+        rows.setName(UltimateThreadGroup.DATA_PROPERTY);
+        for (JsonNode threadConfig : ultimateArray) {
+            CollectionProperty rowProperty = new CollectionProperty();
+            rowProperty.setName(UltimateThreadGroup.EXTERNAL_DATA_PROPERTY);
+            // Extract values from JSON and add them as StringProperty
+            rowProperty.addItem(new StringProperty("Thread Count", threadConfig.get("thread").asText()));
+            rowProperty.addItem(new StringProperty("Initial Delay", threadConfig.get("initial_delay").asText()));
+            rowProperty.addItem(new StringProperty("Startup Time", threadConfig.get("startup_time").asText()));
+            rowProperty.addItem(new StringProperty("Hold Time", threadConfig.get("hold_Time").asText()));
+            rowProperty.addItem(new StringProperty("Shutdown Time", threadConfig.get("shutdown_time").asText()));
 
+            // Add rowProperty to the main CollectionProperty
+            rows.addItem(rowProperty);
+            System.out.printf(String.valueOf(rows));
+        }
+        threadGroup.setData(rows);
+        System.out.println(threadGroup.getData());
+        threadGroup.setSamplerController(loopController(-1));
         return testPlan.add(threadGroup);
     }
 }

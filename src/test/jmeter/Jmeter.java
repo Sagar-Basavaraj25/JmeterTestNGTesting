@@ -3,6 +3,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.jmeter.save.SaveService;
 import org.apache.jorphan.collections.ListedHashTree;
+import org.base.ThreadGroupUtils;
 import org.base.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,7 @@ public class Jmeter {
 
     public static void main(String[] args) throws Exception {
         Utils utils = new Utils();
+        ThreadGroupUtils threadutils = new ThreadGroupUtils();
         Map<String, JsonNode> apiMap = new HashMap<String,JsonNode>();
         utils.initJmeter();
         ObjectMapper mapper = new ObjectMapper();
@@ -48,10 +50,11 @@ public class Jmeter {
             log.info("ThreadGroup Name: "+tGName);
             int loopCount = scenario.has("loopCount")?scenario.get("loopCount").asInt():-1;
             // Double respTime = scenario.get("responseTime").asDouble();
-            ListedHashTree thread = utils.threadGroup(tGName, testPlan, tps, rampUp, duration, loopCount);
+            ListedHashTree thread = threadutils.ulimateThreadGroup(testPlan,scenario);
+            //ListedHashTree thread = utils.threadGroup(tGName, testPlan, tps, rampUp, duration, loopCount);
             JsonNode csvVariables = scenario.get("csv_variable");
             JsonNode controllers = scenario.get("controller");
-            if (csvVariables.has("var_name")) {
+            if (csvVariables.isArray() && !csvVariables.isEmpty()) {
                 for(JsonNode csvVariable : csvVariables){
                     JsonNode apis = csvVariable.get("apis");
                     String varName = csvVariable.get("var_name").asText();
