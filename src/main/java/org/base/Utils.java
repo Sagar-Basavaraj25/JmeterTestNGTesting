@@ -2,6 +2,7 @@ package org.base;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import kg.apc.jmeter.reporters.ConsoleStatusLogger;
 import kg.apc.jmeter.reporters.ConsoleStatusLoggerGui;
@@ -51,6 +52,7 @@ import java.util.*;
 public class Utils {
     private static final Logger log = LoggerFactory.getLogger(Utils.class);
     public static Properties properties = new Properties();
+     public static ObjectMapper globalMapper;
     public static String loadProperties(String key) {
         try (InputStream input = new FileInputStream("configuration/config.properties")) {
             // Load the properties from the file
@@ -433,7 +435,7 @@ public class Utils {
         int tps = scenario.get("tps").asInt();
         int duration = scenario.get("duration").asInt();
         int rampUp = scenario.get("rampUp").asInt();
-        
+        globalMapper = mapper;
         
         log.info("Processing Scenario: {}, TPS: {}, Duration: {}, RampUp: {}", scenarioName, tps, duration, rampUp);
 
@@ -456,19 +458,19 @@ public class Utils {
 
         // Process Controllers
         for (JsonNode controller : controllers) {
-            processController(controller, apiMap, threadGroup, utils, jsonExtractors);
+            processController(controller, apiMap, threadGroup, utils, mapper,jsonExtractors);
         }
 
         // Process API Order
-        processApiOrder(scenario.get("api_order"), apiMap, threadGroup, utils, jsonExtractors);
+        processApiOrder(scenario.get("api_order"), apiMap, threadGroup, utils, mapper,jsonExtractors);
 
-        log.info("Scenario '{}' processed successfully", scenarioName);
+        log.info("Scenario processed successfully" + scenarioName);
     }
 
     public static void processCsvVariables(JsonNode csvVariables, Map<String,JsonNode> apiMap, ObjectMapper mapper) throws Exception {
         for (JsonNode csvVariable : csvVariables) {
             String varName = csvVariable.get("var_name").asText();
-            JsonNode apis = csvVariable.get("Apis");
+            JsonNode apis = csvVariable.get("apis");
 
             for (JsonNode api : apis) {
                 String apiName = api.get("apiName").asText();
@@ -484,7 +486,7 @@ public class Utils {
             }
         }
     }
-        public static void processController(JsonNode controller, Map<String,JsonNode> apiItems, ListedHashTree threadGroup, Utils utils, JsonNode jsonExtractors) {
+        public static void processController(JsonNode controller, Map<String,JsonNode> apiItems, ListedHashTree threadGroup, Utils utils, ObjectMapper mapper,JsonNode jsonExtractors) {
             String controlName = controller.get("name").asText();
             log.info("Processing Controller: {}", controlName);
 
@@ -500,22 +502,22 @@ public class Utils {
                     controllerTree = utils.criticalSectionController(threadGroup);
                     break;
                 default:
-                    log.warn("Unknown Controller: {}", controlName);
+                    log.warn("Unknown Controller: " + controlName);
                     return;
             }
 
             for (JsonNode api : controller.get("apiName")) {
-                addHttpSampler(api.asText(), apiItems, controllerTree, utils, jsonExtractors);
+                addHttpSampler(api.asText(), apiItems, controllerTree, utils, mapper, jsonExtractors);
             }
         }
 
-        public static void processApiOrder(JsonNode apiOrder, Map<String,JsonNode> apiItems, ListedHashTree threadGroup, Utils utils, JsonNode jsonExtractors) {
+        public static void processApiOrder(JsonNode apiOrder, Map<String,JsonNode> apiItems, ListedHashTree threadGroup, Utils utils, ObjectMapper mapper,JsonNode jsonExtractors) {
             for (JsonNode api : apiOrder) {
-                addHttpSampler(api.asText(), apiItems, threadGroup, utils, jsonExtractors);
+                addHttpSampler(api.asText(), apiItems, threadGroup, utils, mapper,jsonExtractors);
             }
         }
 
-        public static void addHttpSampler(String apiName, Map<String,JsonNode> apiItems, ListedHashTree parentTree, Utils utils, JsonNode jsonExtractors) {
+        public static void addHttpSampler(String apiName, Map<String,JsonNode> apiItems, ListedHashTree parentTree, Utils utils, ObjectMapper mapper,JsonNode jsonExtractors) {
             JsonNode item = apiItems.get(apiName);
             if (apiName.equalsIgnoreCase(item.get("name").asText())) {
                     String apiMethod = item.get("request").get("method").asText();
@@ -525,15 +527,64 @@ public class Utils {
                         utils.headerManager(samplerTree, item.get("request").get("header"));
                     }
                     utils.responseAssertion(apiMethod.equalsIgnoreCase("POST") ? "201" : "200", samplerTree);
-                    addJsonExtractors(apiName, jsonExtractors, samplerTree, utils);
+                    addJsonExtractors(apiName, jsonExtractors, apiItems, samplerTree, utils,mapper);
                 }
             }
-        public static void addJsonExtractors(String apiName, JsonNode jsonExtractors, ListedHashTree samplerTree, Utils utils)
+        public static void addJsonExtractors(String apiName, JsonNode jsonExtractors, Map<String,JsonNode> apiItems,ListedHashTree samplerTree, Utils utils, ObjectMapper mapper)
         {
             for (JsonNode jsonExtractor : jsonExtractors) {
-                if (apiName.equalsIgnoreCase(jsonExtractor.get("api_name").asText())) {
-                    utils.jsonExtractor(samplerTree, jsonExtractor.get("jsonPath").asText(), jsonExtractor.get("variable").asText());
-                    log.info("Added JSON Extractor to API: {}", apiName);
+                if(jsonExtractor.has("apiName") && !jsonExtractor.get("apiName").isNull()) {
+                    if (apiName.equalsIgnoreCase(jsonExtractor.get("apiName").asText())) {
+                        String variableName = jsonExtractor.get("variableName").asText();
+                        utils.jsonExtractor(samplerTree, jsonExtractor.get("JsonPath").asText(), jsonExtractor.get("variableName").asText());
+                        log.info("Added JSON Extractor to API:" + apiName);
+                        JsonNode targetApisExtractors = jsonExtractor.get("targets");
+                        for(JsonNode targetApisExtractor : targetApisExtractors){
+                            JsonNode targetApi = apiItems.get(targetApisExtractor.get("apiName").asText());
+                            String target_value = targetApisExtractor.get("target_value").asText();
+                            switch (targetApisExtractor.get("target_type").asText().toLowerCase()) {
+                                case "header":
+                                    JsonNode headerNode = targetApi.get("request").get("header");
+                                    try {
+                                            ArrayNode dataArray = (ArrayNode) headerNode;
+                                            for(JsonNode dataArr :dataArray ){
+                                                if(target_value.equalsIgnoreCase(dataArr.get("key").asText())){
+                                                    ObjectNode secondEntry = (ObjectNode) dataArr;
+                                                    secondEntry.put("value", "Bearer "+"${" + variableName + "}");
+                                                }
+                                            }
+                                        System.out.println("Json Extractor variable added inside Header:");
+                                    } catch (Exception e) {
+                                        System.out.println("Exception occurs while adding JsonExtractor in Header: " + e.getMessage());
+                                    }
+                                    break;
+                                case "body":
+                                    JsonNode requestBody = targetApi.get("request").get("body").get("raw");
+                                    try {
+                                        ObjectNode jsonNode = (ObjectNode)mapper.readTree(requestBody.asText());
+                                        jsonNode.put(target_value, "${" + variableName + "}");
+                                        ((ObjectNode) targetApi.get("request").get("body")).put("raw", mapper.writeValueAsString(jsonNode));
+                                        System.out.println("Json Extractor variable added inside Body:");
+                                    } catch (Exception e) {
+                                        System.out.println("Exception occurs while adding JsonExtractor in body: " + e.getMessage());
+                                    }
+                                    break;
+                                case "path":
+                                    JsonNode path = targetApi.get("request").get("url").get("path");
+                                    try {
+                                        ArrayNode pathNode = (ArrayNode) path;
+                                        pathNode.add("${" + variableName + "}");
+                                        System.out.println("Json Extractor variable added to path:");
+                                    } catch (Exception e) {
+                                        System.out.println("Exception occurs while adding path: " + e.getMessage());
+                                    }
+                                    break;
+                                default:
+                                    log.warn("Unknown Target Type: ");
+                                    return;
+                            }
+                        }
+                    }
                 }
             }
         }
