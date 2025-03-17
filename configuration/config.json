@@ -3,23 +3,36 @@
   "payloadFile":"payload/jsonPlaceholderCollection.postman_collection.json",
   "scenario":[{
     "name": "Scenario1",
-    "test_type":"load",
+    "test_type":"stress",
     "tps":10,
+    "ultimate": [{
+      "thread": 10,
+      "initial_delay": 10,
+      "startup_time": 10,
+      "hold_Time": 60,
+      "shutdown_time": 10
+    },{
+      "thread": 20,
+      "initial_delay": 30,
+      "startup_time": 20,
+      "hold_Time": 60,
+      "shutdown_time": 10
+    }],
     "duration":30,
     "rampUp":2,
     "csv_variable": [
       {
-        "var_name": "userid",
+        "var_name": "Name",
         "var_constant":null,
-        "dynamic_type":"Number",
-        "min_len": 1,
-        "max_len": 3,
+        "dynamic_type":"String",
+        "min_len": 9,
+        "max_len": 9,
         "apis": [{
           "apiName": "Dummy_API",
           "attribute": "userId"
         }]
       }],
-    "JsonExtractor":{
+    "JsonExtractor":[{
       "apiName":"",
       "variableName":"ID",
       "JsonPath":"",
@@ -27,13 +40,78 @@
         "apiName":"",
         "Type":"",
         "VariableName": ""
-      }]
-    },
+      }]},
+      {
+        "apiName": "",
+        "variableName": "ID",
+        "JsonPath": "",
+        "targets": [{
+            "apiName": "",
+            "Type": "",
+            "VariableName": ""
+          }]
+      }],
     "controller": [{
       "name":null,
       "apiName":["signin"]
     }],
     "api_order": ["Dummy_API"]
-  }
+  },
+    {
+      "name": "Scenario2",
+      "test_type":"load",
+      "tps":10,
+      "ultimate": [{
+        "thread": 10,
+        "initial_delay": 10,
+        "startup_time": 10,
+        "hold_Time": 60,
+        "shutdown_time": 10
+      },{
+        "thread": 20,
+        "initial_delay": 30,
+        "startup_time": 20,
+        "hold_Time": 60,
+        "shutdown_time": 10
+      }],
+      "duration":30,
+      "rampUp":2,
+      "csv_variable": [
+        {
+          "var_name": "ID",
+          "var_constant":null,
+          "dynamic_type":"Number",
+          "min_len": 9,
+          "max_len": 9,
+          "apis": [{
+            "apiName": "Dummy_API",
+            "attribute": "body"
+          }]
+        }],
+      "JsonExtractor":[{
+        "apiName":"",
+        "variableName":"ID",
+        "JsonPath":"",
+        "targets":[{
+          "apiName":"",
+          "Type":"",
+          "VariableName": ""
+        }]},
+        {
+          "apiName": "",
+          "variableName": "ID",
+          "JsonPath": "",
+          "targets": [{
+            "apiName": "",
+            "Type": "",
+            "VariableName": ""
+          }]
+        }],
+      "controller": [{
+        "name":null,
+        "apiName":["signin"]
+      }],
+      "api_order": ["Dummy_API"]
+    }
   ]
 }
