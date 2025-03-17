@@ -3,6 +3,7 @@
   "payloadFile":"payload/jsonPlaceholderCollection.postman_collection.json",
   "scenario":[{
     "name": "Scenario1",
+    "_comments": "To add different types of thread Group change the test_type to load - for normal thread Group, concurrent_load - for concurrent threadgroup, stress or spike - for Ultimate Thread Group",
     "test_type":"stress",
     "tps":10,
     "ultimate": [{
@@ -20,6 +21,7 @@
     }],
     "duration":30,
     "rampUp":2,
+    "_comment_step": "If you are using concurrent add 'step': 'your value' next line otherwise it will take default value as 3",
     "csv_variable": [
       {
         "var_name": "Name",
