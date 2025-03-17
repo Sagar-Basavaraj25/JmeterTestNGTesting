@@ -13,9 +13,8 @@ public class SamplerUtils {
         String method;
         String protocol;
         String body=null;
-        int port;
         if(item.get("request").get("url").has("port")){
-            port= item.get("request").get("url").get("port").asInt();
+            int port= item.get("request").get("url").get("port").asInt();
             httpSampler.setPort(port);
         }
         StringBuilder domain = new StringBuilder();
