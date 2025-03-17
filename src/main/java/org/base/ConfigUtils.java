@@ -121,13 +121,13 @@ public class ConfigUtils {
         }
     }
     public String generateCsvFile(String fileName,JsonNode csvVariables){
-        Faker faker = new Faker();
         String headerValue="";
-        Map<String, Set<String>> variables = new LinkedHashMap<String,Set<String>>();
+        Map<String,Set<String>> variables = new LinkedHashMap<String,Set<String>>();
         Random random = new Random();
         for(JsonNode csvVariable : csvVariables){
             String variableName = csvVariable.get("var_name").asText();
             Set<String> uniqueNames = new LinkedHashSet<String>();
+            Set<Integer> uniqueNumbers = new LinkedHashSet<Integer>();
             String prefix="";
             int min_len=csvVariable.get("min_len").asInt();
             int max_len=csvVariable.get("max_len").asInt();
@@ -138,20 +138,14 @@ public class ConfigUtils {
                 max_len = max_len-prefix_len;
             }
             String varType = csvVariable.get("dynamic_type").asText();
-            String randomValue="";
-            while (uniqueNames.size() < 1000) {
-                switch (varType.toLowerCase()){
-                    case "string":
-                        randomValue=prefix+generateRandomName(random,min_len,max_len);
-                        break;
-                    case "number":
-                        randomValue=prefix + getRandomNumber(min_len,max_len);
-                        break;
-                    case "email":
-                        randomValue=faker.internet().emailAddress();
-                        break;
+            while (uniqueNames.size() < 500) {
+                if(varType.equalsIgnoreCase("String")){
+                    String name = prefix+generateRandomName(random,min_len,max_len);
+                    uniqueNames.add(name);
+                } else if (varType.equalsIgnoreCase("Number")) {
+                    String num = prefix + getRandomNumber(min_len,max_len); // Range: 1 to 100,000
+                    uniqueNames.add(num);
                 }
-                uniqueNames.add(randomValue);
             }
             variables.put(variableName,uniqueNames);
         }
