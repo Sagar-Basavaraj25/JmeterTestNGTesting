@@ -89,36 +89,24 @@ public class ConfigUtils {
         cacheManager.setUseExpires(true);
         tree.add(cacheManager);
     }
-    public void changePayloadData(JsonNode csvVariables,JsonNode items) throws JsonProcessingException {
+    public void changeBodyVariables(String bodyStr, String attribute, String varName, JsonNode item){
         try {
-            for (JsonNode csvVariable : csvVariables) {
-                JsonNode apis = csvVariable.get("apis");
-                String varName = csvVariable.get("var_name").asText();
-                for (JsonNode api : apis) {
-                    String apiName = api.get("apiName").asText();
-                    String attribute = api.get("attribute").asText();
-                    for (JsonNode item : items) {
-                        System.out.println(apiName + " : " + item.get("name").asText());
-                        if (apiName.equalsIgnoreCase(item.get("name").asText())) {
-                            String text = item.get("request").get("body").get("raw").asText();
-                            System.out.println(text);
-                            JsonNode jsonNode = mapper.readTree(text);
-                            ObjectNode objectNode = (ObjectNode) jsonNode;
-                            String variable = "${" + varName + "}";
-                            objectNode.put(attribute, variable);
-                            System.out.println("ObjectNode direct " + objectNode);
-                            System.out.println(mapper.writeValueAsString(objectNode));
-                            ObjectNode object = (ObjectNode) item.get("request").get("body");
-                            object.put("raw", mapper.writeValueAsString(objectNode));
-                            log.info("Successfully changed the "+attribute+" value in "+apiName+" to "+variable);
-                        }
-                    }
-                }
-            }
-        }catch (Exception e){
+            System.out.println(bodyStr);
+            JsonNode jsonNode = mapper.readTree(bodyStr);
+            ObjectNode objectNode = (ObjectNode) jsonNode;
+            String variable = "${" + varName + "}";
+            objectNode.put(attribute, variable);
+            System.out.println("ObjectNode direct " + objectNode);
+            System.out.println(mapper.writeValueAsString(objectNode));
+            ObjectNode object = (ObjectNode) item.get("request").get("body");
+            object.put("raw", mapper.writeValueAsString(objectNode));
+            log.info("Successfully changed the "+attribute+" value in to "+variable);
+
+        } catch (Exception e){
             log.error("Error in changing the Payload Data"+e.getMessage());
             throw new RuntimeException("Cannot change the Payoad Data");
         }
+
     }
     public String generateCsvFile(String fileName,JsonNode csvVariables){
         String headerValue="";

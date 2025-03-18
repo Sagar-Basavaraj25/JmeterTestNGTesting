@@ -206,7 +206,7 @@ public class Utils {
         log.info("Scenario processed successfully" + scenarioName);
     }
 
-    public static void processCsvVariables(JsonNode csvVariables, Map<String,JsonNode> apiMap, ObjectMapper mapper) throws Exception {
+    public void processCsvVariables(JsonNode csvVariables, Map<String,JsonNode> apiMap, ObjectMapper mapper) throws Exception {
         for (JsonNode csvVariable : csvVariables) {
             String varName = csvVariable.get("var_name").asText();
             JsonNode apis = csvVariable.get("apis");
@@ -216,11 +216,8 @@ public class Utils {
                 String attribute = api.get("attribute").asText();
                 JsonNode item = apiMap.get(apiName);
                 if (apiName.equalsIgnoreCase(item.get("name").asText())) {
-                    JsonNode requestBody = item.get("request").get("body").get("raw");
-                    ObjectNode jsonNode = (ObjectNode) mapper.readTree(requestBody.asText());
-
-                    jsonNode.put(attribute, "${" + varName + "}");
-                    ((ObjectNode) item.get("request").get("body")).put("raw", mapper.writeValueAsString(jsonNode));
+                    String requestBody = item.get("request").get("body").get("raw").asText();
+                    configUtils.changeBodyVariables(requestBody, attribute, varName, item);
                 }
             }
         }
@@ -298,15 +295,16 @@ public class Utils {
                                 }
                                 break;
                             case "body":
-                                JsonNode requestBody = targetApi.get("request").get("body").get("raw");
-                                try {
-                                    ObjectNode jsonNode = (ObjectNode)mapper.readTree(requestBody.asText());
-                                    jsonNode.put(target_value, "${" + variableName + "}");
-                                    ((ObjectNode) targetApi.get("request").get("body")).put("raw", mapper.writeValueAsString(jsonNode));
-                                    System.out.println("Json Extractor variable added inside Body:");
-                                } catch (Exception e) {
-                                    System.out.println("Exception occurs while adding JsonExtractor in body: " + e.getMessage());
-                                }
+                                String requestBody = targetApi.get("request").get("body").get("raw").asText();
+//                                try {
+//                                    ObjectNode jsonNode = (ObjectNode)mapper.readTree(requestBody);
+//                                    jsonNode.put(target_value, "${" + variableName + "}");
+////                                    ((ObjectNode) targetApi.get("request").get("body")).put("raw", mapper.writeValueAsString(jsonNode));
+//                                    System.out.println("Json Extractor variable added inside Body:");
+//                                } catch (Exception e) {
+//                                    System.out.println("Exception occurs while adding JsonExtractor in body: " + e.getMessage());
+//                                }
+                                configUtils.changeBodyVariables(requestBody, target_value, variableName, targetApi);
                                 break;
                             case "path":
                                 JsonNode path = targetApi.get("request").get("url").get("path");
