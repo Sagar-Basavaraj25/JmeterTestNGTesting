@@ -1,0 +1,927 @@
+{
+	"info": {
+		"_postman_id": "25e56ea5-9c6f-4159-9a30-d986e6d740c5",
+		"name": "SmarTone_APIs_latest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19976439"
+	},
+	"item": [
+		{
+			"name": "CreateMsisdn",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "correlationId",
+						"value": "123454321",
+						"type": "text"
+					},
+					{
+						"key": "srdate",
+						"value": "23432132",
+						"type": "text"
+					},
+					{
+						"key": "source",
+						"value": "WEB",
+						"type": "text"
+					},
+					{
+						"key": "operation",
+						"value": "createMsisdn",
+						"type": "text"
+					},
+					{
+						"key": "destination",
+						"value": "ccv",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"msisdn\": \"1382000466\",\r\n    \"resourceStatus\": \"F\",\r\n    \"typeId\": 1,\r\n    \"effectiveTime\": \"2024-10-17T07:17:52\",\r\n    \"msisdnClass\":1,\r\n    \"phlr\": \"SMC\",\r\n    \"mnpStatus\": \"PI\",\r\n    \"operatorCode\": \"SMC User\",\r\n    \"vasType\": \"SMC User\",\r\n    \"remark1\": \"SMC User\",\r\n    \"remark2\": \"SMC User\",\r\n    \"remark3\": \"SMC User\",\r\n    \"userId\": \"John\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/inventory/createMsisdn",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"inventory",
+						"createMsisdn"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateMsisdn",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "operation",
+						"value": "updateMsisdn"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "correlationId",
+						"value": "coor123"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "srDate",
+						"value": "fgg"
+					},
+					{
+						"key": "destination",
+						"value": "dfdfd"
+					},
+					{
+						"key": "serviceProvider",
+						"value": "crm"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"actionId\": 1,\r\n    \"msisdn\": \"1382000124\",\r\n    \"inheritedInfo\": {\r\n        \"resourceStatus\": \"Free\",\r\n        \"typeId\": 1,\r\n        \"effectiveTime\": \"2024-10-16T10:00:00\",\r\n        \"phlr\": \"PHLR  ( Physical H L R ) ( SMC Network )\",\r\n        \"mnpStatus\": \"Port out\",\r\n        \"operatorCode\": \"Plane text (SMC user )\",\r\n        \"accountNumber\": \"45000001.00001\",\r\n        \"vasType\": \"Plane text (SMC user )\",\r\n        \"remark1\": \"Plane text (SMC user )\",\r\n        \"remark2\": \"Plane text (SMC user )\",\r\n        \"remark3\": \"Plane text (SMC user )\",\r\n        \"liveIndicator\": \"Y\",\r\n        \"userId\": \"John\",\r\n        \"expiryDate\": \"2024-10-16T10:00:00\",\r\n        \"dealerId\": \"343564356\",\r\n        \"quarantineDays\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/inventory/updateMsisdn",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"inventory",
+						"updateMsisdn"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createSim",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "correlationId",
+						"value": "123454321"
+					},
+					{
+						"key": "srdate",
+						"value": "23432132"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "operation",
+						"value": "createSim"
+					},
+					{
+						"key": "destination",
+						"value": "qweww"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"imsi\": \"911834256192685\",\n    \"sim\": \"9183425615\",\n    \"pin1\": \"12345\",\n    \"pin2\": \"45678\",\n    \"puk1\": \"2024-06-25T10:00:00\",\n    \"puk2\": \"PUK2\",\n    \"ki\": \"0001\",\n    \"admin\": \"1\",\n    \"phlr\": \"SMC\",\n    \"vendorId\": \"990\",\n    \"simTypeId\": \"1\",\n    \"model\": \"ESIM\",\n    \"esimType\": \"new\",\n    \"qrCode\": \"PA:1$sma.pd.ondemandconnectivity.com$2432432554354366lhjlhjjht67577dsf343\",\n    \"userId\": \"88102000\",\n    \"cancelFlag\": \"Y \"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9092/csmart-brmservices/brm/v1/inventory/createSim",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9092",
+					"path": [
+						"csmart-brmservices",
+						"brm",
+						"v1",
+						"inventory",
+						"createSim"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateSim",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "correlationId",
+						"value": "123454321",
+						"type": "text"
+					},
+					{
+						"key": "srdate",
+						"value": "23432132",
+						"type": "text"
+					},
+					{
+						"key": "source",
+						"value": "WEB",
+						"type": "text"
+					},
+					{
+						"key": "operation",
+						"value": "updateSim",
+						"type": "text"
+					},
+					{
+						"key": "destination",
+						"value": "qweww",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"actionId\": 1,\r\n    \"imsi\": \"1.928309821E10\",\r\n    \"inheritedInfo\": {\r\n        \"dealerId\": \"343564356\",\r\n        \"phlr\": \"phlr\",\r\n        \"paidFlag\": \"paidFlag\",\r\n        \"resourceStatus\": \"F\",\r\n        \"esimType\": \"esimType\",\r\n        \"qrCode\": \"qrCode\",\r\n        \"userId\": \"John\",\r\n        \"vasType\": \"SMC User\",\r\n        \"cancelFlag\": \"Y\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/inventory/updateSim",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"inventory",
+						"updateSim"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPlanDetails",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"planCode\": \"C48\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.109:30722/bcws/webresources/v1.0/brm/v1/account/getPlanDetails",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"109"
+					],
+					"port": "30722",
+					"path": [
+						"bcws",
+						"webresources",
+						"v1.0",
+						"brm",
+						"v1",
+						"account",
+						"getPlanDetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createPrepaidCustomer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "correlationId",
+						"value": "123454321"
+					},
+					{
+						"key": "srdate",
+						"value": "23432132"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "operation",
+						"value": "createPrepaidCustomer"
+					},
+					{
+						"key": "destination",
+						"value": "qweww"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"effectiveTime\": \"2024-10-16T10:00:00\",\r\n    \"programName\": \"BC\",\r\n    \"dealerCode\": \"D2408131023\",\r\n    \"activateFlag\": 0,\r\n    \"userName\": \"202408131023\",\r\n    \"msisdn\": \"1382481400\",\r\n    \"imsi\": \"1832408141013\",\r\n    \"plan\": [\r\n        {\r\n            \"elem\": \"0\",\r\n            \"services\": [\r\n                {\r\n                    \"elem\": \"0\",\r\n                    \"bundles\": [\r\n                        {\r\n                            \"elem\": \"0\",\r\n                            \"bundleInfo\": {\r\n                                \"bundleId\": \"0.0.0.1 /deal 6736219 2\",\r\n                                \"products\": [\r\n                                    {\r\n                                        \"elem\": \"0\",\r\n                                        \"status\": \"1\",\r\n                                        \"quantity\": 1,\r\n                                        \"productId\": \"0.0.0.1 /product 6756931 79\",\r\n                                        \"statusFlag\": 0,\r\n                                        \"description\": \"C48 :Admin Fee\"\r\n                                    }\r\n                                ],\r\n                                \"bundleName\": \"C48: C48 Bundle\"\r\n                            },\r\n                            \"attributeId\": \"0.0.0.0  0 0\"\r\n                        }\r\n                    ],\r\n                    \"serviceId\": \"0.0.0.1 /service/ccb/telco -1 0\"\r\n                }\r\n            ],\r\n            \"attributeId\": \"0.0.0.1 /offer_attribute_group 6775045 0\",\r\n            \"limits\": [\r\n                {\r\n                    \"elem\": \"1\",\r\n                    \"creditFloor\": 2,\r\n                    \"creditLimit\": 0,\r\n                    \"fixedCreditThresholds\": \"\",\r\n                    \"creditThresholds\": 0\r\n                }\r\n            ],\r\n            \"planName\": \"C48\",\r\n            \"planId\": \"0.0.0.1 /plan 6777093 14\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/account/createPrepaidCustomer",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"account",
+						"createPrepaidCustomer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "accountAdjustment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "operation",
+						"value": "accountAdjustment"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "correlationId",
+						"value": "coor123"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "srDate",
+						"value": "fgg"
+					},
+					{
+						"key": "destination",
+						"value": "dfdfd"
+					},
+					{
+						"key": "serviceProvider",
+						"value": "crm"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountNumber\": \"610774.00001\",\r\n    \"adjustmentDate\": \"2024-10-16T10:00:00\",\r\n    \"adjustmentType\": \"GEN\",\r\n    \"adjustmentText\": \"CASH:12342.232\",\r\n    \"adjustmentRef\": \"12342.232\",\r\n    \"adjustmentChannel\": \"CAS\",\r\n    \"adjustmentAmount\": -50,\r\n    \"batchId\": \"Batch_6\",\r\n    \"activateFlag\" : 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/accountReceivable/accountAdjustment",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"accountReceivable",
+						"accountAdjustment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "activatePrepaidCustomer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "operation",
+						"value": "activatePrepaidCustomer"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "correlationId",
+						"value": "coor123"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "srDate",
+						"value": "fgg"
+					},
+					{
+						"key": "destination",
+						"value": "dfdfd"
+					},
+					{
+						"key": "serviceProvider",
+						"value": "crm"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"accountNumber\": \"611134.00001\",\n    \"msisdn\": \"1382099481\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9092/csmart-brmservices/brm/v1/account/activatePrepaidCustomer",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9092",
+					"path": [
+						"csmart-brmservices",
+						"brm",
+						"v1",
+						"account",
+						"activatePrepaidCustomer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "paymentCollect",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "correlationId",
+						"value": "123454321"
+					},
+					{
+						"key": "srdate",
+						"value": "23432132"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "operation",
+						"value": "paymentCollect"
+					},
+					{
+						"key": "destination",
+						"value": "qweww"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"accountNumber\": \"611275.00001\",\n    \"paymentAmount\": 100,\n    \"paymentMethod\": \"RCV\",\n    \"voucherType\": \"109\",\n    \"paymentText\": \"N024070510000068|30|0\",\n    \"paymentRef\": \"N024070510000068\",\n    \"paymentDate\":\"2024-12-23T10:00:00\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9092/csmart-brmservices/brm/v1/payment/paymentCollect",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9092",
+					"path": [
+						"csmart-brmservices",
+						"brm",
+						"v1",
+						"payment",
+						"paymentCollect"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "changeDevice",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "correlationId",
+						"value": "123454321"
+					},
+					{
+						"key": "srdate",
+						"value": "23432132"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "operation",
+						"value": "changeDevice"
+					},
+					{
+						"key": "destination",
+						"value": "qweww"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"accountNumber\": \"611275.00001\",\n    //\"msisdn\": \"1382000816\",\n    //\"oldMsisdn\": \"1384931003\"\n \n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9092/csmart-brmservices/brm/v1/account/changeDevice",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9092",
+					"path": [
+						"csmart-brmservices",
+						"brm",
+						"v1",
+						"account",
+						"changeDevice"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transactionHistory",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "operation",
+						"value": "transactionHistory"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "correlationId",
+						"value": "coor123"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "srDate",
+						"value": "fgg"
+					},
+					{
+						"key": "destination",
+						"value": "dfdfd"
+					},
+					{
+						"key": "serviceProvider",
+						"value": "crm"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"accountNumber\": \"611275.00001\"\n   \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9092/csmart-brmservices/brm/v1/payment/transactionHistory",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9092",
+					"path": [
+						"csmart-brmservices",
+						"brm",
+						"v1",
+						"payment",
+						"transactionHistory"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "modifyDiscBucket",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "correlationId",
+						"value": "67"
+					},
+					{
+						"key": "srDate",
+						"value": "4567"
+					},
+					{
+						"key": "operation",
+						"value": "modifyDiscBucket"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "destination",
+						"value": "brm"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"msisdn\": \"1385537582\",\n    \"modifyReason\": \"extra\",\n    \"balanceArray\": [\n       {\n        \"elem\":0,\n            \"balanceElementId\": 1100004,\n            \"subBalIndex\": 2,\n            \"validityEndDate\": \"2025-01-27T00:00:00\"\n        }\n\n\n\n\n \n    ]     \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9092/csmart-brmservices/brm/v1/accountReceivable/modifyDiscBucket",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9092",
+					"path": [
+						"csmart-brmservices",
+						"brm",
+						"v1",
+						"accountReceivable",
+						"modifyDiscBucket"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "modifyVas",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "correlationId",
+						"value": "123454321"
+					},
+					{
+						"key": "srdate",
+						"value": "23432132"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "operation",
+						"value": "modifyVas"
+					},
+					{
+						"key": "destination",
+						"value": "ccv"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\r\n    \"msisdn\": \"1385537582\",\n\r\n    \"serviceType\": \"PREPAID\",\n\n\n\n\n\n\r\n    \"deleteVASList\": [\n\r\n        {\n\r\n            \"vasCode\": \"0PMP3\",\n\r\n            \"purchasedBundleId\": \"13730930\",\n\r\n            \"statusReason\": \"Added by mistake\",\n\r\n            \"userId\": \"USER123\"\n\r\n        }\n\r\n    ]\n\n\n\n\n\n\n\n\n\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9092/csmart-brmservices/brm/v1/subscription/modifyVas",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9092",
+					"path": [
+						"csmart-brmservices",
+						"brm",
+						"v1",
+						"subscription",
+						"modifyVas"
+					]
+				},
+				"description": "Generated from cURL: curl --location 'http://192.168.161.175:9092/csmart-brmservices/brm/v1/subscription/modifyVas' \\\n\r\n--header 'Content-Type: application/json' \\\n\r\n--header 'correlationId: 123454321' \\\n\r\n--header 'srdate: 23432132' \\\n\r\n--header 'source: WEB' \\\n\r\n--header 'operation: modifyVas' \\\n\r\n--header 'destination: ccv' \\\n\r\n--data '{\n\r\n    \"msisdn\": \"1385537582\",\n\r\n    \"serviceType\": \"PREPAID\",\n\n\n\n\n\n\r\n    \"deleteVASList\": [\n\r\n        {\n\r\n            \"vasCode\": \"0PMP3\",\n\r\n            \"purchasedBundleId\": \"13730930\",\n\r\n            \"statusReason\": \"Added by mistake\",\n\r\n            \"userId\": \"USER123\"\n\r\n        }\n\r\n    ]\n\n\n\n\n\n\n\n\n\n\r\n}'\n "
+			},
+			"response": []
+		},
+		{
+			"name": "createMsisdnType",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "operation",
+						"value": "createMsisdnType"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "correlationId",
+						"value": "coor123"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "srDate",
+						"value": "fgg"
+					},
+					{
+						"key": "destination",
+						"value": "BrmServices"
+					},
+					{
+						"key": "serviceProvider",
+						"value": "crm"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"prefix\" : 109,\n    \"length\": 10,\n    \"code\": \"CDS09\",\n    \"name\": \"109 Card\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/inventory/createMsisdnType",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"inventory",
+						"createMsisdnType"
+					]
+				},
+				"description": "Generated from cURL: curl --location 'http://192.168.161.175:9093/dx-sync/brm/v1/inventory/createMsisdnType' \\\n--header 'operation: createMsisdnType' \\\n--header 'Content-Type: application/json' \\\n--header 'correlationId: coor123' \\\n--header 'source: WEB' \\\n--header 'srDate: fgg' \\\n--header 'destination: BrmServices' \\\n--header 'serviceProvider: crm' \\\n--data '{\n    \"prefix\" : 109,\n    \"length\": 10,\n    \"code\": \"CDS09\",\n    \"name\": \"109 Card\"\n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "changePlan",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "correlationId",
+						"value": "kejr"
+					},
+					{
+						"key": "srDate",
+						"value": "kbewj"
+					},
+					{
+						"key": "operation",
+						"value": "changePlan"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "destination",
+						"value": "brm"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"msisdn\": \"434535902548\",\n    \"serviceType\": \"PREPAID\",\n    \"oldPlanName\": \"C48\",\n    \"newPlanName\": \"C17\",\n\n    \"noAlertFlag\": 1,\n    \"dealerCode\": \"12\",\n    \"salesPersonCode\": \"1\",\n    \"loginUser\": \"adminUser\",\n    \"orderId\": \"ORD123\",\n    \"handledBy\": \"Operator1\"\n\n \n \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9092/csmart-brmservices/brm/v1/subscription/changePlan",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9092",
+					"path": [
+						"csmart-brmservices",
+						"brm",
+						"v1",
+						"subscription",
+						"changePlan"
+					]
+				},
+				"description": "Generated from cURL: curl --location 'http://192.168.161.175:9092/csmart-brmservices/brm/v1/subscription/changePlan' \\\n--header 'correlationId: kejr' \\\n--header 'srDate: kbewj' \\\n--header 'operation: changePlan' \\\n--header 'source: WEB' \\\n--header 'destination: brm' \\\n--header 'Content-Type: application/json' \\\n--data '{\n   \"msisdn\": \"434535902548\",\n    \"serviceType\": \"PREPAID\",\n    \"oldPlanName\": \"C48\",\n    \"newPlanName\": \"C17\",\n\n\n\n\n \n    \n \n \n \n \n \n \n    \n\n\n    \"noAlertFlag\": 1,\n    \"dealerCode\": \"12\",\n    \"salesPersonCode\": \"1\",\n    \"loginUser\": \"adminUser\",\n    \"orderId\": \"ORD123\",\n    \"handledBy\": \"Operator1\"\n\n \n \n}'"
+			},
+			"response": []
+		}
+	]
+}

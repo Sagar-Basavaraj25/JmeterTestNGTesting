@@ -20,7 +20,7 @@ public class JmeterAutomation {
         utils.initJmeter();
         ObjectMapper mapper = new ObjectMapper();
         // Read Configuration JSON
-        JsonNode configRootNode = mapper.readTree(new File("configuration/config.json"));
+        JsonNode configRootNode = mapper.readTree(new File("configuration/jsonConfig.json"));
         String payloadFile = configRootNode.get("payloadFile").asText();
         log.info("Payload File: {}", payloadFile);
 
@@ -50,6 +50,7 @@ public class JmeterAutomation {
         }
         log.info("JMX File created: {}", jmxFile);
         utils.runJmxFile(jmxFile);
+
     }
 
 }
