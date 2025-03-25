@@ -1,0 +1,63 @@
+{
+  "_comments":"create this for Scenarios",
+  "payloadFile":"payload/jsonPlaceholderCollection.postman_collection.json",
+  "scenario":[{
+    "name": "Scenario1",
+    "_comments": "To add different types of thread Group change the test_type to load - for normal thread Group, concurrent_load - for concurrent threadgroup, stress or spike - for Ultimate Thread Group",
+    "thread_type":"normal",
+    "tps":10,
+    "ultimate": [{
+      "thread": 10,
+      "initial_delay": 10,
+      "startup_time": 10,
+      "hold_Time": 60,
+      "shutdown_time": 10
+    },{
+      "thread": 20,
+      "initial_delay": 30,
+      "startup_time": 20,
+      "hold_Time": 60,
+      "shutdown_time": 10
+    }],
+    "duration":30,
+    "rampUp":2,
+    "_comment_step": "If you are using concurrent add 'step': 'your value' next line otherwise it will take default value as 3",
+    "csv_variable": [
+      {
+        "var_name": "Name",
+        "var_constant":null,
+        "dynamic_type":"String",
+        "min_len": 9,
+        "max_len": 9,
+        "apis": [{
+          "apiName": "Dummy_API",
+          "attribute": "userId"
+        }]
+      }],
+    "JsonExtractor":[{
+      "apiName":"",
+      "variableName":"ID",
+      "JsonPath":"",
+      "targets":[{
+        "apiName":"",
+        "Type":"",
+        "VariableName": ""
+      }]},
+      {
+        "apiName": "",
+        "variableName": "ID",
+        "JsonPath": "",
+        "targets": [{
+            "apiName": "",
+            "Type": "",
+            "VariableName": ""
+          }]
+      }],
+    "controller": [{
+      "name":null,
+      "apiName":["signin"]
+    }],
+    "api_order": ["Dummy_API"]
+  }
+  ]
+}

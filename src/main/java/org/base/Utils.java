@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -42,6 +43,7 @@ public class Utils {
         // Initialize JMeter Properties
         JMeterUtils.setJMeterHome(jmeterHome);
         JMeterUtils.loadJMeterProperties(jmeterHome+"/bin/jmeter.properties");
+        JMeterUtils.setProperty("jmeter.save.saveservice.autoflush","true");
         JMeterUtils.initLocale();
         log.info("Jmeter is initialised ");
         return jmeterEngine;
@@ -72,23 +74,33 @@ public class Utils {
             LocalDateTime today = LocalDateTime.now();
             String dateString = today.format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
             String logs = "target/jmeterLogs/" + dateString + ".jtl";
+            //File jtlFile = new File(logs);
+            //jtlFile.createNewFile();
             String report = "target/jmeterReports/"+dateString;
+//            File reportDir = new File(report);
+//            reportDir.mkdir();
             String command = "jmeter -n -t "+filename+" -l "+logs+" -e -o "+report;
             //System.out.println("command===>" + command);
 
-            ProcessBuilder processBuilder = new ProcessBuilder();
-            processBuilder.command("cmd.exe", "/c", command);
+            ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
+            //processBuilder.command("cmd.exe", "/c", command);
+            processBuilder.redirectErrorStream(true);
+            //processBuilder.redirectErrorStream()
             Process process = processBuilder.start();
-            // Read the output of the command
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
+//                if (line.contains("summary")) { // Extract summary lines
+//                    System.out.println(line);
+//                }
             }
+            // Read the output of the command
             int exitCode = process.waitFor();
             System.out.println("Command exited with code: " + exitCode);
         } catch (Exception e) {
-            e.printStackTrace(); // Handle exceptions
+            log.error("Error Occured while running the jmx : "+e.getMessage());
+            throw new RuntimeException("Error : "+e.getMessage());
         }
     }
 
@@ -129,21 +141,42 @@ public class Utils {
         listener.setProperty("TestElement.gui_class", TestBeanGUI.class.getName());
         listener.setProperty("scriptLanguage", "groovy");
         listener.setProperty("cacheKey", "true");
+//        String groovyScript = """
+//                // Extract basic details
+//                def samplerName = prev.getSampleLabel()
+//                def threadName = prev.getThreadName()
+//                def responseCode = prev.getResponseCode()
+//                def responseMessage = prev.getResponseMessage()
+//                def responseTime = prev.getTime()
+//                def status = prev.isSuccessful() ? "PASS" : "FAIL"
+//                def requestHeaders = prev.getRequestHeaders()
+//                def responseHeaders = prev.getResponseHeaders()
+//                def responseData = prev.getResponseDataAsString()
+//                def requestData = sampler.getArguments().getArgument(0).getValue()
+//        // Logging data
+//        println " ThreadName: ${threadName}, Sampler: ${samplerName}, Response Time: ${responseTime}ms, Status: ${status}, Message: ${responseMessage}"
+//        """;
         String groovyScript = """
-                // Extract basic details
-                def samplerName = prev.getSampleLabel()
-                def threadName = prev.getThreadName()
-                def responseCode = prev.getResponseCode()
-                def responseMessage = prev.getResponseMessage()
-                def responseTime = prev.getTime()
-                def status = prev.isSuccessful() ? "PASS" : "FAIL"
-                def requestHeaders = prev.getRequestHeaders()
-                def responseHeaders = prev.getResponseHeaders()
-                def responseData = prev.getResponseDataAsString()
-                def requestData = sampler.getArguments().getArgument(0).getValue()
-        // Logging data
-        println " ThreadName: ${threadName}, Sampler: ${samplerName}, Response Time: ${responseTime}ms, Status: ${status}, Message: ${responseMessage}"
-        """;
+                import org.apache.jmeter.samplers.SampleResult
+                
+                // Fetch current sample details
+                SampleResult result = prev
+                if (result != null) {
+                    String samplerName = result.getSampleLabel()
+                    long avgTime = result.getTime()  // Average Response Time
+                    long minTime = result.getStartTime()  // Min Time
+                    long maxTime = result.getEndTime()  // Max Time
+                    long medianTime = result.getTime() // Approximate median (for demo)
+                    long latency = result.getLatency()
+                   \s
+                    // Print dynamic aggregate report in a single line using \r (carriage return)
+                    print "\rSampler: ${samplerName} | Avg: ${avgTime} ms | Median: ${medianTime} ms | Min: ${minTime} | Max: ${maxTime} | Latency: ${latency} ms      "
+                   \s
+                    // Flush the output to ensure it's visible in real-time
+                    System.out.flush()
+                }
+                
+                """;
         listener.setProperty("script", groovyScript);
         //println "Request Body: ${requestData}"
         testplan.add(listener);
@@ -151,16 +184,15 @@ public class Utils {
     public static ListedHashTree addThreadGroup(ListedHashTree testplan, JsonNode scenrio){
         ListedHashTree thread;
         ThreadGroupUtils threadGroupUtils = new ThreadGroupUtils();
-        String testType = scenrio.get("test_type").asText();
+        String testType = scenrio.get("thread_type").asText();
         switch (testType.toLowerCase()){
-            case "load":
+            case "normal":
                 thread=threadGroupUtils.threadGroup(testplan,scenrio);
                 break;
-            case "concurrent_load":
+            case "concurrent":
                 thread=threadGroupUtils.concurrentThreadGroup(testplan,scenrio);
                 break;
-            case "spike":
-            case "stress":
+            case "ultimate":
                 thread = threadGroupUtils.ulimateThreadGroup(testplan,scenrio);
                 break;
             default:
@@ -179,6 +211,10 @@ public class Utils {
         log.info("Processing Scenario: {}, TPS: {}, Duration: {}, RampUp: {}", scenarioName, tps, duration, rampUp);
 
         ListedHashTree threadGroup = addThreadGroup(testPlan,scenario);
+        controllerUtils.loopController(threadGroup,1);
+        controllerUtils.randomController(threadGroup);
+        controllerUtils.simpleController(threadGroup);
+        controllerUtils.runTimeController(threadGroup,10L);
         JsonNode csvVariables = scenario.get("csv_variable");
         JsonNode controllers = scenario.get("controller");
         JsonNode jsonExtractors = scenario.get("JsonExtractor");
@@ -224,6 +260,8 @@ public class Utils {
     }
     public void processController(JsonNode controller, Map<String,JsonNode> apiItems, ListedHashTree threadGroup, Utils utils, ObjectMapper mapper,JsonNode jsonExtractors) {
         String controlName = controller.get("name").asText();
+        int loop = controller.has("loopCount")?controller.get("loopCount").asInt():-1;
+        Long runTime = controller.has("runTime")?controller.get("runTime").asLong():1;
         log.info("Processing Controller: {}", controlName);
 
         ListedHashTree controllerTree;
@@ -236,6 +274,18 @@ public class Utils {
                 break;
             case "critical-section":
                 controllerTree = controllerUtils.criticalSectionController(threadGroup);
+                break;
+            case "loop":
+                controllerTree = controllerUtils.loopController(threadGroup,loop);
+                break;
+            case "runtime":
+                controllerTree = controllerUtils.runTimeController(threadGroup,runTime);
+                break;
+            case "simple":
+                controllerTree = controllerUtils.simpleController(threadGroup);
+                break;
+            case "random":
+                controllerTree = controllerUtils.randomController(threadGroup);
                 break;
             default:
                 log.warn("Unknown Controller: " + controlName);
@@ -325,5 +375,104 @@ public class Utils {
             }
         }
     }
+    public void runJmxFile1(String jmxFile){
+        try {
+            LocalDateTime today = LocalDateTime.now();
+            String dateString = today.format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+            String logs = "target/jmeterLogs/" + dateString + ".jtl";
+            //File jtlFile = new File(logs);
+            //jtlFile.createNewFile();
+            String report = "target/jmeterReports/"+dateString;
+//            File reportDir = new File(report);
+//            reportDir.mkdir();
+            String command = "jmeter -n -t "+jmxFile+" -l "+logs+" -e -o "+report;
+            //System.out.println("command===>" + command);
+
+            ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
+
+            Process process = processBuilder.start();
+
+            // Read JMeter real-time output
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+            // Data structure to store sampler results
+            Map<String, List<Long>> samplerData = new HashMap<>();
+            Map<String, Integer> samplerErrors = new HashMap<>();
+
+            // Read the JTL file in real-time
+            //System.out.println("Hello");
+            File jtlFile = new File(logs);
+            while (!jtlFile.exists()) {
+                Thread.sleep(Duration.ofSeconds(10)); // Wait for JTL file to be created
+            }
+            System.out.println("Jtl file status : "+jtlFile.exists());
+            // Read the JTL file
+            BufferedReader jtlReader = new BufferedReader(new FileReader(jtlFile));
+            String jtlLine;
+            int count=0;
+            int num = 50;
+            System.out.println((jtlLine = jtlReader.readLine()) != null);
+            System.out.println("Sampler Name      | Avg Response Time | Status");
+            System.out.println("-------------------------------------------------");
+            while ((jtlLine = jtlReader.readLine()) != null || process.isAlive()) {
+                //System.out.println(jtlLine);
+                String[] fields = jtlLine.split(",");
+                if (fields.length > 5) {
+                    if(jtlLine.contains("timeStamp")){
+                        //System.out.println(jtlLine);
+                    }else{
+                        String samplerName = fields[2];// Get Sampler Name
+                        long responseTime = Long.parseLong(fields[1]); // Get Response Time
+                        boolean success = fields[7].equalsIgnoreCase("true"); // Check if request passed
+
+                        samplerData.putIfAbsent(samplerName, new ArrayList<>());
+                        samplerData.get(samplerName).add(responseTime);
+
+                        samplerErrors.putIfAbsent(samplerName, 0);
+                        if (!success) {
+                            samplerErrors.put(samplerName, samplerErrors.get(samplerName) + 1);
+                        }
+                        if (count == num){
+                            for (Map.Entry<String, List<Long>> entry : samplerData.entrySet()) {
+                                String samplerName1 = entry.getKey();
+                                List<Long> responseTimes = entry.getValue();
+
+                                long avgResponseTime = responseTimes.stream().mapToLong(Long::longValue).sum() / responseTimes.size();
+                                int errorCount = samplerErrors.get(samplerName1);
+                                String status = (errorCount == 0) ? "Pass" : "Fail";
+
+                                System.out.printf("%-18s | %-18d | %s\n", samplerName, avgResponseTime, status);
+                                num = num + 50;
+                            }}
+                            count++;
+                            System.out.println("Count : "+count+"Num : "+num);
+                        }
+                    }
+
+                }
+            jtlReader.close();
+            System.out.println();
+            // Print custom summary header
+            System.out.println("Sampler Name      | Avg Response Time | Status");
+            System.out.println("-------------------------------------------------");
+            // Print the custom summary report
+            for (Map.Entry<String, List<Long>> entry : samplerData.entrySet()) {
+                String samplerName = entry.getKey();
+                List<Long> responseTimes = entry.getValue();
+
+                long avgResponseTime = responseTimes.stream().mapToLong(Long::longValue).sum() / responseTimes.size();
+                int errorCount = samplerErrors.get(samplerName);
+                String status = (errorCount == 0) ? "Pass" : "Fail";
+
+                System.out.printf("%-18s | %-18d | %s\n", samplerName, avgResponseTime, status);
+            }
+
+            process.waitFor();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());;
+        }
+    }
+
 }
 

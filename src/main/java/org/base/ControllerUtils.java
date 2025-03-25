@@ -1,11 +1,7 @@
 package org.base;
 
-import org.apache.jmeter.control.CriticalSectionController;
-import org.apache.jmeter.control.OnceOnlyController;
-import org.apache.jmeter.control.TransactionController;
-import org.apache.jmeter.control.gui.CriticalSectionControllerGui;
-import org.apache.jmeter.control.gui.OnceOnlyControllerGui;
-import org.apache.jmeter.control.gui.TransactionControllerGui;
+import org.apache.jmeter.control.*;
+import org.apache.jmeter.control.gui.*;
 import org.apache.jmeter.testelement.TestElement;
 import org.apache.jorphan.collections.ListedHashTree;
 
@@ -35,5 +31,35 @@ public class ControllerUtils {
         criticalSectionController.setName("Critical Section Controller");
         criticalSectionController.setLockName("global_lock");
         return threadGroup.add(criticalSectionController);
+    }
+    public ListedHashTree loopController(ListedHashTree threadGroup,int loopCount){
+        LoopController loopController = new LoopController();
+        loopController.setProperty(TestElement.TEST_CLASS,LoopController.class.getName());
+        loopController.setProperty(TestElement.GUI_CLASS, LoopControlPanel.class.getName());
+        loopController.setName("Loop Controller");
+        loopController.setLoops(loopCount);
+        return threadGroup.add(loopController);
+    }
+    public ListedHashTree randomController(ListedHashTree threadGroup){
+        RandomController randomController=new RandomController();
+        randomController.setProperty(TestElement.TEST_CLASS,RandomController.class.getName());
+        randomController.setProperty(TestElement.GUI_CLASS, RandomControlGui.class.getName());
+        randomController.setName("Random Controller");
+        return threadGroup.add(randomController);
+    }
+    public ListedHashTree runTimeController(ListedHashTree threadGroup,Long duration){
+        RunTime runTime = new RunTime();
+        runTime.setName("RunTime Controller");
+        runTime.setProperty(TestElement.TEST_CLASS,RunTime.class.getName());
+        runTime.setProperty(TestElement.GUI_CLASS,RunTimeGui.class.getName());
+        runTime.setRuntime(duration);
+        return threadGroup.add(runTime);
+    }
+    public ListedHashTree simpleController(ListedHashTree threadGroup){
+        GenericController simple = new GenericController();
+        simple.setName("Simple Controller");
+        simple.setProperty(TestElement.TEST_CLASS,GenericController.class.getName());
+        simple.setProperty(TestElement.GUI_CLASS,LogicControllerGui.class.getName());
+        return threadGroup.add(simple);
     }
 }

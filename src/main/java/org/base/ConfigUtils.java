@@ -104,7 +104,7 @@ public class ConfigUtils {
 
         } catch (Exception e){
             log.error("Error in changing the Payload Data"+e.getMessage());
-            throw new RuntimeException("Cannot change the Payoad Data");
+            throw new RuntimeException("Cannot change the Payoad Data"+e.getMessage());
         }
 
     }
@@ -126,14 +126,19 @@ public class ConfigUtils {
                 max_len = max_len-prefix_len;
             }
             String varType = csvVariable.get("dynamic_type").asText();
-            while (uniqueNames.size() < 500) {
-                if(varType.equalsIgnoreCase("String")){
-                    String name = prefix+generateRandomName(random,min_len,max_len);
-                    uniqueNames.add(name);
-                } else if (varType.equalsIgnoreCase("Number")) {
-                    String num = prefix + getRandomNumber(min_len,max_len); // Range: 1 to 100,000
-                    uniqueNames.add(num);
+            String uniqValue;
+            while (uniqueNames.size() < 1000) {
+                switch (varType.toLowerCase()){
+                    case "string":
+                        uniqValue = prefix+generateRandomName(random,min_len,max_len);
+                        break;
+                    case "number":
+                        uniqValue = prefix + getRandomNumber(min_len,max_len);
+                        break;
+                    default:
+                        throw new RuntimeException("Enter Valid CSV datatype for "+variableName);
                 }
+                uniqueNames.add(uniqValue);
             }
             variables.put(variableName,uniqueNames);
         }
