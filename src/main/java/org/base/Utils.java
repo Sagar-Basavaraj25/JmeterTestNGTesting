@@ -302,6 +302,12 @@ public class Utils {
             case "random":
                 controllerTree = controllerUtils.randomController(threadGroup);
                 break;
+            case "throughput":
+                controllerTree = controllerUtils.throughputController(threadGroup,2.0f);
+                break;
+            case "randomOrder":
+                controllerTree = controllerUtils.randomOrderController(threadGroup);
+                break;
             default:
                 log.error("Unknown Controller: " + controlName);
                 return;
