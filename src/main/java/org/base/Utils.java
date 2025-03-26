@@ -30,6 +30,7 @@ public class Utils {
     SamplerUtils samplerUtils = new SamplerUtils();
     AssertionUtils assertionUtils = new AssertionUtils();
     ProcessorUtils processorUtils = new ProcessorUtils();
+    TimerUtils timerUtils = new TimerUtils();
     public StandardJMeterEngine initJmeter(){
         String jmeterHome = System.getenv("JMETER_HOME");
         System.out.println(jmeterHome);
@@ -74,26 +75,40 @@ public class Utils {
             LocalDateTime today = LocalDateTime.now();
             String dateString = today.format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
             String logs = "target/jmeterLogs/" + dateString + ".jtl";
-            //File jtlFile = new File(logs);
-            //jtlFile.createNewFile();
             String report = "target/jmeterReports/"+dateString;
-//            File reportDir = new File(report);
-//            reportDir.mkdir();
             String command = "jmeter -n -t "+filename+" -l "+logs+" -e -o "+report;
-            //System.out.println("command===>" + command);
 
             ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
-            //processBuilder.command("cmd.exe", "/c", command);
             processBuilder.redirectErrorStream(true);
-            //processBuilder.redirectErrorStream()
             Process process = processBuilder.start();
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
-//                if (line.contains("summary")) { // Extract summary lines
-//                    System.out.println(line);
-//                }
+            }
+            // Read the output of the command
+            int exitCode = process.waitFor();
+            System.out.println("Command exited with code: " + exitCode);
+            aggreagateReport(logs);
+        } catch (Exception e) {
+            log.error("Error Occured while running the jmx : "+e.getMessage());
+            throw new RuntimeException("Error : "+e.getMessage());
+        }
+    }
+    public void aggreagateReport(String jtlFileName) {
+        try {
+            LocalDateTime today = LocalDateTime.now();
+            String dateString = today.format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+            String report = "target/JmeterAggreagateReport/"+dateString+".csv";
+            String command = "JMeterPluginsCMD.bat --generate-csv "+report+" --input-jtl "+jtlFileName+" --plugin-type AggregateReport";
+
+            ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
+            processBuilder.redirectErrorStream(true);
+            Process process = processBuilder.start();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
             }
             // Read the output of the command
             int exitCode = process.waitFor();
@@ -211,10 +226,10 @@ public class Utils {
         log.info("Processing Scenario: {}, TPS: {}, Duration: {}, RampUp: {}", scenarioName, tps, duration, rampUp);
 
         ListedHashTree threadGroup = addThreadGroup(testPlan,scenario);
-        controllerUtils.loopController(threadGroup,1);
-        controllerUtils.randomController(threadGroup);
-        controllerUtils.simpleController(threadGroup);
-        controllerUtils.runTimeController(threadGroup,10L);
+//        controllerUtils.loopController(threadGroup,1);
+//        controllerUtils.randomController(threadGroup);
+//        controllerUtils.simpleController(threadGroup);
+//        controllerUtils.runTimeController(threadGroup,10L);
         JsonNode csvVariables = scenario.get("csv_variable");
         JsonNode controllers = scenario.get("controller");
         JsonNode jsonExtractors = scenario.get("JsonExtractor");
@@ -288,7 +303,7 @@ public class Utils {
                 controllerTree = controllerUtils.randomController(threadGroup);
                 break;
             default:
-                log.warn("Unknown Controller: " + controlName);
+                log.error("Unknown Controller: " + controlName);
                 return;
         }
 
@@ -313,6 +328,16 @@ public class Utils {
                 configUtils.headerManager(samplerTree, item.get("request").get("header"));
             }
             assertionUtils.responseAssertion(apiMethod.equalsIgnoreCase("POST") ? "201" : "200", samplerTree);
+//            assertionUtils.jsonAssertion(samplerTree);
+//            assertionUtils.sizeAssertion(samplerTree);
+//            assertionUtils.durationAssertion(samplerTree);
+//            timerUtils.constantThroughputTimer(samplerTree);
+//            timerUtils.syncTimer(samplerTree);
+//            processorUtils.jdbcPostProcessor(samplerTree);
+//            processorUtils.jdbcPreProcessor(samplerTree);
+//            processorUtils.beanShellPostProcessor(samplerTree);
+//            processorUtils.beanShellPreProcessor(samplerTree);
+              timerUtils.constantTimer(samplerTree);
             addJsonExtractors(apiName, jsonExtractors, apiItems, samplerTree, utils,mapper);
         }
     }
