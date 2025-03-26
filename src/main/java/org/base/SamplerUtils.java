@@ -4,6 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.jmeter.config.Arguments;
 import org.apache.jmeter.protocol.http.control.gui.HttpTestSampleGui;
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy;
+import org.apache.jmeter.sampler.DebugSampler;
+import org.apache.jmeter.sampler.TestAction;
+import org.apache.jmeter.sampler.gui.TestActionGui;
+import org.apache.jmeter.testelement.TestElement;
 import org.apache.jorphan.collections.ListedHashTree;
 
 public class SamplerUtils {
@@ -52,5 +56,22 @@ public class SamplerUtils {
             httpSampler.addNonEncodedArgument("",body,"");
         }
         return threadGroup.add(httpSampler);
+    }
+    public ListedHashTree flowControlActionSampler(ListedHashTree threadGroup){
+        TestAction flowControlAction = new TestAction();
+        flowControlAction.setProperty(TestElement.GUI_CLASS, TestActionGui.class.getName());
+        flowControlAction.setName("Flow Control Action");
+        flowControlAction.setAction(1); //input
+        flowControlAction.setTarget(0);
+        flowControlAction.setDuration("0");
+        return threadGroup.add(flowControlAction);
+    }
+    public ListedHashTree debugSampler(ListedHashTree threadGroup){
+        DebugSampler debugSampler = new DebugSampler();
+        debugSampler.setName("Debug Sampler");
+        debugSampler.setProperty("displayJMeterProperties", true);
+        debugSampler.setProperty("displayJMeterVariables", true);
+        debugSampler.setProperty("displaySystemProperties", true);
+        return threadGroup.add(debugSampler);
     }
 }

@@ -62,4 +62,22 @@ public class ControllerUtils {
         simple.setProperty(TestElement.GUI_CLASS,LogicControllerGui.class.getName());
         return threadGroup.add(simple);
     }
+    public ListedHashTree throughputController(ListedHashTree threadGroup, float percentThroughput){
+        ThroughputController throughputController = new ThroughputController();
+        throughputController.setName("Throughput Controller");
+        throughputController.setProperty(TestElement.TEST_CLASS,ThroughputController.class.getName());
+        throughputController.setProperty(TestElement.GUI_CLASS,ThroughputControllerGui.class.getName());
+        throughputController.setStyle(1);
+        throughputController.setPerThread(false);
+        throughputController.setMaxThroughput(1);
+        throughputController.setPercentThroughput(percentThroughput);
+        return threadGroup.add(throughputController);
+    }
+    public ListedHashTree randomOrderController(ListedHashTree threadGroup){
+        RandomOrderController randomOrderController = new RandomOrderController();
+        randomOrderController.setName("Random Order Controllerr");
+        randomOrderController.setProperty(TestElement.TEST_CLASS,RandomOrderController  .class.getName());
+        randomOrderController.setProperty(TestElement.GUI_CLASS,RandomOrderControllerGui.class.getName());
+        return threadGroup.add(randomOrderController);
+    }
 }
