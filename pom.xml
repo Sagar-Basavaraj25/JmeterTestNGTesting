@@ -32,6 +32,12 @@
             <artifactId>ApacheJMeter_components</artifactId>
             <version>5.6.3</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.jmeter/ApacheJMeter_jdbc -->
+        <dependency>
+            <groupId>org.apache.jmeter</groupId>
+            <artifactId>ApacheJMeter_jdbc</artifactId>
+            <version>5.6.3</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.jmeter/ApacheJMeter_http -->
         <dependency>
             <groupId>org.apache.jmeter</groupId>

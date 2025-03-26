@@ -49,7 +49,7 @@ public class JmeterAutomation {
             SaveService.saveTree(hashTree, fos);
         }
         log.info("JMX File created: {}", jmxFile);
-        utils.runJmxFile(jmxFile);
+        //utils.runJmxFile(jmxFile);
 
     }
 
