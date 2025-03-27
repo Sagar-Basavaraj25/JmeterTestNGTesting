@@ -4,9 +4,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.jmeter.config.Arguments;
 import org.apache.jmeter.protocol.http.control.gui.HttpTestSampleGui;
 import org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy;
+import org.apache.jmeter.protocol.java.sampler.JSR223Sampler;
+import org.apache.jmeter.protocol.jdbc.sampler.JDBCSampler;
 import org.apache.jmeter.sampler.DebugSampler;
 import org.apache.jmeter.sampler.TestAction;
 import org.apache.jmeter.sampler.gui.TestActionGui;
+import org.apache.jmeter.testbeans.gui.TestBeanGUI;
 import org.apache.jmeter.testelement.TestElement;
 import org.apache.jorphan.collections.ListedHashTree;
 
@@ -73,5 +76,33 @@ public class SamplerUtils {
         debugSampler.setProperty("displayJMeterVariables", true);
         debugSampler.setProperty("displaySystemProperties", true);
         return threadGroup.add(debugSampler);
+    }
+    public ListedHashTree JDBCSampler(ListedHashTree threadGroup){
+        JDBCSampler jdbcSampler = new JDBCSampler();
+        jdbcSampler.setProperty(TestElement.GUI_CLASS, TestBeanGUI.class.getName());
+        jdbcSampler.setProperty(TestElement.TEST_CLASS, JDBCSampler.class.getName());
+        jdbcSampler.setDataSource(""); //jdbc connection configuration
+        jdbcSampler.setQueryType(""); //Query Type
+        jdbcSampler.setQuery(""); //needs to be pass query here
+        jdbcSampler.setQueryArguments(""); //Parameter values
+        jdbcSampler.setQueryArgumentsTypes(""); //Parameter types
+        jdbcSampler.setVariableNames(""); //variable names
+        jdbcSampler.setResultVariable(""); //results variables names
+        jdbcSampler.setQueryTimeout("");//query timeout
+        jdbcSampler.setResultSetMaxRows(""); //limit resultSet
+        jdbcSampler.setResultSetHandler(""); //Handle resultSet
+        return threadGroup.add(jdbcSampler);
+    }
+    public ListedHashTree JSR223Sampler(ListedHashTree threadGroup){
+        JSR223Sampler jsr223Sampler = new JSR223Sampler();
+        jsr223Sampler.setProperty(TestElement.GUI_CLASS, TestBeanGUI.class.getName());
+        jsr223Sampler.setProperty(TestElement.TEST_CLASS, JSR223Sampler.class.getName());
+        jsr223Sampler.setCacheKey("true");
+        jsr223Sampler.setFilename(""); //File name path
+        jsr223Sampler.setComment(""); // Comment
+        jsr223Sampler.setParameters(""); // Parameter
+        jsr223Sampler.setScriptLanguage("groovy"); //groovy or any respective languages
+        jsr223Sampler.setScript(""); //Script
+        return threadGroup.add(jsr223Sampler);
     }
 }
