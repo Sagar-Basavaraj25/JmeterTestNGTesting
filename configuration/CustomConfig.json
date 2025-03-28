@@ -1,0 +1,85 @@
+{
+  "_comments":"create this for Scenarios",
+  "payloadFile":"payload/SmarTone_APIs_latest.postman_collection.json",
+  "scenario":[{
+    "name": "MSISDN_operations",
+    "_comments": "normal - for normal thread Group, concurrent - for concurrent threadgroup, ultimate - for Ultimate Thread Group",
+    "tps":10,
+    "thread":{
+      "thread_name": "ultimate",
+      "property": [{
+        "No of vu": 20,
+        "initial_delay": 10,
+        "rampup_time": 10,
+        "duration": 60,
+        "rampdown_time": 10,
+        "step": 2,
+        "loop": null
+      }]
+    },
+    "_comment_step": "If you are using concurrent add 'step': 'your value' next line otherwise it will take default value as 3",
+    "csv_variable": [
+      {
+        "var_name": "MSISIDN",
+        "var_constant":"NUM",
+        "dynamic_type":"Number",
+        "min_len": 9,
+        "max_len": 9,
+        "apis": [{
+          "apiName": "CreateMsisdn",
+          "attribute": "msisdn"
+        }]
+      },
+      {
+        "var_name": "IMEI",
+        "var_constant":"NUM",
+        "dynamic_type":"String",
+        "min_len": 7,
+        "max_len": 10,
+        "apis": [
+          {
+            "apiName": "createSim",
+            "attribute": "imsi"
+          }]
+      }],
+    "controller": [{
+      "_comments": "only-once for only Once Controller, transaction - Transaction Controller, critical-section - Critical Section Controller",
+      "name":"transaction",
+      "apiName":["CreateMsisdn","UpdateSim"],
+      "runTime/loop/throughput": 0
+    }],
+    "thinkTime": {
+      "duration": 1000,
+      "apiName":["CreateMsisdn","UpdateSim"]
+    },
+    "debug": {
+      "apiName":["CreateMsisdn","UpdateSim"]
+    },
+    "processors": [{
+      "processor_name": "jsonExtractor",
+      "proc_variableName": "ID",
+      "path":"",
+      "field_to_check": "",
+      "targets":[{
+        "apiName":"createSim",
+        "target_type":"path",
+        "target_value": ""
+      }]
+    }],
+    "timers": [{
+      "timer_name":"constant",
+      "delay/throughput":"",
+      "throughput_base/groups": "",
+      "apiName":["CreateMsisdn","UpdateSim"]
+    }],
+    "assertions": [{
+      "assert_name": "response",
+      "field_to_test": "",
+      "duration/value": "",
+      "comparison_type": "",
+      "jsonPath": "",
+      "apiName":["CreateMsisdn","UpdateSim"]
+    }],
+    "api_order": ["UpdateMsisdn","createSim","UpdateSim","getPlanDetails"]
+  }]
+}

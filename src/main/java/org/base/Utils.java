@@ -254,7 +254,9 @@ public class Utils {
 
         // Process API Order
         processApiOrder(scenario.get("api_order"), apiMap, threadGroup, utils, mapper,jsonExtractors);
+        samplerUtils.JDBCSampler(threadGroup);
         log.info("Scenario processed successfully" + scenarioName);
+
     }
 
     public void processCsvVariables(JsonNode csvVariables, Map<String,JsonNode> apiMap, ObjectMapper mapper) throws Exception {
