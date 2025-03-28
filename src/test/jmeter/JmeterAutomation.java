@@ -50,7 +50,6 @@ public class JmeterAutomation {
         }
         log.info("JMX File created: {}", jmxFile);
         //utils.runJmxFile(jmxFile);
-
     }
 
 }

@@ -81,16 +81,18 @@ public class SamplerUtils {
         JDBCSampler jdbcSampler = new JDBCSampler();
         jdbcSampler.setProperty(TestElement.GUI_CLASS, TestBeanGUI.class.getName());
         jdbcSampler.setProperty(TestElement.TEST_CLASS, JDBCSampler.class.getName());
-        jdbcSampler.setDataSource(""); //jdbc connection configuration
-        jdbcSampler.setQueryType(""); //Query Type
-        jdbcSampler.setQuery(""); //needs to be pass query here
-        jdbcSampler.setQueryArguments(""); //Parameter values
-        jdbcSampler.setQueryArgumentsTypes(""); //Parameter types
-        jdbcSampler.setVariableNames(""); //variable names
-        jdbcSampler.setResultVariable(""); //results variables names
-        jdbcSampler.setQueryTimeout("");//query timeout
-        jdbcSampler.setResultSetMaxRows(""); //limit resultSet
-        jdbcSampler.setResultSetHandler(""); //Handle resultSet
+        jdbcSampler.setName("JDBC Sampler");
+        jdbcSampler.setProperty("queryType","Select Statement");
+        jdbcSampler.setProperty("query","Select * FROM table");
+        //postProcessor.setQuery("Select * from table");
+        jdbcSampler.setProperty("queryTimeout","10");
+        jdbcSampler.setProperty("dataSource","organisation");
+        jdbcSampler.setProperty("variableNames","ID,NAME");
+        jdbcSampler.setProperty("queryArguments","ABC");
+        jdbcSampler.setProperty("queryArgumentsTypes","DEF");
+        jdbcSampler.setProperty("resultSetHandler","Store as a String");
+        jdbcSampler.setProperty("resultSetMaxRows","20");
+        jdbcSampler.setProperty("resultVariable","Hello");
         return threadGroup.add(jdbcSampler);
     }
     public ListedHashTree JSR223Sampler(ListedHashTree threadGroup){
