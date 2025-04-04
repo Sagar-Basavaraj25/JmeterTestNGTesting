@@ -305,7 +305,7 @@ public class Utils {
                 controllerTree = controllerUtils.randomController(threadGroup);
                 break;
             case "throughput":
-                controllerTree = controllerUtils.throughputController(threadGroup,2.0f);
+                controllerTree = controllerUtils.throughputController(threadGroup,2f);
                 break;
             case "randomOrder":
                 controllerTree = controllerUtils.randomOrderController(threadGroup);
@@ -505,6 +505,12 @@ public class Utils {
             e.printStackTrace();
             System.out.println(e.getMessage());;
         }
+    }
+
+    public int numberUsers(int tps, double responseTime) {
+        double noUsers = Math.ceil((tps * responseTime) );
+        System.out.println(noUsers + "Number of users");
+        return (int) noUsers;
     }
 
 }
