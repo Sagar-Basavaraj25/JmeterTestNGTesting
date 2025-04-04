@@ -15,10 +15,9 @@ import org.apache.jorphan.collections.ListedHashTree;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-
 public class ThreadGroupUtils {
     private static final Logger log = LoggerFactory.getLogger(ThreadGroupUtils.class);
+    Utils utils = new Utils();
     public ListedHashTree threadGroup(ListedHashTree testplan, JsonNode scenario){
         int tps = scenario.get("tps").asInt();
         log.info("TPS value: "+tps);
@@ -34,7 +33,8 @@ public class ThreadGroupUtils {
         threadGroup.setProperty("TestElement.gui_class", ThreadGroupGui.class.getName());
         threadGroup.setName(tGName);
         log.info("Thread Group name : " + tGName);
-        threadGroup.setNumThreads(tps);
+        double responseTime = scenario.get("responseTime").asDouble();
+        threadGroup.setNumThreads(utils.numberUsers(tps,responseTime));
         log.info("Number of the Threads : " + tps);
         threadGroup.setRampUp(rampUp);
         log.info("Ramp Up count : " + rampUp);
@@ -60,6 +60,7 @@ public class ThreadGroupUtils {
         log.info("RampUp value: "+rampUp);
         String tGName = scenario.get("name").asText();
         log.info("ThreadGroup Name: "+tGName);
+        double responseTime = scenario.get("responseTime").asDouble();
         int loopCount = scenario.has("loopCount")?scenario.get("loopCount").asInt():-1;
         int step = scenario.has("step")?scenario.get("loopCount").asInt():3;
         ConcurrencyThreadGroup threadGroup = new ConcurrencyThreadGroup();
@@ -67,7 +68,7 @@ public class ThreadGroupUtils {
         threadGroup.setProperty("TestElement.test_class", ConcurrencyThreadGroup.class.getName());
         threadGroup.setProperty("TestElement.gui_class", ConcurrencyThreadGroupGui.class.getName());
         threadGroup.setProperty("ThreadGroup.on_sample_error", "continue");
-        threadGroup.setProperty("TargetLevel", tps);
+        threadGroup.setProperty("TargetLevel", utils.numberUsers(tps,responseTime));
         threadGroup.setProperty("RampUp", rampUp);
         threadGroup.setProperty("Steps", step);
         threadGroup.setProperty("Hold", duration);

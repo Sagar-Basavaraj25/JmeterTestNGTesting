@@ -5,7 +5,8 @@
     "name": "Scenario1",
     "_comments": "To add different types of thread Group change the test_type to load - for normal thread Group, concurrent_load - for concurrent threadgroup, stress or spike - for Ultimate Thread Group",
     "thread_type":"normal",
-    "tps":10,
+    "tps":100,
+    "responseTime": 0.338,
     "ultimate": [{
       "thread": 10,
       "initial_delay": 10,
