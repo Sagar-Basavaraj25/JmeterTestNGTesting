@@ -12,16 +12,17 @@ import org.apache.jmeter.testelement.property.StringProperty;
 import org.apache.jmeter.threads.ThreadGroup;
 import org.apache.jmeter.threads.gui.ThreadGroupGui;
 import org.apache.jorphan.collections.ListedHashTree;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ThreadGroupUtils {
-    private static final Logger log = LoggerFactory.getLogger(ThreadGroupUtils.class);
+
+    private static final Logger log = LogManager.getLogger(ThreadGroupUtils.class);
     Utils utils = new Utils();
     public ListedHashTree threadGroup(ListedHashTree testplan, JsonNode scenario){
         int tps = scenario.get("tps").asInt();
         log.info("TPS value: "+tps);
-        int duration = scenario.get("duration").asInt();
+        Long duration = scenario.get("duration").asLong();
         log.info("Duration value: "+duration);
         int rampUp = scenario.get("rampUp").asInt();
         log.info("RampUp value: "+rampUp);

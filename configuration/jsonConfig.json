@@ -20,7 +20,7 @@
       "hold_Time": 60,
       "shutdown_time": 10
     }],
-    "duration":30,
+    "duration":180,
     "rampUp":2,
     "_comment_step": "If you are using concurrent add 'step': 'your value' next line otherwise it will take default value as 3",
     "csv_variable": [
