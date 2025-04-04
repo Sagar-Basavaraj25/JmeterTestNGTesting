@@ -5,8 +5,8 @@
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
         <!-- Rolling File Appender -->
-        <RollingFile name="DailyRollingFile" fileName="target/logs/app.log"
-                     filePattern="target/logs/app-%d{yyyy-MM-dd}.log">
+        <RollingFile name="DailyRollingFile" fileName="${sys:user.dir}/target/logs/app.log"
+                     filePattern="${sys:user.dir}/target/logs/app-%d{yyyy-MM-dd}.log">
             <PatternLayout>
                 <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n</Pattern>
             </PatternLayout>

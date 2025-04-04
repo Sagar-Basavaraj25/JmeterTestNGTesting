@@ -14,8 +14,8 @@ import org.apache.jmeter.testelement.TestPlan;
 import org.apache.jmeter.util.JMeterUtils;
 import org.apache.jmeter.visualizers.JSR223Listener;
 import org.apache.jorphan.collections.ListedHashTree;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.time.Duration;
@@ -24,7 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Utils {
-    private static final Logger log = LoggerFactory.getLogger(Utils.class);
+    private static final Logger log = LogManager.getLogger(Utils.class);
     ConfigUtils configUtils = new ConfigUtils();
     ControllerUtils controllerUtils = new ControllerUtils();
     SamplerUtils samplerUtils = new SamplerUtils();
@@ -79,13 +79,14 @@ public class Utils {
             String command = "jmeter -n -t "+filename+" -l "+logs+" -e -o "+report;
 
             ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
-            processBuilder.redirectErrorStream(true);
             Process process = processBuilder.start();
+            processBuilder.redirectErrorStream(true);
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
             }
+            System.out.println("Jmeter Execution Ended");
             // Read the output of the command
             int exitCode = process.waitFor();
             System.out.println("Command exited with code: " + exitCode);
@@ -93,6 +94,16 @@ public class Utils {
         } catch (Exception e) {
             log.error("Error Occured while running the jmx : "+e.getMessage());
             throw new RuntimeException("Error : "+e.getMessage());
+        }
+    }
+    private Process startProcess(String command) throws IOException {
+        return new ProcessBuilder("cmd.exe","/c", command).start();
+    }
+
+    private void stopProcess(Process process, String name) {
+        if (process != null && process.isAlive()) {
+            process.destroy();
+            System.out.println(name + " stopped.");
         }
     }
     public void aggreagateReport(String jtlFileName) {
@@ -103,7 +114,6 @@ public class Utils {
             String command = "JMeterPluginsCMD.bat --generate-csv "+report+" --input-jtl "+jtlFileName+" --plugin-type AggregateReport";
 
             ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
-            processBuilder.redirectErrorStream(true);
             Process process = processBuilder.start();
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
@@ -226,10 +236,6 @@ public class Utils {
         log.info("Processing Scenario: {}, TPS: {}, Duration: {}, RampUp: {}", scenarioName, tps, duration, rampUp);
 
         ListedHashTree threadGroup = addThreadGroup(testPlan,scenario);
-//        controllerUtils.loopController(threadGroup,1);
-//        controllerUtils.randomController(threadGroup);
-//        controllerUtils.simpleController(threadGroup);
-//        controllerUtils.runTimeController(threadGroup,10L);
         JsonNode csvVariables = scenario.get("csv_variable");
         JsonNode controllers = scenario.get("controller");
         JsonNode jsonExtractors = scenario.get("JsonExtractor");
@@ -254,7 +260,6 @@ public class Utils {
 
         // Process API Order
         processApiOrder(scenario.get("api_order"), apiMap, threadGroup, utils, mapper,jsonExtractors);
-        samplerUtils.JDBCSampler(threadGroup);
         log.info("Scenario processed successfully" + scenarioName);
 
     }
@@ -336,16 +341,6 @@ public class Utils {
                 configUtils.headerManager(samplerTree, item.get("request").get("header"));
             }
             assertionUtils.responseAssertion(apiMethod.equalsIgnoreCase("POST") ? "201" : "200", samplerTree);
-//            assertionUtils.jsonAssertion(samplerTree);
-//            assertionUtils.sizeAssertion(samplerTree);
-//            assertionUtils.durationAssertion(samplerTree);
-//            timerUtils.constantThroughputTimer(samplerTree);
-//            timerUtils.syncTimer(samplerTree);
-//            processorUtils.jdbcPostProcessor(samplerTree);
-//            processorUtils.jdbcPreProcessor(samplerTree);
-//            processorUtils.beanShellPostProcessor(samplerTree);
-//            processorUtils.beanShellPreProcessor(samplerTree);
-              timerUtils.constantTimer(samplerTree);
             addJsonExtractors(apiName, jsonExtractors, apiItems, samplerTree, utils,mapper);
         }
     }

@@ -3,6 +3,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.jmeter.save.SaveService;
 import org.apache.jorphan.collections.ListedHashTree;
 import org.base.ConfigUtils;
+import org.base.ListenerUtils;
 import org.base.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ public class JmeterAutomation {
 
     public static void main(String[] args) throws Exception {
         Utils utils = new Utils();
+        ListenerUtils listenerUtils = new ListenerUtils();
         ConfigUtils configUtils = new ConfigUtils();
         utils.initJmeter();
         ObjectMapper mapper = new ObjectMapper();
@@ -41,15 +43,14 @@ public class JmeterAutomation {
             JsonNode payloadRootNode1 = mapper.readTree(new File(payloadFile));
             utils.processScenario(scenario, payloadRootNode1, testPlan, utils, mapper, testName);
         }
-        //utils.consoleLogger(testPlan);
-        utils.addJsr223Listener(testPlan);
+        listenerUtils.backendListener(testPlan);
         // Save Test Plan to JMX File
         String jmxFile = utils.JMXFileCreator(testName);
         try (FileOutputStream fos = new FileOutputStream(jmxFile)) {
             SaveService.saveTree(hashTree, fos);
         }
         log.info("JMX File created: {}", jmxFile);
-        //utils.runJmxFile(jmxFile);
+        utils.runJmxFile(jmxFile);
     }
 
 }
