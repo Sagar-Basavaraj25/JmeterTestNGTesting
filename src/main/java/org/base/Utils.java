@@ -4,21 +4,16 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import kg.apc.jmeter.reporters.ConsoleStatusLogger;
-import kg.apc.jmeter.reporters.ConsoleStatusLoggerGui;
 import org.apache.jmeter.config.Arguments;
 import org.apache.jmeter.control.gui.TestPlanGui;
 import org.apache.jmeter.engine.StandardJMeterEngine;
-import org.apache.jmeter.testbeans.gui.TestBeanGUI;
 import org.apache.jmeter.testelement.TestPlan;
 import org.apache.jmeter.util.JMeterUtils;
-import org.apache.jmeter.visualizers.JSR223Listener;
 import org.apache.jorphan.collections.ListedHashTree;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -31,7 +26,7 @@ public class Utils {
     AssertionUtils assertionUtils = new AssertionUtils();
     ProcessorUtils processorUtils = new ProcessorUtils();
     TimerUtils timerUtils = new TimerUtils();
-    public StandardJMeterEngine initJmeter(){
+    public void initJmeter(){
         String jmeterHome = System.getenv("JMETER_HOME");
         System.out.println(jmeterHome);
         if (jmeterHome == null) {
@@ -40,14 +35,12 @@ public class Utils {
 
         // Initialize JMeter Engine
         StandardJMeterEngine jmeterEngine = new StandardJMeterEngine();
-
         // Initialize JMeter Properties
         JMeterUtils.setJMeterHome(jmeterHome);
         JMeterUtils.loadJMeterProperties(jmeterHome+"/bin/jmeter.properties");
         JMeterUtils.setProperty("jmeter.save.saveservice.autoflush","true");
         JMeterUtils.initLocale();
         log.info("Jmeter is initialised ");
-        return jmeterEngine;
     }
 
     public ListedHashTree testPlan(String testPlanName, ListedHashTree tree){
@@ -90,23 +83,13 @@ public class Utils {
             // Read the output of the command
             int exitCode = process.waitFor();
             System.out.println("Command exited with code: " + exitCode);
-            aggreagateReport(logs);
+            aggregateReport(logs);
         } catch (Exception e) {
             log.error("Error Occured while running the jmx : "+e.getMessage());
             throw new RuntimeException("Error : "+e.getMessage());
         }
     }
-    private Process startProcess(String command) throws IOException {
-        return new ProcessBuilder("cmd.exe","/c", command).start();
-    }
-
-    private void stopProcess(Process process, String name) {
-        if (process != null && process.isAlive()) {
-            process.destroy();
-            System.out.println(name + " stopped.");
-        }
-    }
-    public void aggreagateReport(String jtlFileName) {
+    public void aggregateReport(String jtlFileName) {
         try {
             LocalDateTime today = LocalDateTime.now();
             String dateString = today.format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
@@ -129,83 +112,6 @@ public class Utils {
         }
     }
 
-    public void reportCreation(String filename) {
-        try {
-            LocalDateTime today = LocalDateTime.now();
-            String dateString = today.format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
-            String report = "target/jmeterReports/"+dateString;
-            String command = "jmeter -g "+filename+" -o "+report;
-            //System.out.println("command===>" + command);
-
-            ProcessBuilder processBuilder = new ProcessBuilder();
-            processBuilder.command("cmd.exe", "/c", command);
-            Process process = processBuilder.start();
-            // Read the output of the command
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
-            int exitCode = process.waitFor();
-            System.out.println("Command exited with code: " + exitCode);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());; // Handle exceptions
-        }
-    }
-    public void consoleLogger(ListedHashTree testplan){
-        ConsoleStatusLogger consoleLog = new ConsoleStatusLogger();
-        consoleLog.setProperty("TestElement.gui_class", ConsoleStatusLoggerGui.class.getName());
-        consoleLog.setProperty("TestElement.test_class", ConsoleStatusLogger.class.getName());
-        consoleLog.setName("jp@gc - Console Status Logger");
-        testplan.add(consoleLog);
-    }
-    public void addJsr223Listener(ListedHashTree testplan){
-        JSR223Listener listener = new JSR223Listener();
-        listener.setName("JSR223 Listener");
-        listener.setProperty("TestElement.test_class",JSR223Listener.class.getName());
-        listener.setProperty("TestElement.gui_class", TestBeanGUI.class.getName());
-        listener.setProperty("scriptLanguage", "groovy");
-        listener.setProperty("cacheKey", "true");
-//        String groovyScript = """
-//                // Extract basic details
-//                def samplerName = prev.getSampleLabel()
-//                def threadName = prev.getThreadName()
-//                def responseCode = prev.getResponseCode()
-//                def responseMessage = prev.getResponseMessage()
-//                def responseTime = prev.getTime()
-//                def status = prev.isSuccessful() ? "PASS" : "FAIL"
-//                def requestHeaders = prev.getRequestHeaders()
-//                def responseHeaders = prev.getResponseHeaders()
-//                def responseData = prev.getResponseDataAsString()
-//                def requestData = sampler.getArguments().getArgument(0).getValue()
-//        // Logging data
-//        println " ThreadName: ${threadName}, Sampler: ${samplerName}, Response Time: ${responseTime}ms, Status: ${status}, Message: ${responseMessage}"
-//        """;
-        String groovyScript = """
-                import org.apache.jmeter.samplers.SampleResult
-                
-                // Fetch current sample details
-                SampleResult result = prev
-                if (result != null) {
-                    String samplerName = result.getSampleLabel()
-                    long avgTime = result.getTime()  // Average Response Time
-                    long minTime = result.getStartTime()  // Min Time
-                    long maxTime = result.getEndTime()  // Max Time
-                    long medianTime = result.getTime() // Approximate median (for demo)
-                    long latency = result.getLatency()
-                   \s
-                    // Print dynamic aggregate report in a single line using \r (carriage return)
-                    print "\rSampler: ${samplerName} | Avg: ${avgTime} ms | Median: ${medianTime} ms | Min: ${minTime} | Max: ${maxTime} | Latency: ${latency} ms      "
-                   \s
-                    // Flush the output to ensure it's visible in real-time
-                    System.out.flush()
-                }
-                
-                """;
-        listener.setProperty("script", groovyScript);
-        //println "Request Body: ${requestData}"
-        testplan.add(listener);
-    }
     public static ListedHashTree addThreadGroup(ListedHashTree testplan, JsonNode scenrio){
         ListedHashTree thread;
         ThreadGroupUtils threadGroupUtils = new ThreadGroupUtils();
@@ -240,7 +146,7 @@ public class Utils {
         JsonNode controllers = scenario.get("controller");
         JsonNode jsonExtractors = scenario.get("JsonExtractor");
         JsonNode apiItems = payloadRootNode.get("item");
-        Map<String, JsonNode> apiMap = new HashMap<String,JsonNode>();
+        Map<String, JsonNode> apiMap = new TreeMap<String,JsonNode>();
         for(JsonNode item: apiItems){
             if (item.has("name")) {
                 apiMap.put(item.get("name").asText(), item);
@@ -403,110 +309,10 @@ public class Utils {
             }
         }
     }
-    public void runJmxFile1(String jmxFile){
-        try {
-            LocalDateTime today = LocalDateTime.now();
-            String dateString = today.format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
-            String logs = "target/jmeterLogs/" + dateString + ".jtl";
-            //File jtlFile = new File(logs);
-            //jtlFile.createNewFile();
-            String report = "target/jmeterReports/"+dateString;
-//            File reportDir = new File(report);
-//            reportDir.mkdir();
-            String command = "jmeter -n -t "+jmxFile+" -l "+logs+" -e -o "+report;
-            //System.out.println("command===>" + command);
-
-            ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
-
-            Process process = processBuilder.start();
-
-            // Read JMeter real-time output
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-            // Data structure to store sampler results
-            Map<String, List<Long>> samplerData = new HashMap<>();
-            Map<String, Integer> samplerErrors = new HashMap<>();
-
-            // Read the JTL file in real-time
-            //System.out.println("Hello");
-            File jtlFile = new File(logs);
-            while (!jtlFile.exists()) {
-                Thread.sleep(Duration.ofSeconds(10)); // Wait for JTL file to be created
-            }
-            System.out.println("Jtl file status : "+jtlFile.exists());
-            // Read the JTL file
-            BufferedReader jtlReader = new BufferedReader(new FileReader(jtlFile));
-            String jtlLine;
-            int count=0;
-            int num = 50;
-            System.out.println((jtlLine = jtlReader.readLine()) != null);
-            System.out.println("Sampler Name      | Avg Response Time | Status");
-            System.out.println("-------------------------------------------------");
-            while ((jtlLine = jtlReader.readLine()) != null || process.isAlive()) {
-                //System.out.println(jtlLine);
-                String[] fields = jtlLine.split(",");
-                if (fields.length > 5) {
-                    if(jtlLine.contains("timeStamp")){
-                        //System.out.println(jtlLine);
-                    }else{
-                        String samplerName = fields[2];// Get Sampler Name
-                        long responseTime = Long.parseLong(fields[1]); // Get Response Time
-                        boolean success = fields[7].equalsIgnoreCase("true"); // Check if request passed
-
-                        samplerData.putIfAbsent(samplerName, new ArrayList<>());
-                        samplerData.get(samplerName).add(responseTime);
-
-                        samplerErrors.putIfAbsent(samplerName, 0);
-                        if (!success) {
-                            samplerErrors.put(samplerName, samplerErrors.get(samplerName) + 1);
-                        }
-                        if (count == num){
-                            for (Map.Entry<String, List<Long>> entry : samplerData.entrySet()) {
-                                String samplerName1 = entry.getKey();
-                                List<Long> responseTimes = entry.getValue();
-
-                                long avgResponseTime = responseTimes.stream().mapToLong(Long::longValue).sum() / responseTimes.size();
-                                int errorCount = samplerErrors.get(samplerName1);
-                                String status = (errorCount == 0) ? "Pass" : "Fail";
-
-                                System.out.printf("%-18s | %-18d | %s\n", samplerName, avgResponseTime, status);
-                                num = num + 50;
-                            }}
-                            count++;
-                            System.out.println("Count : "+count+"Num : "+num);
-                        }
-                    }
-
-                }
-            jtlReader.close();
-            System.out.println();
-            // Print custom summary header
-            System.out.println("Sampler Name      | Avg Response Time | Status");
-            System.out.println("-------------------------------------------------");
-            // Print the custom summary report
-            for (Map.Entry<String, List<Long>> entry : samplerData.entrySet()) {
-                String samplerName = entry.getKey();
-                List<Long> responseTimes = entry.getValue();
-
-                long avgResponseTime = responseTimes.stream().mapToLong(Long::longValue).sum() / responseTimes.size();
-                int errorCount = samplerErrors.get(samplerName);
-                String status = (errorCount == 0) ? "Pass" : "Fail";
-
-                System.out.printf("%-18s | %-18d | %s\n", samplerName, avgResponseTime, status);
-            }
-
-            process.waitFor();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());;
-        }
-    }
-
     public int numberUsers(int tps, double responseTime) {
         double noUsers = Math.ceil((tps * responseTime) );
         System.out.println(noUsers + "Number of users");
         return (int) noUsers;
     }
-
 }
 

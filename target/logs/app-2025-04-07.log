@@ -1,0 +1,554 @@
+2025-04-07 09:45:26 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Starting the Influxdb Server
+2025-04-07 09:45:26 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Starting the Grafana Server
+2025-04-07 09:45:26 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-07 09:45:26 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Payload File: payload/jsonPlaceholderCollection.postman_collection.json
+2025-04-07 09:45:26 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test Plan Name: jsonPlaceholderCollection
+2025-04-07 09:45:26 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-07 09:45:26 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test plan is added to the tree
+2025-04-07 09:45:26 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Scenario: Scenario1, TPS: 100, Duration: 180, RampUp: 2
+2025-04-07 09:45:26 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - TPS value: 100
+2025-04-07 09:45:26 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Duration value: 180
+2025-04-07 09:45:26 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - RampUp value: 2
+2025-04-07 09:45:26 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - ThreadGroup Name: Scenario1
+2025-04-07 09:45:26 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group name : Scenario1
+2025-04-07 09:45:26 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Number of the Threads : 100
+2025-04-07 09:45:26 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Ramp Up count : 2
+2025-04-07 09:45:26 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group added to TestPlan : 
+2025-04-07 09:45:26 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Successfully changed the userId value in to ${Name}
+2025-04-07 09:45:26 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Controller: null
+2025-04-07 09:45:26 [TestNG-test-Test Case Execution-1] ERROR org.base.Utils - Unknown Controller: null
+2025-04-07 09:45:26 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-07 09:45:26 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Scenario processed successfullyScenario1
+2025-04-07 09:45:27 [TestNG-test-Test Case Execution-1] INFO  GrafanaDashboard - Grafana dashboard is starting
+2025-04-07 09:45:31 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Influxdb Started Successfully
+2025-04-07 09:45:32 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Started
+2025-04-07 09:48:56 [TestNG-test-Test Case Execution-4] INFO  JmxFileCreation - Jmeter Execution Ended
+2025-04-07 09:48:56 [TestNG-test-Test Case Execution-1] INFO  GrafanaDashboard - Waiting for 5 mins after Jmeter Execution
+2025-04-07 09:49:01 [TestNG-test-Test Case Execution-4] INFO  JmxFileCreation - Command exited with code: 0
+2025-04-07 09:50:56 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Waiting 5 mins after jmeter execution done
+2025-04-07 09:50:56 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Stopping Grafana
+2025-04-07 09:50:57 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Server Stopped successfully
+2025-04-07 09:53:37 [main] INFO  Influxdb - Starting the Influxdb Server
+2025-04-07 09:53:37 [main] INFO  Influxdb - Influxdb Started Successfully
+2025-04-07 10:09:07 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Starting the Influxdb Server
+2025-04-07 10:09:07 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Starting the Grafana Server
+2025-04-07 10:09:07 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Influxdb Started Successfully
+2025-04-07 10:09:07 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Started
+2025-04-07 10:09:07 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-07 10:09:07 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Payload File: payload/jsonPlaceholderCollection.postman_collection.json
+2025-04-07 10:09:07 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test Plan Name: jsonPlaceholderCollection
+2025-04-07 10:09:07 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-07 10:09:07 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test plan is added to the tree
+2025-04-07 10:09:07 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Scenario: Scenario1, TPS: 100, Duration: 180, RampUp: 2
+2025-04-07 10:09:07 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - TPS value: 100
+2025-04-07 10:09:07 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Duration value: 180
+2025-04-07 10:09:07 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - RampUp value: 2
+2025-04-07 10:09:07 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - ThreadGroup Name: Scenario1
+2025-04-07 10:09:07 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group name : Scenario1
+2025-04-07 10:09:07 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Number of the Threads : 100
+2025-04-07 10:09:07 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Ramp Up count : 2
+2025-04-07 10:09:07 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group added to TestPlan : 
+2025-04-07 10:09:07 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Successfully changed the userId value in to ${Name}
+2025-04-07 10:09:07 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Controller: null
+2025-04-07 10:09:07 [TestNG-test-Test Case Execution-1] ERROR org.base.Utils - Unknown Controller: null
+2025-04-07 10:09:07 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-07 10:09:07 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Scenario processed successfullyScenario1
+2025-04-07 10:09:08 [TestNG-test-Test Case Execution-1] INFO  GrafanaDashboard - Grafana dashboard is starting
+2025-04-07 10:12:23 [TestNG-test-Test Case Execution-4] INFO  JmxFileCreation - Jmeter Execution Ended
+2025-04-07 10:12:23 [TestNG-test-Test Case Execution-1] INFO  GrafanaDashboard - Waiting for 5 mins after Jmeter Execution
+2025-04-07 10:12:29 [TestNG-test-Test Case Execution-4] INFO  JmxFileCreation - Command exited with code: 0
+2025-04-07 10:14:24 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Waiting 5 mins after jmeter execution done
+2025-04-07 10:14:24 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Stopping Grafana
+2025-04-07 10:14:25 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Server Stopped successfully
+2025-04-07 10:22:25 [main] INFO  Influxdb - Starting the Influxdb Server
+2025-04-07 10:22:25 [main] INFO  Influxdb - Influxdb Started Successfully
+2025-04-07 10:23:52 [main] INFO  Influxdb - Starting the Influxdb Server
+2025-04-07 10:23:52 [main] INFO  Influxdb - Influxdb Started Successfully
+2025-04-07 10:24:42 [main] INFO  Influxdb - Starting the Influxdb Server
+2025-04-07 10:24:42 [main] INFO  Influxdb - Influxdb Started Successfully
+2025-04-07 10:31:10 [main] INFO  Influxdb - Starting the Influxdb Server
+2025-04-07 10:31:10 [main] INFO  Influxdb - Influxdb Started Successfully
+2025-04-07 10:31:11 [main] INFO  Influxdb - Waiting 5 mins after jmeter execution done
+2025-04-07 10:32:11 [main] INFO  Influxdb - Stopping Influx
+2025-04-07 10:32:11 [main] INFO  Influxdb - Influxd Stopped successfully
+2025-04-07 10:35:32 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Starting the Grafana Server
+2025-04-07 10:35:32 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Starting the Influxdb Server
+2025-04-07 10:35:32 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Influxdb Started Successfully
+2025-04-07 10:35:32 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Started
+2025-04-07 10:35:32 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-07 10:35:32 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Payload File: payload/jsonPlaceholderCollection.postman_collection.json
+2025-04-07 10:35:32 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test Plan Name: jsonPlaceholderCollection
+2025-04-07 10:35:32 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-07 10:35:32 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test plan is added to the tree
+2025-04-07 10:35:33 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Scenario: Scenario1, TPS: 100, Duration: 180, RampUp: 2
+2025-04-07 10:35:33 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - TPS value: 100
+2025-04-07 10:35:33 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Duration value: 180
+2025-04-07 10:35:33 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - RampUp value: 2
+2025-04-07 10:35:33 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - ThreadGroup Name: Scenario1
+2025-04-07 10:35:33 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group name : Scenario1
+2025-04-07 10:35:33 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Number of the Threads : 100
+2025-04-07 10:35:33 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Ramp Up count : 2
+2025-04-07 10:35:33 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group added to TestPlan : 
+2025-04-07 10:35:33 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Successfully changed the userId value in to ${Name}
+2025-04-07 10:35:33 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Controller: null
+2025-04-07 10:35:33 [TestNG-test-Test Case Execution-1] ERROR org.base.Utils - Unknown Controller: null
+2025-04-07 10:35:33 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-07 10:35:33 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Scenario processed successfullyScenario1
+2025-04-07 10:35:33 [TestNG-test-Test Case Execution-1] INFO  GrafanaDashboard - Grafana dashboard is starting
+2025-04-07 10:38:42 [TestNG-test-Test Case Execution-4] INFO  JmxFileCreation - Jmeter Execution Ended
+2025-04-07 10:38:42 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Waiting 5 mins after jmeter execution done
+2025-04-07 10:38:44 [TestNG-test-Test Case Execution-1] INFO  GrafanaDashboard - Waiting for 5 mins after Jmeter Execution
+2025-04-07 10:38:47 [TestNG-test-Test Case Execution-4] INFO  JmxFileCreation - Command exited with code: 0
+2025-04-07 10:39:42 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Stopping Influx
+2025-04-07 10:39:42 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Influxd Stopped successfully
+2025-04-07 10:40:44 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Waiting 5 mins after jmeter execution done
+2025-04-07 10:40:44 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Stopping Grafana
+2025-04-07 10:40:45 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Server Stopped successfully
+2025-04-07 11:00:50 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Starting the Grafana Server
+2025-04-07 11:00:50 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Starting the Influxdb Server
+2025-04-07 11:00:50 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Influxdb Started Successfully
+2025-04-07 11:00:50 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Started
+2025-04-07 11:00:51 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-07 11:00:51 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Payload File: payload/jsonPlaceholderCollection.postman_collection.json
+2025-04-07 11:00:51 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test Plan Name: jsonPlaceholderCollection
+2025-04-07 11:00:51 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-07 11:00:51 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test plan is added to the tree
+2025-04-07 11:00:51 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Scenario: Scenario1, TPS: 100, Duration: 180, RampUp: 2
+2025-04-07 11:00:51 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - TPS value: 100
+2025-04-07 11:00:51 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Duration value: 180
+2025-04-07 11:00:51 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - RampUp value: 2
+2025-04-07 11:00:51 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - ThreadGroup Name: Scenario1
+2025-04-07 11:00:51 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group name : Scenario1
+2025-04-07 11:00:51 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Number of the Threads : 100
+2025-04-07 11:00:51 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Ramp Up count : 2
+2025-04-07 11:00:51 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group added to TestPlan : 
+2025-04-07 11:00:51 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Successfully changed the userId value in to ${Name}
+2025-04-07 11:00:51 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Controller: null
+2025-04-07 11:00:51 [TestNG-test-Test Case Execution-1] ERROR org.base.Utils - Unknown Controller: null
+2025-04-07 11:00:51 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-07 11:00:51 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Scenario processed successfullyScenario1
+2025-04-07 11:00:51 [TestNG-test-Test Case Execution-5] INFO  GrafanaDashboard - Grafana dashboard is starting
+2025-04-07 11:04:00 [TestNG-test-Test Case Execution-4] INFO  JmxFileCreation - Jmeter Execution Ended
+2025-04-07 11:04:00 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Waiting 5 mins after jmeter execution done
+2025-04-07 11:04:02 [TestNG-test-Test Case Execution-5] INFO  GrafanaDashboard - Waiting for 5 mins after Jmeter Execution
+2025-04-07 11:04:04 [TestNG-test-Test Case Execution-4] INFO  JmxFileCreation - Command exited with code: 0
+2025-04-07 11:05:00 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Stopping Influx
+2025-04-07 11:05:00 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Influxd Stopped successfully
+2025-04-07 11:06:02 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Waiting 5 mins after jmeter execution done
+2025-04-07 11:06:02 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Stopping Grafana
+2025-04-07 11:06:02 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Server Stopped successfully
+2025-04-07 11:23:57 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Starting the Grafana Server
+2025-04-07 11:23:57 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Starting the Influxdb Server
+2025-04-07 11:23:57 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Influxdb Started Successfully
+2025-04-07 11:23:57 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Started
+2025-04-07 11:23:57 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-07 11:23:58 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Payload File: payload/jsonPlaceholderCollection.postman_collection.json
+2025-04-07 11:23:58 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test Plan Name: jsonPlaceholderCollection
+2025-04-07 11:23:58 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-07 11:23:58 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test plan is added to the tree
+2025-04-07 11:23:58 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Scenario: Scenario1, TPS: 100, Duration: 180, RampUp: 2
+2025-04-07 11:23:58 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - TPS value: 100
+2025-04-07 11:23:58 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Duration value: 180
+2025-04-07 11:23:58 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - RampUp value: 2
+2025-04-07 11:23:58 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - ThreadGroup Name: Scenario1
+2025-04-07 11:23:58 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group name : Scenario1
+2025-04-07 11:23:58 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Number of the Threads : 100
+2025-04-07 11:23:58 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Ramp Up count : 2
+2025-04-07 11:23:58 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group added to TestPlan : 
+2025-04-07 11:23:58 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Successfully changed the userId value in to ${Name}
+2025-04-07 11:23:58 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Controller: null
+2025-04-07 11:23:58 [TestNG-test-Test Case Execution-1] ERROR org.base.Utils - Unknown Controller: null
+2025-04-07 11:23:58 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-07 11:23:58 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Scenario processed successfullyScenario1
+2025-04-07 11:23:58 [TestNG-test-Test Case Execution-1] INFO  GrafanaDashboard - Grafana dashboard is starting
+2025-04-07 11:24:25 [TestNG-test-Test Case Execution-1] INFO  GrafanaDashboard - Error Occurred : unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=134.0.6998.179)
+Build info: version: '4.30.0', revision: '509c7f17cc*'
+System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.4'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [c15cb28dd75a67b34c8c0b1d9c06018e, get {url=http://localhost:3000/login}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 134.0.6998.179, chrome: {chromedriverVersion: 134.0.6998.165 (fd886e2cb29..., userDataDir: C:\Users\KANNAN~1.PAT\AppDa...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:62673}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:62673/devtoo..., se:cdpVersion: 134.0.6998.179, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: c15cb28dd75a67b34c8c0b1d9c06018e
+2025-04-07 11:27:05 [TestNG-test-Test Case Execution-4] INFO  JmxFileCreation - Jmeter Execution Ended
+2025-04-07 11:27:05 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Waiting 5 mins after jmeter execution done
+2025-04-07 11:27:05 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Waiting 5 mins after jmeter execution done
+2025-04-07 11:27:08 [TestNG-test-Test Case Execution-4] INFO  JmxFileCreation - Command exited with code: 0
+2025-04-07 11:28:05 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Stopping Influx
+2025-04-07 11:28:05 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Stopping Grafana
+2025-04-07 11:28:05 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Influxd Stopped successfully
+2025-04-07 11:28:05 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Server Stopped successfully
+2025-04-07 11:28:29 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Starting the Influxdb Server
+2025-04-07 11:28:29 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Starting the Grafana Server
+2025-04-07 11:28:29 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Influxdb Started Successfully
+2025-04-07 11:28:29 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Started
+2025-04-07 11:28:30 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-07 11:28:30 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Payload File: payload/jsonPlaceholderCollection.postman_collection.json
+2025-04-07 11:28:30 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test Plan Name: jsonPlaceholderCollection
+2025-04-07 11:28:30 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-07 11:28:30 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test plan is added to the tree
+2025-04-07 11:28:30 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Scenario: Scenario1, TPS: 100, Duration: 180, RampUp: 2
+2025-04-07 11:28:30 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - TPS value: 100
+2025-04-07 11:28:30 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Duration value: 180
+2025-04-07 11:28:30 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - RampUp value: 2
+2025-04-07 11:28:30 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - ThreadGroup Name: Scenario1
+2025-04-07 11:28:30 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group name : Scenario1
+2025-04-07 11:28:30 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Number of the Threads : 100
+2025-04-07 11:28:30 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Ramp Up count : 2
+2025-04-07 11:28:30 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group added to TestPlan : 
+2025-04-07 11:28:30 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Successfully changed the userId value in to ${Name}
+2025-04-07 11:28:30 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Controller: null
+2025-04-07 11:28:30 [TestNG-test-Test Case Execution-1] ERROR org.base.Utils - Unknown Controller: null
+2025-04-07 11:28:30 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-07 11:28:30 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Scenario processed successfullyScenario1
+2025-04-07 11:28:30 [TestNG-test-Test Case Execution-1] INFO  GrafanaDashboard - Grafana dashboard is starting in 20 sec
+2025-04-07 11:28:57 [TestNG-test-Test Case Execution-1] INFO  GrafanaDashboard - Error Occurred : unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=134.0.6998.179)
+Build info: version: '4.30.0', revision: '509c7f17cc*'
+System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.4'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [c206013ee111295e61b77ecb5a493a29, get {url=http://localhost:3000/login}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 134.0.6998.179, chrome: {chromedriverVersion: 134.0.6998.165 (fd886e2cb29..., userDataDir: C:\Users\KANNAN~1.PAT\AppDa...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:62910}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:62910/devtoo..., se:cdpVersion: 134.0.6998.179, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: c206013ee111295e61b77ecb5a493a29
+2025-04-07 11:31:37 [TestNG-test-Test Case Execution-4] INFO  JmxFileCreation - Jmeter Execution Ended
+2025-04-07 11:31:37 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Waiting 5 mins after jmeter execution done
+2025-04-07 11:31:37 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Waiting 5 mins after jmeter execution done
+2025-04-07 11:31:40 [TestNG-test-Test Case Execution-4] INFO  JmxFileCreation - Command exited with code: 0
+2025-04-07 11:32:37 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Stopping Influx
+2025-04-07 11:32:37 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Stopping Grafana
+2025-04-07 11:32:37 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Influxd Stopped successfully
+2025-04-07 11:32:37 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Server Stopped successfully
+2025-04-07 11:33:37 [main] INFO  GrafanaServer - Starting the Grafana Server
+2025-04-07 11:33:37 [main] INFO  GrafanaServer - Grafana Started
+2025-04-07 11:36:49 [main] INFO  GrafanaServer - Starting the Grafana Server
+2025-04-07 11:36:49 [main] INFO  GrafanaServer - Grafana Started
+2025-04-07 11:39:39 [main] INFO  GrafanaServer - Starting the Grafana Server
+2025-04-07 11:39:39 [main] INFO  GrafanaServer - Grafana Started
+2025-04-07 11:40:42 [main] INFO  GrafanaServer - Waiting 5 mins after jmeter execution done
+2025-04-07 11:40:42 [main] INFO  GrafanaServer - Stopping Grafana
+2025-04-07 11:40:43 [main] INFO  GrafanaServer - Grafana Server Stopped successfully
+2025-04-07 11:40:56 [main] INFO  GrafanaServer - Starting the Grafana Server
+2025-04-07 11:40:56 [main] INFO  GrafanaServer - Grafana Started
+2025-04-07 11:43:54 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Starting the Influxdb Server
+2025-04-07 11:43:54 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Starting the Grafana Server
+2025-04-07 11:43:54 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Influxdb Started Successfully
+2025-04-07 11:43:54 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Started
+2025-04-07 11:43:54 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-07 11:43:54 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Payload File: payload/jsonPlaceholderCollection.postman_collection.json
+2025-04-07 11:43:54 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test Plan Name: jsonPlaceholderCollection
+2025-04-07 11:43:54 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-07 11:43:54 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test plan is added to the tree
+2025-04-07 11:43:54 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Scenario: Scenario1, TPS: 100, Duration: 180, RampUp: 2
+2025-04-07 11:43:54 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - TPS value: 100
+2025-04-07 11:43:54 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Duration value: 180
+2025-04-07 11:43:54 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - RampUp value: 2
+2025-04-07 11:43:54 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - ThreadGroup Name: Scenario1
+2025-04-07 11:43:54 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group name : Scenario1
+2025-04-07 11:43:54 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Number of the Threads : 100
+2025-04-07 11:43:54 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Ramp Up count : 2
+2025-04-07 11:43:54 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group added to TestPlan : 
+2025-04-07 11:43:54 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Successfully changed the userId value in to ${Name}
+2025-04-07 11:43:54 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Controller: null
+2025-04-07 11:43:54 [TestNG-test-Test Case Execution-1] ERROR org.base.Utils - Unknown Controller: null
+2025-04-07 11:43:54 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-07 11:43:54 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Scenario processed successfullyScenario1
+2025-04-07 11:43:54 [TestNG-test-Test Case Execution-1] INFO  GrafanaDashboard - Grafana dashboard is starting in 20 seconds
+2025-04-07 11:47:02 [TestNG-test-Test Case Execution-4] INFO  JmxFileCreation - Jmeter Execution Ended
+2025-04-07 11:47:02 [TestNG-test-Test Case Execution-1] INFO  GrafanaDashboard - Waiting for 5 mins after Jmeter Execution
+2025-04-07 11:47:02 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Waiting 5 mins after jmeter execution done
+2025-04-07 11:47:02 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Waiting 5 mins after jmeter execution done
+2025-04-07 11:47:05 [TestNG-test-Test Case Execution-4] INFO  JmxFileCreation - Command exited with code: 0
+2025-04-07 11:48:02 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Stopping Grafana
+2025-04-07 11:48:02 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Stopping Influx
+2025-04-07 11:48:02 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Influxd Stopped successfully
+2025-04-07 11:48:02 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Server Stopped successfully
+2025-04-07 11:49:02 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Starting the Influxdb Server
+2025-04-07 11:49:02 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Starting the Grafana Server
+2025-04-07 11:49:02 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Influxdb Started Successfully
+2025-04-07 11:49:02 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Started
+2025-04-07 11:49:02 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-07 11:49:02 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Payload File: payload/jsonPlaceholderCollection.postman_collection.json
+2025-04-07 11:49:02 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test Plan Name: jsonPlaceholderCollection
+2025-04-07 11:49:02 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-07 11:49:02 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test plan is added to the tree
+2025-04-07 11:49:02 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Scenario: Scenario1, TPS: 100, Duration: 180, RampUp: 2
+2025-04-07 11:49:02 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - TPS value: 100
+2025-04-07 11:49:02 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Duration value: 180
+2025-04-07 11:49:02 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - RampUp value: 2
+2025-04-07 11:49:02 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - ThreadGroup Name: Scenario1
+2025-04-07 11:49:02 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group name : Scenario1
+2025-04-07 11:49:02 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Number of the Threads : 100
+2025-04-07 11:49:02 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Ramp Up count : 2
+2025-04-07 11:49:02 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group added to TestPlan : 
+2025-04-07 11:49:02 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Successfully changed the userId value in to ${Name}
+2025-04-07 11:49:02 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Controller: null
+2025-04-07 11:49:02 [TestNG-test-Test Case Execution-1] ERROR org.base.Utils - Unknown Controller: null
+2025-04-07 11:49:02 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-07 11:49:02 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Scenario processed successfullyScenario1
+2025-04-07 11:49:03 [TestNG-test-Test Case Execution-1] INFO  GrafanaDashboard - Grafana dashboard is starting in 20 seconds
+2025-04-07 11:49:29 [TestNG-test-Test Case Execution-1] INFO  GrafanaDashboard - Error Occurred : unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=134.0.6998.179)
+Build info: version: '4.30.0', revision: '509c7f17cc*'
+System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.4'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [03e7cbb272e226479bf49ee0b374f78e, get {url=http://localhost:3000/login}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 134.0.6998.179, chrome: {chromedriverVersion: 134.0.6998.165 (fd886e2cb29..., userDataDir: C:\Users\KANNAN~1.PAT\AppDa...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:63782}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:63782/devtoo..., se:cdpVersion: 134.0.6998.179, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 03e7cbb272e226479bf49ee0b374f78e
+2025-04-07 11:53:06 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Starting the Influxdb Server
+2025-04-07 11:53:06 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Starting the Grafana Server
+2025-04-07 11:53:06 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Influxdb Started Successfully
+2025-04-07 11:53:06 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Started
+2025-04-07 11:53:06 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-07 11:53:06 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Payload File: payload/jsonPlaceholderCollection.postman_collection.json
+2025-04-07 11:53:06 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test Plan Name: jsonPlaceholderCollection
+2025-04-07 11:53:06 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-07 11:53:06 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test plan is added to the tree
+2025-04-07 11:53:06 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Scenario: Scenario1, TPS: 100, Duration: 180, RampUp: 2
+2025-04-07 11:53:06 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - TPS value: 100
+2025-04-07 11:53:06 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Duration value: 180
+2025-04-07 11:53:06 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - RampUp value: 2
+2025-04-07 11:53:06 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - ThreadGroup Name: Scenario1
+2025-04-07 11:53:06 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group name : Scenario1
+2025-04-07 11:53:06 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Number of the Threads : 100
+2025-04-07 11:53:06 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Ramp Up count : 2
+2025-04-07 11:53:06 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group added to TestPlan : 
+2025-04-07 11:53:06 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Successfully changed the userId value in to ${Name}
+2025-04-07 11:53:06 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Controller: null
+2025-04-07 11:53:06 [TestNG-test-Test Case Execution-1] ERROR org.base.Utils - Unknown Controller: null
+2025-04-07 11:53:06 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-07 11:53:06 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Scenario processed successfullyScenario1
+2025-04-07 11:53:07 [TestNG-test-Test Case Execution-1] INFO  GrafanaDashboard - Grafana dashboard is starting in 20 seconds
+2025-04-07 11:53:33 [TestNG-test-Test Case Execution-1] INFO  GrafanaDashboard - Error Occurred : unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=134.0.6998.179)
+Build info: version: '4.30.0', revision: '509c7f17cc*'
+System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.4'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [c7687f399f6c34e432940f2c437e8e8b, get {url=http://localhost:3000/login}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 134.0.6998.179, chrome: {chromedriverVersion: 134.0.6998.165 (fd886e2cb29..., userDataDir: C:\Users\KANNAN~1.PAT\AppDa...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:64000}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:64000/devtoo..., se:cdpVersion: 134.0.6998.179, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: c7687f399f6c34e432940f2c437e8e8b
+2025-04-07 12:01:28 [main] INFO  GrafanaServer - Starting the Grafana Server
+2025-04-07 12:01:28 [main] INFO  GrafanaServer - Grafana Started
+2025-04-07 12:01:28 [main] INFO  GrafanaServer - 1
+2025-04-07 12:01:58 [main] INFO  GrafanaServer - Waiting 5 mins after jmeter execution done
+2025-04-07 12:02:58 [main] INFO  GrafanaServer - Stopping Grafana
+2025-04-07 12:02:58 [main] INFO  GrafanaServer - Grafana Server Stopped successfully
+2025-04-07 12:04:28 [main] INFO  GrafanaServer - Starting the Grafana Server
+2025-04-07 12:04:28 [main] INFO  GrafanaServer - Grafana Started
+2025-04-07 12:04:28 [main] INFO  GrafanaServer - 1
+2025-04-07 12:04:58 [main] INFO  GrafanaServer - Waiting 5 mins after jmeter execution done
+2025-04-07 12:05:58 [main] INFO  GrafanaServer - Stopping Grafana
+2025-04-07 12:05:58 [main] INFO  GrafanaServer - Grafana Server Stopped successfully
+2025-04-07 12:08:50 [main] INFO  GrafanaServer - Starting the Grafana Server
+2025-04-07 12:08:50 [main] INFO  GrafanaServer - Grafana Started
+2025-04-07 12:08:50 [main] INFO  GrafanaServer - 1
+2025-04-07 12:09:20 [main] INFO  GrafanaServer - Waiting 5 mins after jmeter execution done
+2025-04-07 12:10:20 [main] INFO  GrafanaServer - Stopping Grafana
+2025-04-07 12:10:20 [main] INFO  GrafanaServer - Grafana Server Stopped successfully
+2025-04-07 12:12:58 [main] INFO  GrafanaServer - Starting the Grafana Server
+2025-04-07 12:12:58 [main] INFO  GrafanaServer - Grafana Started
+2025-04-07 12:21:03 [main] INFO  GrafanaServer - Starting the Grafana Server
+2025-04-07 12:21:03 [main] INFO  GrafanaServer - Grafana Started
+2025-04-07 12:37:13 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Starting the Influxdb Server
+2025-04-07 12:37:13 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Starting the Grafana Server
+2025-04-07 12:37:13 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Influxdb Started Successfully
+2025-04-07 12:37:13 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Started
+2025-04-07 12:37:14 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-07 12:37:14 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Payload File: payload/jsonPlaceholderCollection.postman_collection.json
+2025-04-07 12:37:14 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test Plan Name: jsonPlaceholderCollection
+2025-04-07 12:37:14 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-07 12:37:14 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test plan is added to the tree
+2025-04-07 12:37:14 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Scenario: Scenario1, TPS: 100, Duration: 180, RampUp: 2
+2025-04-07 12:37:14 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - TPS value: 100
+2025-04-07 12:37:14 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Duration value: 180
+2025-04-07 12:37:14 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - RampUp value: 2
+2025-04-07 12:37:14 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - ThreadGroup Name: Scenario1
+2025-04-07 12:37:14 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group name : Scenario1
+2025-04-07 12:37:14 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Number of the Threads : 100
+2025-04-07 12:37:14 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Ramp Up count : 2
+2025-04-07 12:37:14 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group added to TestPlan : 
+2025-04-07 12:37:14 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Successfully changed the userId value in to ${Name}
+2025-04-07 12:37:14 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Controller: null
+2025-04-07 12:37:14 [TestNG-test-Test Case Execution-1] ERROR org.base.Utils - Unknown Controller: null
+2025-04-07 12:37:14 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-07 12:37:14 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Scenario processed successfullyScenario1
+2025-04-07 12:37:14 [TestNG-test-Test Case Execution-5] INFO  GrafanaDashboard - Grafana dashboard is starting in 20 seconds
+2025-04-07 12:40:24 [TestNG-test-Test Case Execution-4] INFO  JmxFileCreation - Jmeter Execution Ended
+2025-04-07 12:40:24 [TestNG-test-Test Case Execution-5] INFO  GrafanaDashboard - Waiting for 5 mins after Jmeter Execution
+2025-04-07 12:40:24 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Waiting 5 mins after jmeter execution done
+2025-04-07 12:40:30 [TestNG-test-Test Case Execution-4] INFO  JmxFileCreation - Command exited with code: 0
+2025-04-07 12:41:24 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Stopping Influx
+2025-04-07 12:41:24 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Waiting 5 mins after jmeter execution done
+2025-04-07 12:41:24 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Stopping Grafana
+2025-04-07 12:41:24 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Influxd Stopped successfully
+2025-04-07 12:41:25 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Server Stopped successfully
+2025-04-07 12:46:00 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Starting the Grafana Server
+2025-04-07 12:46:00 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Starting the Influxdb Server
+2025-04-07 12:46:00 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Influxdb Started Successfully
+2025-04-07 12:46:00 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Started
+2025-04-07 12:46:00 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-07 12:46:00 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Payload File: payload/jsonPlaceholderCollection.postman_collection.json
+2025-04-07 12:46:00 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test Plan Name: jsonPlaceholderCollection
+2025-04-07 12:46:00 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-07 12:46:00 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test plan is added to the tree
+2025-04-07 12:46:00 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Scenario: Scenario1, TPS: 100, Duration: 180, RampUp: 2
+2025-04-07 12:46:00 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - TPS value: 100
+2025-04-07 12:46:00 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Duration value: 180
+2025-04-07 12:46:00 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - RampUp value: 2
+2025-04-07 12:46:00 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - ThreadGroup Name: Scenario1
+2025-04-07 12:46:00 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group name : Scenario1
+2025-04-07 12:46:00 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Number of the Threads : 100
+2025-04-07 12:46:00 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Ramp Up count : 2
+2025-04-07 12:46:00 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group added to TestPlan : 
+2025-04-07 12:46:00 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Successfully changed the userId value in to ${Name}
+2025-04-07 12:46:00 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Controller: null
+2025-04-07 12:46:00 [TestNG-test-Test Case Execution-1] ERROR org.base.Utils - Unknown Controller: null
+2025-04-07 12:46:00 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-07 12:46:00 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Scenario processed successfullyScenario1
+2025-04-07 12:46:01 [TestNG-test-Test Case Execution-5] INFO  GrafanaDashboard - Grafana dashboard is starting in 20 seconds
+2025-04-07 12:46:28 [TestNG-test-Test Case Execution-5] INFO  GrafanaDashboard - Error Occurred : unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=134.0.6998.179)
+Build info: version: '4.30.0', revision: '509c7f17cc*'
+System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.4'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [44910070f1a2d9aebcab39e4240248ac, get {url=http://localhost:3000/login}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 134.0.6998.179, chrome: {chromedriverVersion: 134.0.6998.165 (fd886e2cb29..., userDataDir: C:\Users\KANNAN~1.PAT\AppDa...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:65490}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:65490/devtoo..., se:cdpVersion: 134.0.6998.179, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 44910070f1a2d9aebcab39e4240248ac
+2025-04-07 12:49:12 [TestNG-test-Test Case Execution-4] INFO  JmxFileCreation - Jmeter Execution Ended
+2025-04-07 12:49:12 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Waiting 5 mins after jmeter execution done
+2025-04-07 12:50:29 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Starting the Influxdb Server
+2025-04-07 12:50:29 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Starting the Grafana Server
+2025-04-07 12:50:29 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Influxdb Started Successfully
+2025-04-07 12:50:29 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Started
+2025-04-07 12:50:30 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-07 12:50:30 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Payload File: payload/jsonPlaceholderCollection.postman_collection.json
+2025-04-07 12:50:30 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test Plan Name: jsonPlaceholderCollection
+2025-04-07 12:50:30 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-07 12:50:30 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test plan is added to the tree
+2025-04-07 12:50:30 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Scenario: Scenario1, TPS: 100, Duration: 180, RampUp: 2
+2025-04-07 12:50:30 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - TPS value: 100
+2025-04-07 12:50:30 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Duration value: 180
+2025-04-07 12:50:30 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - RampUp value: 2
+2025-04-07 12:50:30 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - ThreadGroup Name: Scenario1
+2025-04-07 12:50:30 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group name : Scenario1
+2025-04-07 12:50:30 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Number of the Threads : 100
+2025-04-07 12:50:30 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Ramp Up count : 2
+2025-04-07 12:50:30 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group added to TestPlan : 
+2025-04-07 12:50:30 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Successfully changed the userId value in to ${Name}
+2025-04-07 12:50:30 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Controller: null
+2025-04-07 12:50:30 [TestNG-test-Test Case Execution-1] ERROR org.base.Utils - Unknown Controller: null
+2025-04-07 12:50:31 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-07 12:50:31 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Scenario processed successfullyScenario1
+2025-04-07 12:50:32 [TestNG-test-Test Case Execution-5] INFO  GrafanaDashboard - Grafana dashboard is starting in 20 seconds
+2025-04-07 12:51:02 [TestNG-test-Test Case Execution-5] INFO  GrafanaDashboard - Error Occurred : unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=134.0.6998.179)
+Build info: version: '4.30.0', revision: '509c7f17cc*'
+System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.4'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [98e5fd42df21a8e58eb5d8e32c99e54b, get {url=http://localhost:3000/login}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 134.0.6998.179, chrome: {chromedriverVersion: 134.0.6998.165 (fd886e2cb29..., userDataDir: C:\Users\KANNAN~1.PAT\AppDa...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:49332}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:49332/devtoo..., se:cdpVersion: 134.0.6998.179, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 98e5fd42df21a8e58eb5d8e32c99e54b
+2025-04-07 13:02:59 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Starting the Influxdb Server
+2025-04-07 13:02:59 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Starting the Grafana Server
+2025-04-07 13:02:59 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Influxdb Started Successfully
+2025-04-07 13:02:59 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Started
+2025-04-07 13:02:59 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-07 13:03:00 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Payload File: payload/jsonPlaceholderCollection.postman_collection.json
+2025-04-07 13:03:00 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test Plan Name: jsonPlaceholderCollection
+2025-04-07 13:03:00 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-07 13:03:00 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test plan is added to the tree
+2025-04-07 13:03:00 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Scenario: Scenario1, TPS: 100, Duration: 180, RampUp: 2
+2025-04-07 13:03:00 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - TPS value: 100
+2025-04-07 13:03:00 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Duration value: 180
+2025-04-07 13:03:00 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - RampUp value: 2
+2025-04-07 13:03:00 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - ThreadGroup Name: Scenario1
+2025-04-07 13:03:00 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group name : Scenario1
+2025-04-07 13:03:00 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Number of the Threads : 100
+2025-04-07 13:03:00 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Ramp Up count : 2
+2025-04-07 13:03:00 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group added to TestPlan : 
+2025-04-07 13:03:00 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Successfully changed the userId value in to ${Name}
+2025-04-07 13:03:00 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Controller: null
+2025-04-07 13:03:00 [TestNG-test-Test Case Execution-1] ERROR org.base.Utils - Unknown Controller: null
+2025-04-07 13:03:00 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-07 13:03:00 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Scenario processed successfullyScenario1
+2025-04-07 13:03:01 [TestNG-test-Test Case Execution-5] INFO  GrafanaDashboard - Grafana dashboard is starting in 20 seconds
+2025-04-07 13:03:37 [TestNG-test-Test Case Execution-5] INFO  GrafanaDashboard - Error Occurred : unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=134.0.6998.179)
+Build info: version: '4.30.0', revision: '509c7f17cc*'
+System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '21.0.4'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [5219f9b81d01c70484ac07ec6a33559a, get {url=http://localhost:3000/login}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 134.0.6998.179, chrome: {chromedriverVersion: 134.0.6998.165 (fd886e2cb29..., userDataDir: C:\Users\KANNAN~1.PAT\AppDa...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:60416}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:60416/devtoo..., se:cdpVersion: 134.0.6998.179, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 5219f9b81d01c70484ac07ec6a33559a
+2025-04-07 13:06:31 [TestNG-test-Test Case Execution-4] INFO  JmxFileCreation - Jmeter Execution Ended
+2025-04-07 13:06:31 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Waiting 5 mins after jmeter execution done
+2025-04-07 13:06:31 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Waiting 5 mins after jmeter execution done
+2025-04-07 13:06:34 [TestNG-test-Test Case Execution-4] INFO  JmxFileCreation - Command exited with code: 0
+2025-04-07 13:07:31 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Stopping Influx
+2025-04-07 13:07:31 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Stopping Grafana
+2025-04-07 13:07:31 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Influxd Stopped successfully
+2025-04-07 13:07:31 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Server Stopped successfully
+2025-04-07 13:09:55 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Starting the Grafana Server
+2025-04-07 13:09:55 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Starting the Influxdb Server
+2025-04-07 13:09:55 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Influxdb Started Successfully
+2025-04-07 13:09:55 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Started
+2025-04-07 13:09:56 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-07 13:09:56 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Payload File: payload/jsonPlaceholderCollection.postman_collection.json
+2025-04-07 13:09:56 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test Plan Name: jsonPlaceholderCollection
+2025-04-07 13:09:56 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-07 13:09:56 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test plan is added to the tree
+2025-04-07 13:09:56 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Scenario: Scenario1, TPS: 100, Duration: 180, RampUp: 2
+2025-04-07 13:09:56 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - TPS value: 100
+2025-04-07 13:09:56 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Duration value: 180
+2025-04-07 13:09:56 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - RampUp value: 2
+2025-04-07 13:09:56 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - ThreadGroup Name: Scenario1
+2025-04-07 13:09:56 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group name : Scenario1
+2025-04-07 13:09:56 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Number of the Threads : 100
+2025-04-07 13:09:56 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Ramp Up count : 2
+2025-04-07 13:09:56 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group added to TestPlan : 
+2025-04-07 13:09:56 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Successfully changed the userId value in to ${Name}
+2025-04-07 13:09:56 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Controller: null
+2025-04-07 13:09:56 [TestNG-test-Test Case Execution-1] ERROR org.base.Utils - Unknown Controller: null
+2025-04-07 13:09:56 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-07 13:09:56 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Scenario processed successfullyScenario1
+2025-04-07 13:09:56 [TestNG-test-Test Case Execution-5] INFO  GrafanaDashboard - Grafana dashboard is starting in 20 seconds
+2025-04-07 13:13:04 [TestNG-test-Test Case Execution-4] INFO  JmxFileCreation - Jmeter Execution Ended
+2025-04-07 13:13:04 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Waiting 5 mins after jmeter execution done
+2025-04-07 13:13:04 [TestNG-test-Test Case Execution-5] INFO  GrafanaDashboard - Waiting for 5 mins after Jmeter Execution
+2025-04-07 13:13:04 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Waiting 5 mins after jmeter execution done
+2025-04-07 13:13:07 [TestNG-test-Test Case Execution-4] INFO  JmxFileCreation - Command exited with code: 0
+2025-04-07 13:14:04 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Stopping Grafana
+2025-04-07 13:14:04 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Stopping Influx
+2025-04-07 13:14:04 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Influxd Stopped successfully
+2025-04-07 13:14:04 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Server Stopped successfully
+2025-04-07 13:55:51 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Starting the Grafana Server
+2025-04-07 13:55:51 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Starting the Influxdb Server
+2025-04-07 13:55:51 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Influxdb Started Successfully
+2025-04-07 13:55:51 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Started
+2025-04-07 13:55:51 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-07 13:55:51 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Payload File: payload/jsonPlaceholderCollection.postman_collection.json
+2025-04-07 13:55:51 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test Plan Name: jsonPlaceholderCollection
+2025-04-07 13:55:51 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-07 13:55:51 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test plan is added to the tree
+2025-04-07 13:55:51 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Scenario: Scenario1, TPS: 100, Duration: 180, RampUp: 2
+2025-04-07 13:55:51 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - TPS value: 100
+2025-04-07 13:55:51 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Duration value: 180
+2025-04-07 13:55:51 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - RampUp value: 2
+2025-04-07 13:55:51 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - ThreadGroup Name: Scenario1
+2025-04-07 13:55:51 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group name : Scenario1
+2025-04-07 13:55:51 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Number of the Threads : 100
+2025-04-07 13:55:51 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Ramp Up count : 2
+2025-04-07 13:55:51 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group added to TestPlan : 
+2025-04-07 13:55:51 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Successfully changed the userId value in to ${Name}
+2025-04-07 13:55:51 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Controller: null
+2025-04-07 13:55:51 [TestNG-test-Test Case Execution-1] ERROR org.base.Utils - Unknown Controller: null
+2025-04-07 13:55:51 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-07 13:55:51 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Scenario processed successfullyScenario1
+2025-04-07 13:55:52 [TestNG-test-Test Case Execution-5] INFO  GrafanaDashboard - Grafana dashboard is starting in 20 seconds
+2025-04-07 13:58:59 [TestNG-test-Test Case Execution-4] INFO  JmxFileCreation - Jmeter Execution Ended
+2025-04-07 13:58:59 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Waiting 5 mins after jmeter execution done
+2025-04-07 13:58:59 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Waiting 5 mins after jmeter execution done
+2025-04-07 13:58:59 [TestNG-test-Test Case Execution-5] INFO  GrafanaDashboard - Waiting for 5 mins after Jmeter Execution
+2025-04-07 13:59:02 [TestNG-test-Test Case Execution-4] INFO  JmxFileCreation - Command exited with code: 0
+2025-04-07 13:59:59 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Stopping Grafana
+2025-04-07 13:59:59 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Stopping Influx
+2025-04-07 13:59:59 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Influxd Stopped successfully
+2025-04-07 13:59:59 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Server Stopped successfully

@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 public class Influxdb {
 
@@ -14,20 +15,22 @@ public class Influxdb {
     public void influxProcess(){
         try{
             log.info("Starting the Influxdb Server");
-            ProcessBuilder processBuilder = new ProcessBuilder("influxd.exe");
+            ProcessBuilder processBuilder = new ProcessBuilder("influxd");
             processBuilder.redirectErrorStream(true);
             Process process = processBuilder.start();
             log.info("Influxdb Started Successfully");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            while (!SharedStatus.jmxExecutionCompleted.get()) {
-                try{
-                    String line = reader.readLine();
-                    if(line != null){
-                        System.out.println("Influxd : "+ line);
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                while (!SharedStatus.jmxCompletedLatch.await(1, TimeUnit.SECONDS)) {
+                    while (reader.ready()) {
+                        String line = reader.readLine();
+                        if (line != null && !line.isBlank() && line.contains("Listening on HTTP")) {
+                            System.out.println("Influxd: " + line);
+                        }
                     }
-                } catch (Exception e) {
-                    log.info("Error reading output of Grafana : {}", e.getMessage());
                 }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
             log.info("Waiting 5 mins after jmeter execution done");
             Thread.sleep(Duration.ofMinutes(1));

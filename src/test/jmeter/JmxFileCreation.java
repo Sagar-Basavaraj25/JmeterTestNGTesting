@@ -82,11 +82,10 @@ public class JmxFileCreation {
                 System.out.println(line);
             }
             log.info("Jmeter Execution Ended");
-            SharedStatus.jmxExecutionCompleted.set(true);
-            System.out.println(SharedStatus.jmxExecutionCompleted.get());
+            SharedStatus.jmxCompletedLatch.countDown();
             // Read the output of the command
             int exitCode = process.waitFor();
-            utils.aggreagateReport(logs);
+            utils.aggregateReport(logs);
             log.info("Command exited with code: " + exitCode);
         } catch (Exception e) {
             log.error("Error Occured while running the jmx : "+e.getMessage());
