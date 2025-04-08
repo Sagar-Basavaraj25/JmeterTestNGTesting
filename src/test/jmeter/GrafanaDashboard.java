@@ -13,7 +13,7 @@ public class GrafanaDashboard {
     @Test(dependsOnGroups = {"jmx"})
     public void dashboard(){
         try{
-            log.info("Grafana dashboard is starting");
+            log.info("Grafana dashboard is starting in 20 seconds");
             WebDriver driver = new ChromeDriver();
             Thread.sleep(Duration.ofSeconds(20));
             driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
@@ -24,9 +24,7 @@ public class GrafanaDashboard {
             driver.findElement(By.xpath("//button[@type='submit']")).click();
             driver.findElement(By.xpath("//a[@title='Dashboards']")).click();
             driver.findElement(By.xpath("//a[text()='Apache JMeter Dashboard using Core InfluxdbBackendListenerClient']")).click();
-            while(!SharedStatus.jmxExecutionCompleted.get()){
-                Thread.sleep(Duration.ofSeconds(2));
-            }
+            SharedStatus.jmxCompletedLatch.await();
             log.info("Waiting for 5 mins after Jmeter Execution");
             Thread.sleep(Duration.ofMinutes(1));
             driver.findElement(By.xpath("//button[@aria-label='Profile']")).click();

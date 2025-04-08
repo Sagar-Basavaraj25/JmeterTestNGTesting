@@ -1,5 +1,6 @@
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.CountDownLatch;
 
 public class SharedStatus {
-    public static AtomicBoolean jmxExecutionCompleted = new AtomicBoolean(false);
+    public static final CountDownLatch jmxCompletedLatch = new CountDownLatch(1);
+
 }

@@ -42,10 +42,12 @@
             "attribute": "imsi"
           }]
       }],
+    "component_order": ["signin","userOperations","logout"],
     "controller": [{
       "_comments": "only-once for only Once Controller, transaction - Transaction Controller, critical-section - Critical Section Controller",
-      "name":"transaction",
-      "apiName":["CreateMsisdn","UpdateSim"],
+      "name":"userOperations",
+      "controller-type": "critical-section",
+      "apiName":["create-user","update-user","delete-user"],
       "runTime/loop/throughput": 0
     }],
     "thinkTime": {
@@ -57,13 +59,25 @@
     },
     "processors": [{
       "processor_name": "jsonExtractor",
-      "proc_variableName": "ID",
-      "path":"",
+      "proc_variableName": "access_token",
+      "path":"$.token",
       "field_to_check": "",
       "targets":[{
-        "apiName":"createSim",
-        "target_type":"path",
-        "target_value": ""
+        "apiName":"create-user",
+        "target_type":"header",
+        "target_value": "Authorization"
+      },{
+        "apiName":"update-user",
+        "target_type":"header",
+        "target_value": "Authorization"
+      },{
+        "apiName":"delete-user",
+        "target_type":"header",
+        "target_value": "Authorization"
+      },{
+        "apiName":"logout",
+        "target_type":"header",
+        "target_value": "Authorization"
       }]
     }],
     "timers": [{
@@ -79,7 +93,6 @@
       "comparison_type": "",
       "jsonPath": "",
       "apiName":["CreateMsisdn","UpdateSim"]
-    }],
-    "api_order": ["UpdateMsisdn","createSim","UpdateSim","getPlanDetails"]
+    }]
   }]
 }
