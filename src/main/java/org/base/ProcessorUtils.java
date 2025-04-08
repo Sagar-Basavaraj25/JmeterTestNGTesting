@@ -1,6 +1,9 @@
 package org.base;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.jmeter.extractor.BeanShellPostProcessor;
+import org.apache.jmeter.extractor.RegexExtractor;
+import org.apache.jmeter.extractor.gui.RegexExtractorGui;
 import org.apache.jmeter.extractor.json.jsonpath.JSONPostProcessor;
 import org.apache.jmeter.extractor.json.jsonpath.gui.JSONPostProcessorGui;
 import org.apache.jmeter.modifiers.BeanShellPreProcessor;
@@ -69,15 +72,30 @@ public class ProcessorUtils {
         postProcessor.setProperty("script","Hello hello helloooo");
         tree.add(postProcessor);
     }
-    public void beanShellPreProcessor(ListedHashTree tree){
+    public void beanShellPreProcessor(ListedHashTree tree) {
         BeanShellPreProcessor preProcessor = new BeanShellPreProcessor();
         preProcessor.setName("Bean Shell PreProcessor");
-        preProcessor.setProperty(TestElement.TEST_CLASS,BeanShellPreProcessor.class.getName());
-        preProcessor.setProperty(TestElement.GUI_CLASS,TestBeanGUI.class.getName());
-        preProcessor.setProperty("filename","Hello");
-        preProcessor.setProperty("parameters","World");
-        preProcessor.setProperty("resetInterpreter",true);
-        preProcessor.setProperty("script","Hello hello helloooo");
+        preProcessor.setProperty(TestElement.TEST_CLASS, BeanShellPreProcessor.class.getName());
+        preProcessor.setProperty(TestElement.GUI_CLASS, TestBeanGUI.class.getName());
+        preProcessor.setProperty("filename", "Hello");
+        preProcessor.setProperty("parameters", "World");
+        preProcessor.setProperty("resetInterpreter", true);
+        preProcessor.setProperty("script", "Hello hello helloooo");
         tree.add(preProcessor);
     }
-}
+        public void regexPostProcessor(ListedHashTree tree, JsonNode processors){
+            RegexExtractor regexExtractor = new RegexExtractor();
+            regexExtractor.setName("Regular Expression Extractor");
+            regexExtractor.setProperty(TestElement.TEST_CLASS,RegexExtractor.class.getName());
+            regexExtractor.setProperty(TestElement.GUI_CLASS, RegexExtractorGui.class.getName());
+            String variableName = processors.get("proc_variableName").asText();
+            String regex = processors.get("path").asText();
+            regexExtractor.setProperty("useHeaders",false);
+            regexExtractor.setProperty("setRefName",variableName);
+            regexExtractor.setProperty("setRegex",regex);
+            regexExtractor.setProperty("template",1);
+            regexExtractor.setProperty("default_empty_value",true);
+            regexExtractor.setProperty("match_number",1);
+            tree.add(regexExtractor);
+        }
+    }
