@@ -48,11 +48,11 @@
       "name":"userOperations",
       "controller-type": "critical-section",
       "apiName":["create-user","update-user","delete-user"],
-      "runTime/loop/throughput": 0
+      " runTime/loop/throughput": 0
     }],
     "thinkTime": {
       "duration": 1000,
-      "apiName":["CreateMsisdn","UpdateSim"]
+      "apiName":[]
     },
     "debug": {
       "apiName":["CreateMsisdn","UpdateSim"]
@@ -62,6 +62,7 @@
       "proc_variableName": "access_token",
       "path":"$.token",
       "field_to_check": "",
+      "apiName":"CreateMsisdn",
       "targets":[{
         "apiName":"create-user",
         "target_type":"header",
@@ -84,7 +85,7 @@
       "timer_name":"constant",
       "delay/throughput":"",
       "throughput_base/groups": "",
-      "apiName":["CreateMsisdn","UpdateSim"]
+      "apiName":[]
     }],
     "assertions": [{
       "assert_name": "response",
@@ -92,7 +93,7 @@
       "duration/value": "",
       "comparison_type": "",
       "jsonPath": "",
-      "apiName":["CreateMsisdn","UpdateSim"]
+      "apiName":[]
     }]
   }]
 }

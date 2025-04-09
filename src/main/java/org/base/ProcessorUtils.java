@@ -15,16 +15,19 @@ import org.apache.jmeter.testelement.property.StringProperty;
 import org.apache.jorphan.collections.ListedHashTree;
 
 public class ProcessorUtils {
-    public void jsonExtractor(ListedHashTree tree, String JsonPath, String JsonVariable){
+    public void jsonExtractor(ListedHashTree tree,JsonNode processor){
         JSONPostProcessor jsonExtractor = new JSONPostProcessor();
         jsonExtractor.setProperty(TestElement.GUI_CLASS, JSONPostProcessorGui.class.getName());
         jsonExtractor.setProperty(TestElement.TEST_CLASS,JSONPostProcessor.class.getName());
         jsonExtractor.setName("JSON Extractor");
-        jsonExtractor.setRefNames(JsonVariable);  // Variable Name to Store Extracted Data
-        jsonExtractor.setJsonPathExpressions(JsonPath); // JSON Path Expression
+        String JsonVariable = processor.get("proc_variableName").asText();
+        jsonExtractor.setRefNames(JsonVariable);// Variable Name to Store Extracted Data
+        String jsonPath = processor.get("path").asText();
+        jsonExtractor.setJsonPathExpressions(jsonPath); // JSON Path Expression
         jsonExtractor.setMatchNumbers("1"); // First occurrence
         jsonExtractor.setDefaultValues("Not Found");
         tree.add(jsonExtractor);
+        beanShellPostProcessor(tree,processor);
     }
     public void jdbcPostProcessor(ListedHashTree tree){
         JDBCPostProcessor postProcessor = new JDBCPostProcessor();
@@ -61,18 +64,19 @@ public class ProcessorUtils {
         preProcessor.setProperty("resultVariable","Hello");
         tree.add(preProcessor);
     }
-    public void beanShellPostProcessor(ListedHashTree tree){
+    public void beanShellPostProcessor(ListedHashTree tree,JsonNode processor){
         BeanShellPostProcessor postProcessor = new BeanShellPostProcessor();
+        String variableName = processor.get("proc_variableName").asText();
         postProcessor.setName("Bean Shell PostProcessor");
         postProcessor.setProperty(TestElement.TEST_CLASS,BeanShellPostProcessor.class.getName());
         postProcessor.setProperty(TestElement.GUI_CLASS,TestBeanGUI.class.getName());
-        postProcessor.setProperty("filename","Hello");
-        postProcessor.setProperty("parameters","World");
+        postProcessor.setProperty("filename","");
+        postProcessor.setProperty("parameters","");
         postProcessor.setProperty("resetInterpreter",true);
-        postProcessor.setProperty("script","Hello hello helloooo");
+        postProcessor.setProperty("script","props.put(\""+variableName+"\",vars.get(\""+variableName+"\"))");
         tree.add(postProcessor);
     }
-    public void beanShellPreProcessor(ListedHashTree tree) {
+    public void beanShellPreProcessor(ListedHashTree tree,JsonNode processor) {
         BeanShellPreProcessor preProcessor = new BeanShellPreProcessor();
         preProcessor.setName("Bean Shell PreProcessor");
         preProcessor.setProperty(TestElement.TEST_CLASS, BeanShellPreProcessor.class.getName());
@@ -97,5 +101,6 @@ public class ProcessorUtils {
             regexExtractor.setProperty("default_empty_value",true);
             regexExtractor.setProperty("match_number",1);
             tree.add(regexExtractor);
+            beanShellPostProcessor(tree,processors);
         }
     }
