@@ -7,7 +7,9 @@ import org.apache.jmeter.threads.JMeterContextService;
 import org.apache.jmeter.timers.ConstantThroughputTimer;
 import org.apache.jmeter.timers.ConstantTimer;
 import org.apache.jmeter.timers.SyncTimer;
+import org.apache.jmeter.timers.UniformRandomTimer;
 import org.apache.jmeter.timers.gui.ConstantTimerGui;
+import org.apache.jmeter.timers.gui.UniformRandomTimerGui;
 import org.apache.jorphan.collections.ListedHashTree;
 
 import javax.swing.*;
@@ -67,5 +69,15 @@ public class TimerUtils {
         String delay = timers.get("delay/throughput").asText();
         timer.setDelay(delay);
         tree.add(timer);
+    }
+    public void uniformRandomTimer(ListedHashTree tree, JsonNode timers){
+        UniformRandomTimer uniformRandomTimer = new UniformRandomTimer();
+        uniformRandomTimer.setName("Uniform Random Timer");
+        uniformRandomTimer.setProperty(TestElement.TEST_CLASS,UniformRandomTimer.class.getName());
+        uniformRandomTimer.setProperty(TestElement.GUI_CLASS, UniformRandomTimerGui.class.getName());
+        String delay = timers.get("delay/throughput").asText();
+        uniformRandomTimer.setDelay(delay);
+        uniformRandomTimer.setRange(100.0);
+        tree.add(uniformRandomTimer);
     }
 }
