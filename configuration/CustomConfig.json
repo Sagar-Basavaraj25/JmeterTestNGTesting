@@ -93,7 +93,9 @@
       "duration/value": "",
       "comparison_type": "",
       "jsonPath": "",
+      "ExpectedValue": "",
       "apiName":[]
+
     }]
   }]
 }
