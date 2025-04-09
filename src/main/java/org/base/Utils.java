@@ -146,6 +146,7 @@ public class Utils {
         JsonNode csvVariables = scenario.get("csv_variable");
         JsonNode controllers = scenario.get("controller");
         JsonNode jsonExtractors = scenario.get("JsonExtractor");
+        JsonNode assertions = scenario.get("assertions");
         JsonNode apiItems = payloadRootNode.get("item");
         Map<String, JsonNode> apiMap = new TreeMap<String,JsonNode>();
         for(JsonNode item: apiItems){
@@ -405,13 +406,13 @@ public class Utils {
         String assertName = assertion.get("assert_name").asText();
         switch(assertName.toLowerCase()){
             case "response":
-                assertionUtils.responseAssertion("200",tree);
+                assertionUtils.responseAssertion("200",tree,assertion);
             case "size":
-                assertionUtils.sizeAssertion(tree);
+                assertionUtils.sizeAssertion(tree,assertion);
             case "json":
-                assertionUtils.jsonAssertion(tree);
+                assertionUtils.jsonAssertion(tree,assertion);
             case "duration":
-                assertionUtils.durationAssertion(tree);
+                assertionUtils.durationAssertion(tree,assertion);
             default:
                 log.error("Enter Valid response assertion");
                 throw new RuntimeException("Enter valid response assertion");
