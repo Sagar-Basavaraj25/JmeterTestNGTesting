@@ -22,7 +22,7 @@ public class JmeterAutomation {
         utils.initJmeter();
         ObjectMapper mapper = new ObjectMapper();
         // Read Configuration JSON
-        JsonNode configRootNode = mapper.readTree(new File("configuration/jsonConfig.json"));
+        JsonNode configRootNode = mapper.readTree(new File("configuration/CustomConfig.json"));
         String payloadFile = configRootNode.get("payloadFile").asText();
         log.info("Payload File: {}", payloadFile);
 
@@ -41,7 +41,7 @@ public class JmeterAutomation {
         JsonNode scenarios = configRootNode.get("scenario");
         for (JsonNode scenario : scenarios) {
             JsonNode payloadRootNode1 = mapper.readTree(new File(payloadFile));
-            utils.processScenario(scenario, payloadRootNode1, testPlan, utils, mapper, testName);
+            utils.processScenario(testPlan,scenario,payloadRootNode1,testName);
         }
         listenerUtils.backendListener(testPlan);
         // Save Test Plan to JMX File
@@ -50,7 +50,7 @@ public class JmeterAutomation {
             SaveService.saveTree(hashTree, fos);
         }
         log.info("JMX File created: {}", jmxFile);
-        utils.runJmxFile(jmxFile);
+        //utils.runJmxFile(jmxFile);
     }
 
 }

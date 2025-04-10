@@ -11,7 +11,7 @@ public class Influxdb {
 
     private static final Logger log = LogManager.getLogger(Influxdb.class);
 
-    @Test
+    @Test(dependsOnGroups = {"jmx"})
     public void influxProcess(){
         try{
             log.info("Starting the Influxdb Server");

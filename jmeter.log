@@ -1,17 +1,17 @@
-2025-04-08 10:23:46,959 WARN o.a.j.u.JMeterUtils: Exception 'Cannot invoke "java.util.Properties.getProperty(String, String)" because "org.apache.jmeter.util.JMeterUtils.appProperties" is null' occurred when fetching String property:'sampleresult.default.encoding', defaulting to: ISO-8859-1
-2025-04-08 10:23:46,977 WARN o.a.j.u.JMeterUtils: Exception 'Cannot invoke "java.util.Properties.getProperty(String)" because "org.apache.jmeter.util.JMeterUtils.appProperties" is null' occurred when fetching String property:'jmeterPlugin.prefixPlugins'
-2025-04-08 10:23:46,979 INFO k.a.j.PluginsCMDWorker: Using JMeterPluginsCMD v. N/A
-2025-04-08 10:23:46,982 INFO o.a.j.u.JMeterUtils: Setting Locale to en_IN
-2025-04-08 10:23:46,998 INFO k.a.j.JMeterPluginsUtils: Loading user properties from: D:\OLD\Softwares\apache-jmeter-5.6.3\bin\user.properties
-2025-04-08 10:23:47,002 INFO k.a.j.JMeterPluginsUtils: Loading system properties from: D:\OLD\Softwares\apache-jmeter-5.6.3\bin\system.properties
-2025-04-08 10:23:48,079 WARN o.a.j.g.ObjectTableModel: Header count=13 but classes count=11
-2025-04-08 10:23:48,079 WARN o.a.j.g.ObjectTableModel: Header count=13 but writeFunctor count=11
-2025-04-08 10:23:48,673 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
-2025-04-08 10:23:48,736 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
-2025-04-08 10:23:48,741 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
-2025-04-08 10:23:48,755 INFO o.a.j.s.SampleResult: Note: Sample TimeStamps are START times
-2025-04-08 10:23:48,755 INFO o.a.j.s.SampleResult: sampleresult.default.encoding is set to UTF-8
-2025-04-08 10:23:48,755 INFO o.a.j.s.SampleResult: sampleresult.useNanoTime=true
-2025-04-08 10:23:48,756 INFO o.a.j.s.SampleResult: sampleresult.nanoThreadSleep=5000
-2025-04-08 10:23:48,760 INFO o.a.j.s.SampleEvent: List of sample_variables: []
-2025-04-08 10:23:49,225 INFO k.a.j.v.AggregateReportGui: Saving CSV to D:\github\PT_Jmeter\JmeterTestNGTesting\target\JmeterAggreagateReport\20250408_102344.csv
+2025-04-10 11:12:28,971 WARN o.a.j.u.JMeterUtils: Exception 'Cannot invoke "java.util.Properties.getProperty(String, String)" because "org.apache.jmeter.util.JMeterUtils.appProperties" is null' occurred when fetching String property:'sampleresult.default.encoding', defaulting to: ISO-8859-1
+2025-04-10 11:12:28,983 WARN o.a.j.u.JMeterUtils: Exception 'Cannot invoke "java.util.Properties.getProperty(String)" because "org.apache.jmeter.util.JMeterUtils.appProperties" is null' occurred when fetching String property:'jmeterPlugin.prefixPlugins'
+2025-04-10 11:12:28,984 INFO k.a.j.PluginsCMDWorker: Using JMeterPluginsCMD v. N/A
+2025-04-10 11:12:28,987 INFO o.a.j.u.JMeterUtils: Setting Locale to en_IN
+2025-04-10 11:12:29,000 INFO k.a.j.JMeterPluginsUtils: Loading user properties from: D:\OLD\Softwares\apache-jmeter-5.6.3\bin\user.properties
+2025-04-10 11:12:29,003 INFO k.a.j.JMeterPluginsUtils: Loading system properties from: D:\OLD\Softwares\apache-jmeter-5.6.3\bin\system.properties
+2025-04-10 11:12:30,038 WARN o.a.j.g.ObjectTableModel: Header count=13 but classes count=11
+2025-04-10 11:12:30,038 WARN o.a.j.g.ObjectTableModel: Header count=13 but writeFunctor count=11
+2025-04-10 11:12:30,809 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2025-04-10 11:12:30,867 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
+2025-04-10 11:12:30,874 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
+2025-04-10 11:12:30,886 INFO o.a.j.s.SampleResult: Note: Sample TimeStamps are START times
+2025-04-10 11:12:30,886 INFO o.a.j.s.SampleResult: sampleresult.default.encoding is set to UTF-8
+2025-04-10 11:12:30,886 INFO o.a.j.s.SampleResult: sampleresult.useNanoTime=true
+2025-04-10 11:12:30,887 INFO o.a.j.s.SampleResult: sampleresult.nanoThreadSleep=5000
+2025-04-10 11:12:30,890 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2025-04-10 11:12:30,912 INFO k.a.j.v.AggregateReportGui: Saving CSV to D:\github\PT_Jmeter\JmeterTestNGTesting\target\JmeterAggreagateReport\20250410_111226.csv
