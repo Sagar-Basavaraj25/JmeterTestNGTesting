@@ -11,10 +11,12 @@ import org.apache.jmeter.assertions.gui.JSONPathAssertionGui;
 import org.apache.jmeter.assertions.gui.SizeAssertionGui;
 import org.apache.jmeter.testelement.TestElement;
 import org.apache.jorphan.collections.ListedHashTree;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import static org.base.Utils.log;
 
 public class AssertionUtils {
+    static final Logger log = LogManager.getLogger(AssertionUtils.class);
     public void responseAssertion(ListedHashTree tree, JsonNode assertionNode){
         ResponseAssertion responseAssertion = new ResponseAssertion();
         responseAssertion.setProperty("TestElement.gui_class", AssertionGui.class.getName());
@@ -101,9 +103,54 @@ public class AssertionUtils {
         assertion.setProperty(TestElement.TEST_CLASS,SizeAssertion.class.getName());
         assertion.setProperty(TestElement.GUI_CLASS, SizeAssertionGui.class.getName());
         assertion.setName("Size Assertion");
-        assertion.setTestFieldNetworkSize(); // input inside switch
-        assertion.setAllowedSize(30); // input
-        assertion.setCompOper(1); // input inside switch
+        String field_to_test = assertionNode.get("field_to_test").asText();
+        switch (field_to_test.toLowerCase()){
+            case "fullresponse":
+                assertion.setTestFieldNetworkSize();
+                break;
+            case "responseheaders":
+                assertion.setTestFieldResponseHeaders();
+                break;
+            case "responsebody":
+                assertion.setTestFieldResponseBody();
+                break;
+            case "responsecode":
+                assertion.setTestFieldResponseCode();
+                break;
+            case "responsemessage":
+                assertion.setTestFieldResponseMessage();
+                break;
+            default:
+                log.error("Please enter valid field_to_test");
+                throw new RuntimeException("Invalid field_to_test String");
+        }
+        String size = assertionNode.get("duration/expectedValue").asText();
+        assertion.setAllowedSize(size);
+
+        String comparison_type = assertionNode.get("comparison_type").asText();
+        switch (comparison_type.toLowerCase()){
+            case "=":
+                assertion.setCompOper(1);
+                break;
+            case "!=":
+                assertion.setCompOper(2);
+                break;
+            case ">":
+                assertion.setCompOper(3);
+                break;
+            case "<":
+                assertion.setCompOper(4);
+                break;
+            case ">=":
+                assertion.setCompOper(5);
+                break;
+            case "<=":
+                assertion.setCompOper(6);
+                break;
+            default:
+                log.error("Please enter valid comparison_type in Size Assertion");
+                throw new RuntimeException("Invalid comparison_type String");
+        }
         tree.add(assertion);
     }
     public void durationAssertion(ListedHashTree tree,  JsonNode assertionNode){

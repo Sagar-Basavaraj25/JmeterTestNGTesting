@@ -404,6 +404,7 @@ public class Utils {
             }else if(name.equalsIgnoreCase("flow-control")){
                 samplerUtils.flowControlActionSampler(threadGroup);
             }
+            log.info("Component added successfully : {}",name);
         }
 
     }
