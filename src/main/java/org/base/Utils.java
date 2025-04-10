@@ -19,7 +19,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Utils {
-    private static final Logger log = LogManager.getLogger(Utils.class);
+    static final Logger log = LogManager.getLogger(Utils.class);
     ConfigUtils configUtils = new ConfigUtils();
     ControllerUtils controllerUtils = new ControllerUtils();
     SamplerUtils samplerUtils = new SamplerUtils();
@@ -338,16 +338,16 @@ public class Utils {
         log.info(assertName);
         switch(assertName.toLowerCase()){
             case "response":
-                assertionUtils.responseAssertion("200",tree);
-                break;
+                assertionUtils.responseAssertion(tree,assertion);
+            break;
             case "size":
-                assertionUtils.sizeAssertion(tree);
+                assertionUtils.sizeAssertion(tree,assertion);
                 break;
             case "json":
-                assertionUtils.jsonAssertion(tree);
+                assertionUtils.jsonAssertion(tree,assertion);
                 break;
             case "duration":
-                assertionUtils.durationAssertion(tree);
+                assertionUtils.durationAssertion(tree,assertion);
                 break;
             default:
                 log.error("Enter Valid response assertion");

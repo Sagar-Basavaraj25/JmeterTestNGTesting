@@ -12,14 +12,72 @@ import org.apache.jmeter.assertions.gui.SizeAssertionGui;
 import org.apache.jmeter.testelement.TestElement;
 import org.apache.jorphan.collections.ListedHashTree;
 
+import static org.base.Utils.log;
+
 public class AssertionUtils {
-    public void responseAssertion(String statusCode, ListedHashTree tree, JsonNode assertionNode){
+    public void responseAssertion(ListedHashTree tree, JsonNode assertionNode){
         ResponseAssertion responseAssertion = new ResponseAssertion();
         responseAssertion.setProperty("TestElement.gui_class", AssertionGui.class.getName());
         responseAssertion.setProperty("TestElement.test_class", ResponseAssertion.class.getName());
         responseAssertion.setName("Response Assertion");
-        responseAssertion.setTestFieldResponseCode();
-        responseAssertion.setToEqualsType();// This sets the assertion type to 'equals' for response code
+        String field_to_test = assertionNode.get("field_to_test").asText();
+        switch (field_to_test.toLowerCase()){
+            case "textresponse" :
+                responseAssertion.setTestFieldResponseData();
+                break;
+            case "responsecode" :
+                responseAssertion.setTestFieldResponseCode();
+                break;
+            case "responsemessage" :
+                responseAssertion.setTestFieldResponseMessage();
+                break;
+            case "responseheaders" :
+                responseAssertion.setTestFieldResponseHeaders();
+                break;
+            case "requestheaders" :
+                responseAssertion.setTestFieldRequestHeaders();
+                break;
+            case "urlsampled" :
+                responseAssertion.setTestFieldURL();
+                break;
+            case "document" :
+                responseAssertion.setTestFieldResponseDataAsDocument();
+                break;
+            case "ignorestatus" :
+                responseAssertion.setTestFieldResponseDataAsDocument();
+                break;
+            case "requestdata" :
+                responseAssertion.setTestFieldRequestData();
+                break;
+            default:
+                log.error("Please enter valid field_to_test in Response Assertion");
+                throw new RuntimeException("Invalid field_to_test String");
+        }
+        String comparison_type = assertionNode.get("comparison_type").asText();
+        switch (comparison_type.toLowerCase()){
+            case "contains":
+                responseAssertion.setToContainsType();
+                break;
+            case "matches":
+                responseAssertion.setToMatchType();
+                break;
+            case "equals":
+                responseAssertion.setToEqualsType();
+                break;
+            case "substring":
+                responseAssertion.setToSubstringType();
+                break;
+            case "not":
+                responseAssertion.setToNotType();
+                break;
+            case "or":
+                responseAssertion.setToOrType();
+                break;
+            default:
+                log.error("Please enter valid comparison_type");
+                throw new RuntimeException("Invalid comparison_type String");
+        }
+        String statusCode = assertionNode.get("testString/statusCode").asText();
         responseAssertion.addTestString(statusCode);
         tree.add(responseAssertion);
     }
@@ -29,7 +87,7 @@ public class AssertionUtils {
         assertion.setProperty(TestElement.GUI_CLASS, JSONPathAssertionGui.class.getName());
         assertion.setName("JSON Assertion");
         String jsonPath = assertionNode.get("jsonPath").asText();
-        String expectedValue = assertionNode.get("ExpectedValue").asText();
+        String expectedValue = assertionNode.get("duration/expectedValue").asText();
         assertion.setJsonPath(jsonPath);
         assertion.setExpectedValue(expectedValue);
         assertion.setJsonValidationBool(true);
