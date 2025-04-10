@@ -105,9 +105,10 @@
     }],
     "assertions": [{
       "assert_name": "response",
-      "field_to_test": "",
-      "duration/value": "",
-      "comparison_type": "",
+      "field_to_test": "responseCode",
+      "testString/statusCode" : "200",
+      "duration/expectedValue": "",
+      "comparison_type": "equals",
       "jsonPath": "",
       "apiName":["signin","create-user","update-user","delete-user","logout"]
     }]
