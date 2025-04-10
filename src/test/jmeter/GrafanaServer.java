@@ -12,7 +12,7 @@ public class GrafanaServer {
 
     private static final Logger log = LogManager.getLogger(GrafanaServer.class);
 
-    @Test
+    @Test(dependsOnGroups = {"jmx"})
     public void grafanaProcess(){
         try{
             log.info("Starting the Grafana Server");

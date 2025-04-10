@@ -20,21 +20,28 @@ public class ThreadGroupUtils {
     private static final Logger log = LogManager.getLogger(ThreadGroupUtils.class);
     Utils utils = new Utils();
     public ListedHashTree threadGroup(ListedHashTree testplan, JsonNode scenario){
-        int tps = scenario.get("tps").asInt();
+        double tps = scenario.get("tps").asDouble();
         log.info("TPS value: "+tps);
-        Long duration = scenario.get("duration").asLong();
-        log.info("Duration value: "+duration);
-        int rampUp = scenario.get("rampUp").asInt();
-        log.info("RampUp value: "+rampUp);
+        JsonNode thread = scenario.get("thread");
+        JsonNode properties = thread.get("property");
+        int loopCount=0,rampUp=0;
+        long duration=0L;
+        for(JsonNode property:properties){
+            duration = property.get("duration").asLong();
+            log.info("Duration value: "+duration);
+            rampUp = property.get("rampUp").asInt();
+            log.info("RampUp value: "+rampUp);
+            log.info("Loop Count {}", property.get("loop").isNull());
+            loopCount = property.get("loop").isNull()?-1:property.get("loop").asInt();
+        }
         String tGName = scenario.get("name").asText();
         log.info("ThreadGroup Name: "+tGName);
-        int loopCount = scenario.has("loopCount")?scenario.get("loopCount").asInt():-1;
         ThreadGroup threadGroup=new ThreadGroup();
         threadGroup.setProperty("TestElement.test_class", ThreadGroup.class.getName());
         threadGroup.setProperty("TestElement.gui_class", ThreadGroupGui.class.getName());
         threadGroup.setName(tGName);
         log.info("Thread Group name : " + tGName);
-        double responseTime = scenario.get("responseTime").asDouble();
+        double responseTime = scenario.get("averageResponseTime").asDouble();
         threadGroup.setNumThreads(utils.numberUsers(tps,responseTime));
         log.info("Number of the Threads : " + tps);
         threadGroup.setRampUp(rampUp);
@@ -53,22 +60,28 @@ public class ThreadGroupUtils {
         return loopController;
     }
     public ListedHashTree concurrentThreadGroup(ListedHashTree testPlan,JsonNode scenario){
-        int tps = scenario.get("tps").asInt();
+        double tps = scenario.get("tps").asDouble();
         log.info("TPS value: "+tps);
-        int duration = scenario.get("duration").asInt();
-        log.info("Duration value: "+duration);
-        int rampUp = scenario.get("rampUp").asInt();
-        log.info("RampUp value: "+rampUp);
+        JsonNode thread = scenario.get("thread");
+        JsonNode properties = thread.get("property");
+        int loopCount=0,rampUp=0,step=0;
+        long duration=0L;
+        for(JsonNode property:properties){
+            duration = property.get("duration").asLong();
+            log.info("Duration value: "+duration);
+            rampUp = property.get("rampUp").asInt();
+            log.info("RampUp value: "+rampUp);
+            loopCount = !property.get("loop").isNull()?property.get("loop").asInt():-1;
+            step = !property.get("step").isNull()?property.get("step").asInt():3;
+        }
         String tGName = scenario.get("name").asText();
         log.info("ThreadGroup Name: "+tGName);
-        double responseTime = scenario.get("responseTime").asDouble();
-        int loopCount = scenario.has("loopCount")?scenario.get("loopCount").asInt():-1;
-        int step = scenario.has("step")?scenario.get("loopCount").asInt():3;
         ConcurrencyThreadGroup threadGroup = new ConcurrencyThreadGroup();
         threadGroup.setName(tGName);
         threadGroup.setProperty("TestElement.test_class", ConcurrencyThreadGroup.class.getName());
         threadGroup.setProperty("TestElement.gui_class", ConcurrencyThreadGroupGui.class.getName());
         threadGroup.setProperty("ThreadGroup.on_sample_error", "continue");
+        double responseTime = scenario.get("averageResponseTime").asDouble();
         threadGroup.setProperty("TargetLevel", utils.numberUsers(tps,responseTime));
         threadGroup.setProperty("RampUp", rampUp);
         threadGroup.setProperty("Steps", step);
@@ -82,18 +95,18 @@ public class ThreadGroupUtils {
         threadGroup.setProperty(TestElement.TEST_CLASS,UltimateThreadGroup.class.getName());
         threadGroup.setProperty(TestElement.GUI_CLASS, UltimateThreadGroupGui.class.getName());
         threadGroup.setName(scenario.get("name").asText());
-        JsonNode ultimateArray = scenario.get("ultimate");
+        JsonNode ultimateArray = scenario.get("thread").get("property");
         CollectionProperty rows = new CollectionProperty();
         rows.setName(UltimateThreadGroup.DATA_PROPERTY);
         for (JsonNode threadConfig : ultimateArray) {
             CollectionProperty rowProperty = new CollectionProperty();
             rowProperty.setName(UltimateThreadGroup.EXTERNAL_DATA_PROPERTY);
             // Extract values from JSON and add them as StringProperty
-            rowProperty.addItem(new StringProperty("Thread Count", threadConfig.get("thread").asText()));
+            rowProperty.addItem(new StringProperty("Thread Count", threadConfig.get("userCount").asText()));
             rowProperty.addItem(new StringProperty("Initial Delay", threadConfig.get("initial_delay").asText()));
-            rowProperty.addItem(new StringProperty("Startup Time", threadConfig.get("startup_time").asText()));
-            rowProperty.addItem(new StringProperty("Hold Time", threadConfig.get("hold_Time").asText()));
-            rowProperty.addItem(new StringProperty("Shutdown Time", threadConfig.get("shutdown_time").asText()));
+            rowProperty.addItem(new StringProperty("Startup Time", threadConfig.get("rampUp").asText()));
+            rowProperty.addItem(new StringProperty("Hold Time", threadConfig.get("duration").asText()));
+            rowProperty.addItem(new StringProperty("Shutdown Time", threadConfig.get("rampDown").asText()));
 
             // Add rowProperty to the main CollectionProperty
             rows.addItem(rowProperty);

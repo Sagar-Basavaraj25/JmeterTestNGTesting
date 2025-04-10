@@ -1,0 +1,235 @@
+2025-04-09 14:51:34 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Starting the Influxdb Server
+2025-04-09 14:51:34 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Starting the Grafana Server
+2025-04-09 14:51:34 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-09 14:51:34 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Payload File: payload/jsonPlaceholderCollection.postman_collection.json
+2025-04-09 14:51:34 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test Plan Name: jsonPlaceholderCollection
+2025-04-09 14:51:34 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-09 14:51:34 [TestNG-test-Test Case Execution-1] INFO  JmxFileCreation - Test plan is added to the tree
+2025-04-09 14:51:34 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Processing Scenario: Scenario1, TPS: 100, Duration: 180, RampUp: 2
+2025-04-09 14:51:34 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - TPS value: 100
+2025-04-09 14:51:34 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Duration value: 180
+2025-04-09 14:51:34 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - RampUp value: 2
+2025-04-09 14:51:34 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - ThreadGroup Name: Scenario1
+2025-04-09 14:51:34 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group name : Scenario1
+2025-04-09 14:51:34 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Number of the Threads : 100
+2025-04-09 14:51:34 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Ramp Up count : 2
+2025-04-09 14:51:34 [TestNG-test-Test Case Execution-1] INFO  org.base.ThreadGroupUtils - Thread Group added to TestPlan : 
+2025-04-09 14:51:34 [TestNG-test-Test Case Execution-1] INFO  org.base.ConfigUtils - Successfully changed the userId value in to ${Name}
+2025-04-09 14:51:34 [TestNG-test-Test Case Execution-1] INFO  org.base.Utils - Scenario processed successfullyScenario1
+2025-04-09 14:51:35 [TestNG-test-Test Case Execution-5] INFO  GrafanaDashboard - Grafana dashboard is starting in 20 seconds
+2025-04-09 14:51:38 [TestNG-test-Test Case Execution-2] INFO  Influxdb - Influxdb Started Successfully
+2025-04-09 14:51:39 [TestNG-test-Test Case Execution-3] INFO  GrafanaServer - Grafana Started
+2025-04-09 15:16:59 [main] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-09 15:16:59 [main] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-09 16:11:22 [main] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-09 16:11:22 [main] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-09 16:13:07 [main] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-09 16:13:07 [main] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-09 16:23:20 [main] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-09 16:23:20 [main] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-09 16:24:24 [main] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-09 16:24:24 [main] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-09 16:24:24 [main] INFO  org.base.Utils - Processing Scenario: Ctaf-userManagement, TPS: 10, Duration: 60, RampUp: 10
+2025-04-09 16:24:24 [main] INFO  org.base.ConfigUtils - Successfully changed the firstName value in to ${username}
+2025-04-09 16:30:55 [main] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-09 16:30:55 [main] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-09 16:30:55 [main] INFO  org.base.Utils - Processing Scenario: Ctaf-userManagement, TPS: 10, Duration: 60, RampUp: 10
+2025-04-09 16:30:55 [main] INFO  org.base.ConfigUtils - Successfully changed the firstName value in to ${username}
+2025-04-09 16:30:55 [main] INFO  org.base.ConfigUtils - Successfully changed the lastName value in to ${lastName}
+2025-04-09 16:30:55 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 16:30:55 [main] INFO  org.base.Utils - Processing Controller: critical-section
+2025-04-09 16:30:55 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 16:30:55 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 16:30:55 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 16:30:55 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 16:55:26 [main] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-09 16:55:26 [main] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-09 16:55:26 [main] INFO  org.base.Utils - Processing Scenario: Ctaf-userManagement, TPS: 10, Duration: 60, RampUp: 10
+2025-04-09 16:55:26 [main] INFO  org.base.ConfigUtils - Successfully changed the firstName value in to ${username}
+2025-04-09 16:55:26 [main] INFO  org.base.ConfigUtils - Successfully changed the lastName value in to ${lastName}
+2025-04-09 16:55:26 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 16:55:26 [main] INFO  org.base.Utils - Added JSON Extractor to API: signin
+2025-04-09 16:55:26 [main] INFO  org.base.Utils - Processing Controller: critical-section
+2025-04-09 16:55:26 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 16:55:26 [main] INFO  org.base.Utils - Added JSON Extractor to API: create-user
+2025-04-09 16:55:26 [main] INFO  org.base.ConfigUtils - Successfully changed the userId value in to ${userid}
+2025-04-09 16:55:26 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 16:55:26 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 16:55:26 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:01:35 [main] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-09 17:01:35 [main] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-09 17:01:35 [main] INFO  org.base.Utils - Processing Scenario: Ctaf-userManagement, TPS: 10, Duration: 60, RampUp: 10
+2025-04-09 17:01:35 [main] INFO  org.base.ConfigUtils - Successfully changed the firstName value in to ${username}
+2025-04-09 17:01:35 [main] INFO  org.base.ConfigUtils - Successfully changed the lastName value in to ${lastName}
+2025-04-09 17:01:35 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:01:35 [main] INFO  org.base.Utils - Added JSON Extractor to API: signin
+2025-04-09 17:01:35 [main] INFO  org.base.Utils - Processing Controller: critical-section
+2025-04-09 17:01:35 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:01:35 [main] INFO  org.base.Utils - Added JSON Extractor to API: create-user
+2025-04-09 17:01:35 [main] INFO  org.base.ConfigUtils - Successfully changed the userId value in to ${userid}
+2025-04-09 17:01:35 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:01:35 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:01:35 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:06:29 [main] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-09 17:06:29 [main] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-09 17:06:29 [main] INFO  org.base.Utils - Processing Scenario: Ctaf-userManagement, TPS: 10, Duration: 60, RampUp: 10
+2025-04-09 17:06:29 [main] INFO  org.base.ConfigUtils - Successfully changed the firstName value in to ${username}
+2025-04-09 17:06:29 [main] INFO  org.base.ConfigUtils - Successfully changed the lastName value in to ${lastName}
+2025-04-09 17:06:29 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:06:29 [main] INFO  org.base.Utils - Assertion : true
+2025-04-09 17:06:29 [main] INFO  org.base.Utils - Added JSON Extractor to API: signin
+2025-04-09 17:06:29 [main] INFO  org.base.Utils - Processing Controller: critical-section
+2025-04-09 17:06:29 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:06:29 [main] INFO  org.base.Utils - Assertion : true
+2025-04-09 17:06:29 [main] INFO  org.base.Utils - Added JSON Extractor to API: create-user
+2025-04-09 17:06:29 [main] INFO  org.base.ConfigUtils - Successfully changed the userId value in to ${userid}
+2025-04-09 17:06:29 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:06:29 [main] INFO  org.base.Utils - Assertion : true
+2025-04-09 17:06:29 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:06:29 [main] INFO  org.base.Utils - Assertion : true
+2025-04-09 17:06:29 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:06:29 [main] INFO  org.base.Utils - Assertion : true
+2025-04-09 17:14:23 [main] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-09 17:14:23 [main] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-09 17:14:23 [main] INFO  org.base.Utils - Processing Scenario: Ctaf-userManagement, TPS: 10, Duration: 60, RampUp: 10
+2025-04-09 17:14:23 [main] INFO  org.base.ConfigUtils - Successfully changed the firstName value in to ${username}
+2025-04-09 17:14:23 [main] INFO  org.base.ConfigUtils - Successfully changed the lastName value in to ${lastName}
+2025-04-09 17:14:23 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:14:23 [main] INFO  org.base.Utils - Assertion : false
+2025-04-09 17:14:23 [main] ERROR org.base.Utils - Enter Valid response assertion
+2025-04-09 17:17:59 [main] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-09 17:17:59 [main] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-09 17:17:59 [main] INFO  org.base.Utils - Processing Scenario: Ctaf-userManagement, TPS: 10, Duration: 60, RampUp: 10
+2025-04-09 17:17:59 [main] INFO  org.base.ConfigUtils - Successfully changed the firstName value in to ${username}
+2025-04-09 17:17:59 [main] INFO  org.base.ConfigUtils - Successfully changed the lastName value in to ${lastName}
+2025-04-09 17:17:59 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:17:59 [main] INFO  org.base.Utils - Assertion : false
+2025-04-09 17:17:59 [main] ERROR org.base.Utils - Enter Valid response assertion
+2025-04-09 17:20:40 [main] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-09 17:20:40 [main] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-09 17:20:40 [main] INFO  org.base.Utils - Processing Scenario: Ctaf-userManagement, TPS: 10, Duration: 60, RampUp: 10
+2025-04-09 17:20:40 [main] INFO  org.base.ConfigUtils - Successfully changed the firstName value in to ${username}
+2025-04-09 17:20:40 [main] INFO  org.base.ConfigUtils - Successfully changed the lastName value in to ${lastName}
+2025-04-09 17:20:40 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:20:40 [main] INFO  org.base.Utils - Assertion : false
+2025-04-09 17:20:40 [main] ERROR org.base.Utils - Enter Valid response assertion
+2025-04-09 17:21:17 [main] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-09 17:21:17 [main] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-09 17:21:17 [main] INFO  org.base.Utils - Processing Scenario: Ctaf-userManagement, TPS: 10, Duration: 60, RampUp: 10
+2025-04-09 17:21:17 [main] INFO  org.base.ConfigUtils - Successfully changed the firstName value in to ${username}
+2025-04-09 17:21:17 [main] INFO  org.base.ConfigUtils - Successfully changed the lastName value in to ${lastName}
+2025-04-09 17:21:18 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:21:18 [main] INFO  org.base.Utils - Assertion : false
+2025-04-09 17:21:18 [main] INFO  org.base.Utils - response
+2025-04-09 17:21:18 [main] ERROR org.base.Utils - Enter Valid response assertion
+2025-04-09 17:22:49 [main] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-09 17:22:49 [main] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-09 17:22:49 [main] INFO  org.base.Utils - Processing Scenario: Ctaf-userManagement, TPS: 10, Duration: 60, RampUp: 10
+2025-04-09 17:22:49 [main] INFO  org.base.ConfigUtils - Successfully changed the firstName value in to ${username}
+2025-04-09 17:22:49 [main] INFO  org.base.ConfigUtils - Successfully changed the lastName value in to ${lastName}
+2025-04-09 17:22:49 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:22:49 [main] INFO  org.base.Utils - Assertion : false
+2025-04-09 17:22:49 [main] INFO  org.base.Utils - response
+2025-04-09 17:22:49 [main] INFO  org.base.Utils - Added JSON Extractor to API: signin
+2025-04-09 17:22:49 [main] INFO  org.base.Utils - Processing Controller: critical-section
+2025-04-09 17:22:49 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:22:49 [main] INFO  org.base.Utils - Assertion : false
+2025-04-09 17:22:49 [main] INFO  org.base.Utils - response
+2025-04-09 17:22:49 [main] INFO  org.base.Utils - Added JSON Extractor to API: create-user
+2025-04-09 17:22:49 [main] INFO  org.base.ConfigUtils - Successfully changed the userId value in to ${userid}
+2025-04-09 17:22:49 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:22:49 [main] INFO  org.base.Utils - Assertion : false
+2025-04-09 17:22:49 [main] INFO  org.base.Utils - response
+2025-04-09 17:22:49 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:22:49 [main] INFO  org.base.Utils - Assertion : false
+2025-04-09 17:22:49 [main] INFO  org.base.Utils - response
+2025-04-09 17:22:49 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:22:49 [main] INFO  org.base.Utils - Assertion : false
+2025-04-09 17:22:49 [main] INFO  org.base.Utils - response
+2025-04-09 17:26:42 [main] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-09 17:26:42 [main] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-09 17:26:42 [main] INFO  org.base.Utils - Processing Scenario: Ctaf-userManagement, TPS: 10, Duration: 60, RampUp: 10
+2025-04-09 17:26:42 [main] INFO  org.base.ConfigUtils - Successfully changed the firstName value in to ${username}
+2025-04-09 17:26:42 [main] INFO  org.base.ConfigUtils - Successfully changed the lastName value in to ${lastName}
+2025-04-09 17:26:42 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:26:42 [main] INFO  org.base.Utils - Assertion : false
+2025-04-09 17:26:42 [main] INFO  org.base.Utils - response
+2025-04-09 17:26:42 [main] INFO  org.base.Utils - timer : false
+2025-04-09 17:26:42 [main] INFO  org.base.Utils - Added JSON Extractor to API: signin
+2025-04-09 17:26:42 [main] INFO  org.base.Utils - Processing Controller: critical-section
+2025-04-09 17:26:42 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:26:42 [main] INFO  org.base.Utils - Assertion : false
+2025-04-09 17:26:42 [main] INFO  org.base.Utils - response
+2025-04-09 17:26:42 [main] INFO  org.base.Utils - timer : false
+2025-04-09 17:26:42 [main] INFO  org.base.Utils - Added JSON Extractor to API: create-user
+2025-04-09 17:26:42 [main] INFO  org.base.ConfigUtils - Successfully changed the userId value in to ${userid}
+2025-04-09 17:26:42 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:26:42 [main] INFO  org.base.Utils - Assertion : false
+2025-04-09 17:26:42 [main] INFO  org.base.Utils - response
+2025-04-09 17:26:42 [main] INFO  org.base.Utils - timer : false
+2025-04-09 17:26:42 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:26:42 [main] INFO  org.base.Utils - Assertion : false
+2025-04-09 17:26:42 [main] INFO  org.base.Utils - response
+2025-04-09 17:26:42 [main] INFO  org.base.Utils - timer : false
+2025-04-09 17:26:42 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:26:42 [main] INFO  org.base.Utils - Assertion : false
+2025-04-09 17:26:42 [main] INFO  org.base.Utils - response
+2025-04-09 17:26:42 [main] INFO  org.base.Utils - timer : false
+2025-04-09 17:27:42 [main] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-09 17:27:42 [main] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-09 17:27:42 [main] INFO  org.base.Utils - Processing Scenario: Ctaf-userManagement, TPS: 10, Duration: 60, RampUp: 10
+2025-04-09 17:27:42 [main] INFO  org.base.ConfigUtils - Successfully changed the firstName value in to ${username}
+2025-04-09 17:27:42 [main] INFO  org.base.ConfigUtils - Successfully changed the lastName value in to ${lastName}
+2025-04-09 17:27:42 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:27:42 [main] INFO  org.base.Utils - Assertion : false
+2025-04-09 17:27:42 [main] INFO  org.base.Utils - response
+2025-04-09 17:27:42 [main] INFO  org.base.Utils - timer : false
+2025-04-09 17:27:42 [main] INFO  org.base.Utils - Added JSON Extractor to API: signin
+2025-04-09 17:27:42 [main] INFO  org.base.Utils - Processing Controller: critical-section
+2025-04-09 17:27:42 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:27:42 [main] INFO  org.base.Utils - Assertion : false
+2025-04-09 17:27:42 [main] INFO  org.base.Utils - response
+2025-04-09 17:27:42 [main] INFO  org.base.Utils - timer : false
+2025-04-09 17:27:42 [main] INFO  org.base.Utils - Added JSON Extractor to API: create-user
+2025-04-09 17:27:42 [main] INFO  org.base.ConfigUtils - Successfully changed the userId value in to ${userid}
+2025-04-09 17:27:42 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:27:42 [main] INFO  org.base.Utils - Assertion : false
+2025-04-09 17:27:42 [main] INFO  org.base.Utils - response
+2025-04-09 17:27:42 [main] INFO  org.base.Utils - timer : false
+2025-04-09 17:27:42 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:27:42 [main] INFO  org.base.Utils - Assertion : false
+2025-04-09 17:27:42 [main] INFO  org.base.Utils - response
+2025-04-09 17:27:42 [main] INFO  org.base.Utils - timer : false
+2025-04-09 17:27:42 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:27:42 [main] INFO  org.base.Utils - Assertion : false
+2025-04-09 17:27:42 [main] INFO  org.base.Utils - response
+2025-04-09 17:27:42 [main] INFO  org.base.Utils - timer : false
+2025-04-09 17:28:36 [main] INFO  org.base.Utils - Jmeter is initialised 
+2025-04-09 17:28:36 [main] INFO  org.base.Utils - Test Plan added to HashTree : 
+2025-04-09 17:28:36 [main] INFO  org.base.Utils - Processing Scenario: Ctaf-userManagement, TPS: 10, Duration: 60, RampUp: 10
+2025-04-09 17:28:36 [main] INFO  org.base.ConfigUtils - Successfully changed the firstName value in to ${username}
+2025-04-09 17:28:36 [main] INFO  org.base.ConfigUtils - Successfully changed the lastName value in to ${lastName}
+2025-04-09 17:28:36 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:28:36 [main] INFO  org.base.Utils - Assertion : false
+2025-04-09 17:28:36 [main] INFO  org.base.Utils - response
+2025-04-09 17:28:36 [main] INFO  org.base.Utils - timer : false
+2025-04-09 17:28:36 [main] INFO  org.base.Utils - Added JSON Extractor to API: signin
+2025-04-09 17:28:36 [main] INFO  org.base.Utils - Processing Controller: critical-section
+2025-04-09 17:28:36 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:28:36 [main] INFO  org.base.Utils - Assertion : false
+2025-04-09 17:28:36 [main] INFO  org.base.Utils - response
+2025-04-09 17:28:36 [main] INFO  org.base.Utils - timer : false
+2025-04-09 17:28:36 [main] INFO  org.base.Utils - Added JSON Extractor to API: create-user
+2025-04-09 17:28:36 [main] INFO  org.base.ConfigUtils - Successfully changed the userId value in to ${userid}
+2025-04-09 17:28:36 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:28:36 [main] INFO  org.base.Utils - Assertion : false
+2025-04-09 17:28:36 [main] INFO  org.base.Utils - response
+2025-04-09 17:28:36 [main] INFO  org.base.Utils - timer : false
+2025-04-09 17:28:36 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:28:36 [main] INFO  org.base.Utils - Assertion : false
+2025-04-09 17:28:36 [main] INFO  org.base.Utils - response
+2025-04-09 17:28:36 [main] INFO  org.base.Utils - timer : false
+2025-04-09 17:28:36 [main] INFO  org.base.ConfigUtils - Header Manager added : 
+2025-04-09 17:28:36 [main] INFO  org.base.Utils - Assertion : false
+2025-04-09 17:28:36 [main] INFO  org.base.Utils - response
+2025-04-09 17:28:36 [main] INFO  org.base.Utils - timer : false

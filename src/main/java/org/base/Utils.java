@@ -12,7 +12,6 @@ import org.apache.jmeter.util.JMeterUtils;
 import org.apache.jorphan.collections.ListedHashTree;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.json.Json;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -27,6 +26,7 @@ public class Utils {
     AssertionUtils assertionUtils = new AssertionUtils();
     ProcessorUtils processorUtils = new ProcessorUtils();
     TimerUtils timerUtils = new TimerUtils();
+    ObjectMapper mapper = new ObjectMapper();
     public void initJmeter(){
         String jmeterHome = System.getenv("JMETER_HOME");
         System.out.println(jmeterHome);
@@ -64,32 +64,6 @@ public class Utils {
         return fileName;
     }
 
-    public void runJmxFile(String filename) {
-        try {
-            LocalDateTime today = LocalDateTime.now();
-            String dateString = today.format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
-            String logs = "target/jmeterLogs/" + dateString + ".jtl";
-            String report = "target/jmeterReports/"+dateString;
-            String command = "jmeter -n -t "+filename+" -l "+logs+" -e -o "+report;
-
-            ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
-            Process process = processBuilder.start();
-            processBuilder.redirectErrorStream(true);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
-            System.out.println("Jmeter Execution Ended");
-            // Read the output of the command
-            int exitCode = process.waitFor();
-            System.out.println("Command exited with code: " + exitCode);
-            aggregateReport(logs);
-        } catch (Exception e) {
-            log.error("Error Occured while running the jmx : "+e.getMessage());
-            throw new RuntimeException("Error : "+e.getMessage());
-        }
-    }
     public void aggregateReport(String jtlFileName) {
         try {
             LocalDateTime today = LocalDateTime.now();
@@ -113,19 +87,21 @@ public class Utils {
         }
     }
 
-    public static ListedHashTree addThreadGroup(ListedHashTree testplan, JsonNode scenrio){
+    public static ListedHashTree addThreadGroup(ListedHashTree testplan, JsonNode scenario){
         ListedHashTree thread;
         ThreadGroupUtils threadGroupUtils = new ThreadGroupUtils();
-        String testType = scenrio.get("thread_type").asText();
+        double tps = scenario.get("tps").asDouble();
+        JsonNode threadGroup = scenario.get("thread");
+        String testType = threadGroup.get("thread_name").asText();
         switch (testType.toLowerCase()){
             case "normal":
-                thread=threadGroupUtils.threadGroup(testplan,scenrio);
+                thread=threadGroupUtils.threadGroup(testplan,scenario);
                 break;
             case "concurrent":
-                thread=threadGroupUtils.concurrentThreadGroup(testplan,scenrio);
+                thread=threadGroupUtils.concurrentThreadGroup(testplan,scenario);
                 break;
             case "ultimate":
-                thread = threadGroupUtils.ulimateThreadGroup(testplan,scenrio);
+                thread = threadGroupUtils.ulimateThreadGroup(testplan,scenario);
                 break;
             default:
                 log.error("Please Enter Valid test Type");
@@ -134,44 +110,7 @@ public class Utils {
         return thread;
     }
 
-    public void processScenario(JsonNode scenario, JsonNode payloadRootNode, ListedHashTree testPlan, Utils utils, ObjectMapper mapper, String testName) throws Exception {
-        String scenarioName = scenario.get("name").asText();
-        int tps = scenario.get("tps").asInt();
-        int duration = scenario.get("duration").asInt();
-        int rampUp = scenario.get("rampUp").asInt();
-
-        log.info("Processing Scenario: {}, TPS: {}, Duration: {}, RampUp: {}", scenarioName, tps, duration, rampUp);
-
-        ListedHashTree threadGroup = addThreadGroup(testPlan,scenario);
-        JsonNode csvVariables = scenario.get("csv_variable");
-        JsonNode controllers = scenario.get("controller");
-        JsonNode jsonExtractors = scenario.get("JsonExtractor");
-        JsonNode apiItems = payloadRootNode.get("item");
-        Map<String, JsonNode> apiMap = new TreeMap<String,JsonNode>();
-        for(JsonNode item: apiItems){
-            if (item.has("name")) {
-                apiMap.put(item.get("name").asText(), item);
-            }
-        }
-        // Process CSV Variables
-        if (!csvVariables.isNull()) {
-            processCsvVariables(csvVariables, apiMap);
-
-            configUtils.csvDataConfig(threadGroup, "csvFiles/" + testName + scenarioName + ".csv", csvVariables);
-        }
-
-        // Process Controllers
-        for (JsonNode controller : controllers) {
-            // processController(controller, apiMap, threadGroup,jsonExtractors);
-        }
-
-        // Process API Order
-        //processApiOrder(scenario.get("api_order"), apiMap, threadGroup, utils, mapper,jsonExtractors);
-        log.info("Scenario processed successfully" + scenarioName);
-
-    }
-
-    public void processCsvVariables(JsonNode csvVariables, Map<String,JsonNode> apiMap){
+        public void processCsvVariables(JsonNode csvVariables, Map<String,JsonNode> apiMap){
         for (JsonNode csvVariable : csvVariables) {
             String varName = csvVariable.get("var_name").asText();
             JsonNode apis = csvVariable.get("apis");
@@ -235,19 +174,20 @@ public class Utils {
     public void addHttpSampler(String apiName, Map<String,JsonNode> apiItems, ListedHashTree parentTree,JsonNode processors,JsonNode timers,JsonNode assertions) {
         JsonNode item = apiItems.get(apiName);
         if (apiName.equalsIgnoreCase(item.get("name").asText())) {
-            String apiMethod = item.get("request").get("method").asText();
             ListedHashTree samplerTree = samplerUtils.httpSampler(item, parentTree);
             if (!item.get("request").get("header").isNull()) {
                 configUtils.headerManager(samplerTree, item.get("request").get("header"));
             }
             for (JsonNode assertion:assertions){
-                List<String> apiNames = assertion.get("apiName").findValuesAsText("");
+                List apiNames = mapper.convertValue(assertion.get("apiName"),List.class);
+                log.info("Assertion : "+apiNames.isEmpty());
                 if(apiNames.contains(apiName)){
                     assertions(samplerTree,assertion);
                 }
             }
             for (JsonNode timer:timers){
-                List<String> apiNames = timer.get("apiName").findValuesAsText("");
+                List apiNames = mapper.convertValue(timer.get("apiName"),List.class);
+                log.info("timer : "+apiNames.isEmpty());
                 if(apiNames.contains(apiName)){
                     addTimers(samplerTree,timer);
                 }
@@ -260,58 +200,7 @@ public class Utils {
             }
         }
     }
-    public void addJsonExtractors(String apiName, JsonNode jsonExtractors, Map<String,JsonNode> apiItems,ListedHashTree samplerTree)
-    {
-        for (JsonNode jsonExtractor : jsonExtractors) {
-            if(jsonExtractor.has("apiName") && !jsonExtractor.get("apiName").isNull()) {
-                if (apiName.equalsIgnoreCase(jsonExtractor.get("apiName").asText())) {
-                    String variableName = jsonExtractor.get("variableName").asText();
-                    //processorUtils.jsonExtractor(samplerTree,jsonExtractor);
-                    log.info("Added JSON Extractor to API:" + apiName);
-                    JsonNode targetApisExtractors = jsonExtractor.get("targets");
-                    for(JsonNode targetApisExtractor : targetApisExtractors){
-                        JsonNode targetApi = apiItems.get(targetApisExtractor.get("apiName").asText());
-                        String target_value = targetApisExtractor.get("target_value").asText();
-                        switch (targetApisExtractor.get("target_type").asText().toLowerCase()) {
-                            case "header":
-                                JsonNode headerNode = targetApi.get("request").get("header");
-                                try {
-                                    ArrayNode dataArray = (ArrayNode) headerNode;
-                                    for(JsonNode dataArr :dataArray ){
-                                        if(target_value.equalsIgnoreCase(dataArr.get("key").asText())){
-                                            ObjectNode secondEntry = (ObjectNode) dataArr;
-                                            secondEntry.put("value", "Bearer "+"${" + variableName + "}");
-                                        }
-                                    }
-                                    System.out.println("Json Extractor variable added inside Header:");
-                                } catch (Exception e) {
-                                    System.out.println("Exception occurs while adding JsonExtractor in Header: " + e.getMessage());
-                                }
-                                break;
-                            case "body":
-                                String requestBody = targetApi.get("request").get("body").get("raw").asText();
-                                configUtils.changeBodyVariables(requestBody, target_value, variableName, targetApi);
-                                break;
-                            case "path":
-                                JsonNode path = targetApi.get("request").get("url").get("path");
-                                try {
-                                    ArrayNode pathNode = (ArrayNode) path;
-                                    pathNode.add("${" + variableName + "}");
-                                    System.out.println("Json Extractor variable added to path:");
-                                } catch (Exception e) {
-                                    System.out.println("Exception occurs while adding path: " + e.getMessage());
-                                }
-                                break;
-                            default:
-                                log.warn("Unknown Target Type: ");
-                                return;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    public int numberUsers(int tps, double responseTime) {
+    public int numberUsers(double tps, double responseTime) {
         double noUsers = Math.ceil((tps * responseTime) );
         System.out.println(noUsers + "Number of users");
         return (int) noUsers;
@@ -322,12 +211,12 @@ public class Utils {
             case "jsonextractor":
                 processorUtils.jsonExtractor(sampler, processor);
                 log.info("Added JSON Extractor to API: {}", apiName);
-                processorUtils.beanShellPostProcessor(sampler, processor);
+                //processorUtils.beanShellPostProcessor(sampler, processor);
                 break;
             case "regexextractor":
                 processorUtils.regexPostProcessor(sampler, processor);
                 log.info("Added Regex Extractor to API: {}", apiName);
-                processorUtils.beanShellPostProcessor(sampler, processor);
+                //processorUtils.beanShellPostProcessor(sampler, processor);
                 break;
             case "beanshellpreprocessor":
                 processorUtils.beanShellPreProcessor(sampler, processor);
@@ -348,7 +237,8 @@ public class Utils {
         JsonNode targets = processor.get("targets");
         String variableName = processor.get("proc_variableName").asText();
         for (JsonNode target : targets) {
-            JsonNode targetApi = apiItems.get(apiName);
+            String api = target.get("apiName").asText();
+            JsonNode targetApi = apiItems.get(api);
             String targetValue = target.get("target_value").asText();
             String targetType = target.get("target_type").asText();
             switch (targetType.toLowerCase()) {
@@ -375,6 +265,7 @@ public class Utils {
                     JsonNode path = targetApi.get("request").get("url").get("path");
                     try {
                         ArrayNode pathNode = (ArrayNode) path;
+                        pathNode.remove(pathNode.size()-1);
                         pathNode.add("${" + variableName + "}");
                         System.out.println("Json Extractor variable added to path:");
                     } catch (Exception e) {
@@ -392,10 +283,13 @@ public class Utils {
         switch(timerName.toLowerCase()){
             case "constant":
                 timerUtils.constantTimer(sampler,timer);
+                break;
             case "sync":
                 timerUtils.syncTimer(sampler,timer);
+                break;
             case "constantthrougput":
                 timerUtils.constantThroughputTimer(sampler,timer);
+                break;
             default:
                 log.error("Invalid Timer is added");
                 throw new RuntimeException("Please Enter valid timer");
@@ -403,27 +297,34 @@ public class Utils {
     }
     public void assertions(ListedHashTree tree,JsonNode assertion){
         String assertName = assertion.get("assert_name").asText();
+        log.info(assertName);
         switch(assertName.toLowerCase()){
             case "response":
                 assertionUtils.responseAssertion("200",tree);
+                break;
             case "size":
                 assertionUtils.sizeAssertion(tree);
+                break;
             case "json":
                 assertionUtils.jsonAssertion(tree);
+                break;
             case "duration":
                 assertionUtils.durationAssertion(tree);
+                break;
             default:
                 log.error("Enter Valid response assertion");
                 throw new RuntimeException("Enter valid response assertion");
         }
     }
-    public void processScenario1(ListedHashTree testPlan, JsonNode scenario, JsonNode payload,String testName){
+    public void processScenario(ListedHashTree testPlan, JsonNode scenario, JsonNode payload, String testName){
         String scenarioName = scenario.get("name").asText();
         JsonNode apiItems = payload.get("item");
         int tps = scenario.get("tps").asInt();
-        int duration = scenario.get("duration").asInt();
-        int rampUp = scenario.get("rampUp").asInt();
-
+        int duration=0,rampUp=0;
+        for(JsonNode property:scenario.get("thread").get("property")){
+            duration = property.get("duration").asInt();
+            rampUp = property.get("rampUp").asInt();
+        }
         log.info("Processing Scenario: {}, TPS: {}, Duration: {}, RampUp: {}", scenarioName, tps, duration, rampUp);
 
         ListedHashTree threadGroup = addThreadGroup(testPlan,scenario);

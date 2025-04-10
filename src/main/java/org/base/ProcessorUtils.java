@@ -11,7 +11,6 @@ import org.apache.jmeter.protocol.jdbc.processor.JDBCPostProcessor;
 import org.apache.jmeter.protocol.jdbc.processor.JDBCPreProcessor;
 import org.apache.jmeter.testbeans.gui.TestBeanGUI;
 import org.apache.jmeter.testelement.TestElement;
-import org.apache.jmeter.testelement.property.StringProperty;
 import org.apache.jorphan.collections.ListedHashTree;
 
 public class ProcessorUtils {

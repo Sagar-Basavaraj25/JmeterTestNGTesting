@@ -1,45 +1,46 @@
 {
   "_comments":"create this for Scenarios",
-  "payloadFile":"payload/SmarTone_APIs_latest.postman_collection.json",
+  "payloadFile":"payload/Ctaf-21.postman_collection.json",
   "scenario":[{
-    "name": "MSISDN_operations",
+    "name": "Ctaf-userManagement",
     "_comments": "normal - for normal thread Group, concurrent - for concurrent threadgroup, ultimate - for Ultimate Thread Group",
-    "tps":10,
+    "tps":5,
+    "averageResponseTime": 10,
     "thread":{
-      "thread_name": "ultimate",
+      "thread_name": "normal",
       "property": [{
-        "No of vu": 20,
-        "initial_delay": 10,
-        "rampup_time": 10,
+        "userCount": 0,
+        "initial_delay": 0,
+        "rampUp": 10,
         "duration": 60,
-        "rampdown_time": 10,
-        "step": 2,
+        "rampDown": 0,
+        "step": 0,
         "loop": null
       }]
     },
     "_comment_step": "If you are using concurrent add 'step': 'your value' next line otherwise it will take default value as 3",
     "csv_variable": [
       {
-        "var_name": "MSISIDN",
-        "var_constant":"NUM",
-        "dynamic_type":"Number",
+        "var_name": "username",
+        "var_constant":null,
+        "dynamic_type":"String",
         "min_len": 9,
         "max_len": 9,
         "apis": [{
-          "apiName": "CreateMsisdn",
-          "attribute": "msisdn"
+          "apiName": "create-user",
+          "attribute": "firstName"
         }]
       },
       {
-        "var_name": "IMEI",
-        "var_constant":"NUM",
+        "var_name": "lastName",
+        "var_constant":null,
         "dynamic_type":"String",
         "min_len": 7,
         "max_len": 10,
         "apis": [
           {
-            "apiName": "createSim",
-            "attribute": "imsi"
+            "apiName": "update-user",
+            "attribute": "lastName"
           }]
       }],
     "component_order": ["signin","userOperations","logout"],
@@ -55,14 +56,14 @@
       "apiName":[]
     },
     "debug": {
-      "apiName":["CreateMsisdn","UpdateSim"]
+      "apiName":[]
     },
     "processors": [{
       "processor_name": "jsonExtractor",
       "proc_variableName": "access_token",
       "path":"$.token",
       "field_to_check": "",
-      "apiName":"CreateMsisdn",
+      "apiName":"signin",
       "targets":[{
         "apiName":"create-user",
         "target_type":"header",
@@ -80,12 +81,27 @@
         "target_type":"header",
         "target_value": "Authorization"
       }]
+    },{
+      "processor_name": "jsonExtractor",
+      "proc_variableName": "userid",
+      "path":"$.data.userId",
+      "field_to_check": "",
+      "apiName":"create-user",
+      "targets":[{
+        "apiName":"update-user",
+        "target_type":"body",
+        "target_value": "userId"
+      },{
+        "apiName":"delete-user",
+        "target_type":"path",
+        "target_value": ""
+      }]
     }],
     "timers": [{
       "timer_name":"constant",
-      "delay/throughput":"",
+      "delay/throughput":"100",
       "throughput_base/groups": "",
-      "apiName":[]
+      "apiName":["signin"]
     }],
     "assertions": [{
       "assert_name": "response",
@@ -93,7 +109,7 @@
       "duration/value": "",
       "comparison_type": "",
       "jsonPath": "",
-      "apiName":[]
+      "apiName":["signin","create-user","update-user","delete-user","logout"]
     }]
   }]
 }
