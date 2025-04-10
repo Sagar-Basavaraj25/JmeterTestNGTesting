@@ -110,7 +110,45 @@ public class Utils {
         return thread;
     }
 
-        public void processCsvVariables(JsonNode csvVariables, Map<String,JsonNode> apiMap){
+    public void processScenario(JsonNode scenario, JsonNode payloadRootNode, ListedHashTree testPlan, Utils utils, ObjectMapper mapper, String testName) throws Exception {
+        String scenarioName = scenario.get("name").asText();
+        int tps = scenario.get("tps").asInt();
+        int duration = scenario.get("duration").asInt();
+        int rampUp = scenario.get("rampUp").asInt();
+
+        log.info("Processing Scenario: {}, TPS: {}, Duration: {}, RampUp: {}", scenarioName, tps, duration, rampUp);
+
+        ListedHashTree threadGroup = addThreadGroup(testPlan,scenario);
+        JsonNode csvVariables = scenario.get("csv_variable");
+        JsonNode controllers = scenario.get("controller");
+        JsonNode jsonExtractors = scenario.get("JsonExtractor");
+        JsonNode assertions = scenario.get("assertions");
+        JsonNode apiItems = payloadRootNode.get("item");
+        Map<String, JsonNode> apiMap = new TreeMap<String,JsonNode>();
+        for(JsonNode item: apiItems){
+            if (item.has("name")) {
+                apiMap.put(item.get("name").asText(), item);
+            }
+        }
+        // Process CSV Variables
+        if (!csvVariables.isNull()) {
+            processCsvVariables(csvVariables, apiMap);
+
+            configUtils.csvDataConfig(threadGroup, "csvFiles/" + testName + scenarioName + ".csv", csvVariables);
+        }
+
+        // Process Controllers
+        for (JsonNode controller : controllers) {
+            // processController(controller, apiMap, threadGroup,jsonExtractors);
+        }
+
+        // Process API Order
+        //processApiOrder(scenario.get("api_order"), apiMap, threadGroup, utils, mapper,jsonExtractors);
+        log.info("Scenario processed successfully" + scenarioName);
+
+    }
+
+    public void processCsvVariables(JsonNode csvVariables, Map<String,JsonNode> apiMap){
         for (JsonNode csvVariable : csvVariables) {
             String varName = csvVariable.get("var_name").asText();
             JsonNode apis = csvVariable.get("apis");
