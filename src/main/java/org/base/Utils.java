@@ -1,10 +1,10 @@
 package org.base;
 
 import com.fasterxml.jackson.databind.JsonNode;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.apache.jmeter.config.Arguments;
+import com.fasterxml.jackson.databind.node.ObjectNode;import org.apache.jmeter.config.Arguments;
 import org.apache.jmeter.control.gui.TestPlanGui;
 import org.apache.jmeter.engine.StandardJMeterEngine;
 import org.apache.jmeter.testelement.TestPlan;
@@ -12,6 +12,8 @@ import org.apache.jmeter.util.JMeterUtils;
 import org.apache.jorphan.collections.ListedHashTree;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.testng.Assert;
+import org.testng.asserts.Assertion;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -64,7 +66,7 @@ public class Utils {
         return fileName;
     }
 
-    public void aggregateReport(String jtlFileName) {
+    public String aggregateReport(String jtlFileName) {
         try {
             LocalDateTime today = LocalDateTime.now();
             String dateString = today.format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
@@ -81,12 +83,35 @@ public class Utils {
             // Read the output of the command
             int exitCode = process.waitFor();
             System.out.println("Command exited with code: " + exitCode);
+            return report;
         } catch (Exception e) {
             log.error("Error Occured while running the jmx : "+e.getMessage());
             throw new RuntimeException("Error : "+e.getMessage());
         }
     }
 
+    public void failureReport(String jtlFileName) {
+        try {
+            LocalDateTime today = LocalDateTime.now();
+            String dateString = today.format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+            String report = "target/jmeterReports/"+dateString+".csv";
+            String command = "jmeter -g "+jtlFileName+" -o "+report;
+
+            ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
+            Process process = processBuilder.start();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+            // Read the output of the command
+            int exitCode = process.waitFor();
+            System.out.println("Command exited with code: " + exitCode);
+        } catch (Exception e) {
+            log.error("Error Occured while running the jmx : "+e.getMessage());
+            throw new RuntimeException("Error : "+e.getMessage());
+        }
+    }
     public static ListedHashTree addThreadGroup(ListedHashTree testplan, JsonNode scenario){
         ListedHashTree thread;
         ThreadGroupUtils threadGroupUtils = new ThreadGroupUtils();
@@ -108,44 +133,6 @@ public class Utils {
                 throw new RuntimeException("Enter Valid test type");
         }
         return thread;
-    }
-
-    public void processScenario(JsonNode scenario, JsonNode payloadRootNode, ListedHashTree testPlan, Utils utils, ObjectMapper mapper, String testName) throws Exception {
-        String scenarioName = scenario.get("name").asText();
-        int tps = scenario.get("tps").asInt();
-        int duration = scenario.get("duration").asInt();
-        int rampUp = scenario.get("rampUp").asInt();
-
-        log.info("Processing Scenario: {}, TPS: {}, Duration: {}, RampUp: {}", scenarioName, tps, duration, rampUp);
-
-        ListedHashTree threadGroup = addThreadGroup(testPlan,scenario);
-        JsonNode csvVariables = scenario.get("csv_variable");
-        JsonNode controllers = scenario.get("controller");
-        JsonNode jsonExtractors = scenario.get("JsonExtractor");
-        JsonNode assertions = scenario.get("assertions");
-        JsonNode apiItems = payloadRootNode.get("item");
-        Map<String, JsonNode> apiMap = new TreeMap<String,JsonNode>();
-        for(JsonNode item: apiItems){
-            if (item.has("name")) {
-                apiMap.put(item.get("name").asText(), item);
-            }
-        }
-        // Process CSV Variables
-        if (!csvVariables.isNull()) {
-            processCsvVariables(csvVariables, apiMap);
-
-            configUtils.csvDataConfig(threadGroup, "csvFiles/" + testName + scenarioName + ".csv", csvVariables);
-        }
-
-        // Process Controllers
-        for (JsonNode controller : controllers) {
-            // processController(controller, apiMap, threadGroup,jsonExtractors);
-        }
-
-        // Process API Order
-        //processApiOrder(scenario.get("api_order"), apiMap, threadGroup, utils, mapper,jsonExtractors);
-        log.info("Scenario processed successfully" + scenarioName);
-
     }
 
     public void processCsvVariables(JsonNode csvVariables, Map<String,JsonNode> apiMap){
@@ -328,6 +315,9 @@ public class Utils {
             case "constantthrougput":
                 timerUtils.constantThroughputTimer(sampler,timer);
                 break;
+            case "uniformrandom":
+                String duration = timer.get("duration").asText();
+                timerUtils.uniformRandomTimer(sampler,duration);
             default:
                 log.error("Invalid Timer is added");
                 throw new RuntimeException("Please Enter valid timer");
@@ -354,7 +344,7 @@ public class Utils {
                 throw new RuntimeException("Enter valid response assertion");
         }
     }
-    public void processScenario(ListedHashTree testPlan, JsonNode scenario, JsonNode payload, String testName){
+    public void processScenario(ListedHashTree threadGroup, JsonNode scenario, JsonNode payload, String testName){
         String scenarioName = scenario.get("name").asText();
         JsonNode apiItems = payload.get("item");
         int tps = scenario.get("tps").asInt();
@@ -364,8 +354,6 @@ public class Utils {
             rampUp = property.get("rampUp").asInt();
         }
         log.info("Processing Scenario: {}, TPS: {}, Duration: {}, RampUp: {}", scenarioName, tps, duration, rampUp);
-
-        ListedHashTree threadGroup = addThreadGroup(testPlan,scenario);
         JsonNode csvVariables = scenario.get("csv_variable");
         JsonNode controllers = scenario.get("controller");
         JsonNode timers = scenario.get("timers");
@@ -401,8 +389,11 @@ public class Utils {
                 processController(controllerMap.get(name),apiMap,threadGroup,processors,timers,assertions);
             } else if (name.equalsIgnoreCase("debug")){
                 samplerUtils.debugSampler(threadGroup);
-            }else if(name.equalsIgnoreCase("flow-control")){
-                samplerUtils.flowControlActionSampler(threadGroup);
+            }else if(name.equalsIgnoreCase("think")){
+                String time = scenario.get("thinkTime").get("duration").asText();
+                ListedHashTree thinkTime = samplerUtils.flowControlActionSampler(threadGroup);
+                timerUtils.uniformRandomTimer(thinkTime,time);
+
             }
             log.info("Component added successfully : {}",name);
         }

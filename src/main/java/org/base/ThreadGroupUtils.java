@@ -26,6 +26,7 @@ public class ThreadGroupUtils {
         JsonNode properties = thread.get("property");
         int loopCount=0,rampUp=0;
         long duration=0L;
+        int userCount=0;
         for(JsonNode property:properties){
             duration = property.get("duration").asLong();
             log.info("Duration value: "+duration);
@@ -33,6 +34,7 @@ public class ThreadGroupUtils {
             log.info("RampUp value: "+rampUp);
             log.info("Loop Count {}", property.get("loop").isNull());
             loopCount = property.get("loop").isNull()?-1:property.get("loop").asInt();
+            userCount = property.get("userCount").asInt();
         }
         String tGName = scenario.get("name").asText();
         log.info("ThreadGroup Name: "+tGName);
@@ -42,8 +44,29 @@ public class ThreadGroupUtils {
         threadGroup.setName(tGName);
         log.info("Thread Group name : " + tGName);
         double responseTime = scenario.get("averageResponseTime").asDouble();
-        threadGroup.setNumThreads(utils.numberUsers(tps,responseTime));
+        threadGroup.setNumThreads(userCount);
         log.info("Number of the Threads : " + tps);
+        threadGroup.setRampUp(rampUp);
+        log.info("Ramp Up count : " + rampUp);
+        threadGroup.setScheduler(true);
+        threadGroup.setProperty("ThreadGroup.on_sample_error", "continue");
+        threadGroup.setDuration(duration);
+        threadGroup.setSamplerController(loopController(loopCount));
+        log.info("Thread Group added to TestPlan : ");
+        return testplan.add(threadGroup);
+    }
+    public ListedHashTree smokeThreadGroup(ListedHashTree testplan){
+        int loopCount=-1,rampUp=0;
+        long duration=60;
+        int userCount=1;
+        String tGName = "Scenario Smoke";
+        log.info("ThreadGroup Name: "+tGName);
+        ThreadGroup threadGroup=new ThreadGroup();
+        threadGroup.setProperty("TestElement.test_class", ThreadGroup.class.getName());
+        threadGroup.setProperty("TestElement.gui_class", ThreadGroupGui.class.getName());
+        threadGroup.setName(tGName);
+        log.info("Thread Group name : " + tGName);
+        threadGroup.setNumThreads(userCount);
         threadGroup.setRampUp(rampUp);
         log.info("Ramp Up count : " + rampUp);
         threadGroup.setScheduler(true);

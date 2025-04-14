@@ -1,18 +1,22 @@
 {
   "_comments":"create this for Scenarios",
-  "payloadFile":"payload/Ctaf-21.postman_collection.json",
+  "payloadFile":"payload/automation_PT.postman_collection.json",
+  "includeJdbc": "no",
+  "includePacing": "no",
+  "includeThink": "no",
+  "errorTolerance": "20%",
   "scenario":[{
-    "name": "Ctaf-userManagement",
+    "name": "SmartTone Demo Automation",
     "_comments": "normal - for normal thread Group, concurrent - for concurrent threadgroup, ultimate - for Ultimate Thread Group",
     "tps":5,
-    "averageResponseTime": 10,
+    "averageResponseTime": 2,
     "thread":{
       "thread_name": "normal",
       "property": [{
-        "userCount": 0,
+        "userCount": 10,
         "initial_delay": 0,
-        "rampUp": 10,
-        "duration": 60,
+        "rampUp": 1,
+        "duration": 180,
         "rampDown": 0,
         "step": 0,
         "loop": null
@@ -21,46 +25,79 @@
     "_comment_step": "If you are using concurrent add 'step': 'your value' next line otherwise it will take default value as 3",
     "csv_variable": [
       {
-        "var_name": "username",
-        "var_constant":null,
-        "dynamic_type":"String",
-        "min_len": 9,
-        "max_len": 9,
-        "apis": [{
-          "apiName": "create-user",
-          "attribute": "firstName"
-        }]
-      },
-      {
-        "var_name": "lastName",
-        "var_constant":null,
-        "dynamic_type":"String",
-        "min_len": 7,
+        "var_name": "msisdn",
+        "var_constant": "138",
+        "dynamic_type": "Number",
+        "min_len": 10,
         "max_len": 10,
+        "records": 1000,
         "apis": [
           {
-            "apiName": "update-user",
-            "attribute": "lastName"
+            "apiName": "CreateMsisdn",
+            "attribute": "msisdn"
+          },
+          {
+            "apiName": "updateMsisdn",
+            "attribute": "msisdn"
+          },
+          {
+            "apiName": "createPrepaidCustomer",
+            "attribute": "msisdn"
+          }
+        ]
+      },
+      {
+        "var_name": "sim",
+        "var_constant":"3123",
+        "dynamic_type":"Number",
+        "min_len": 18,
+        "max_len": 18,
+        "records": 1000,
+        "apis": [
+          {
+            "apiName": "createSim",
+            "attribute": "sim"
           }]
+      },{
+        "var_name": "imsi",
+        "var_constant":"3123",
+        "dynamic_type":"Number",
+        "min_len": 12,
+        "max_len": 12,
+        "records": 1000,
+        "apis": [
+          {
+            "apiName": "createSim",
+            "attribute": "imsi"
+          },
+          {
+            "apiName": "updateSim",
+            "attribute": "imsi"
+          },{
+            "apiName": "createPrepaidCustomer",
+            "attribute": "imsi"
+          }
+        ]
       }],
-    "component_order": ["signin","userOperations","logout"],
+    "component_order": ["userOperations"],
     "controller": [{
       "_comments": "only-once for only Once Controller, transaction - Transaction Controller, critical-section - Critical Section Controller",
       "name":"userOperations",
       "controller-type": "critical-section",
-      "apiName":["create-user","update-user","delete-user"],
+      "apiName":["CreateMsisdn","updateMsisdn","createSim","updateSim","createPrepaidCustomer"],
       " runTime/loop/throughput": 0
     }],
     "thinkTime": {
-      "duration": 1000,
-      "apiName":[]
+      "name": "think",
+      "duration": "1000"
     },
-    "debug": {
-      "apiName":[]
+    "pacing":{
+      "duration": 1000
     },
+    "jdbc_sampler": null,
     "processors": [{
-      "processor_name": "jsonExtractor",
-      "proc_variableName": "access_token",
+      "processor_name": "",
+      "proc_variableName": "",
       "path":"$.token",
       "field_to_check": "",
       "apiName":"signin",
@@ -68,43 +105,21 @@
         "apiName":"create-user",
         "target_type":"header",
         "target_value": "Authorization"
-      },{
-        "apiName":"update-user",
-        "target_type":"header",
-        "target_value": "Authorization"
-      },{
-        "apiName":"delete-user",
-        "target_type":"header",
-        "target_value": "Authorization"
-      },{
-        "apiName":"logout",
-        "target_type":"header",
-        "target_value": "Authorization"
-      }]
-    },{
-      "processor_name": "jsonExtractor",
-      "proc_variableName": "userid",
-      "path":"$.data.userId",
-      "field_to_check": "",
-      "apiName":"create-user",
-      "targets":[{
-        "apiName":"update-user",
-        "target_type":"body",
-        "target_value": "userId"
-      },{
-        "apiName":"delete-user",
-        "target_type":"path",
-        "target_value": ""
       }]
     }],
     "timers": [{
-      "timer_name":"constant",
-      "delay/throughput":"100",
-      "throughput_base/groups": "",
-      "apiName":["signin"]
+      "timer_name":"constantthrougput",
+      "delay/throughput":"0.027778",
+      "throughput_base/groups": "ThisThreadOnly",
+      "apiName":["CreateMsisdn","updateMsisdn","createPrepaidCustomer"]
+    },{
+      "timer_name":"constantthrougput",
+      "delay/throughput":"0.138889",
+      "throughput_base/groups": "ThisThreadOnly",
+      "apiName":["createSim","updateSim"]
     }],
     "assertions": [{
-      "assert_name": "response",
+      "assert_name": "",
       "field_to_test": "responseCode",
       "testString/statusCode" : "200",
       "duration/expectedValue": "",

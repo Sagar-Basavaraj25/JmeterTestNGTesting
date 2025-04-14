@@ -23,52 +23,48 @@ public class ListenerUtils {
         consoleLog.setName("jp@gc - Console Status Logger");
         testplan.add(consoleLog);
     }
-    public void addJsr223Listener(ListedHashTree testplan){
+    public void addJsr223Listener(ListedHashTree testPlan){
         JSR223Listener listener = new JSR223Listener();
         listener.setName("JSR223 Listener");
         listener.setProperty("TestElement.test_class",JSR223Listener.class.getName());
         listener.setProperty("TestElement.gui_class", TestBeanGUI.class.getName());
         listener.setProperty("scriptLanguage", "groovy");
         listener.setProperty("cacheKey", "true");
-//        String groovyScript = """
-//                // Extract basic details
-//                def samplerName = prev.getSampleLabel()
-//                def threadName = prev.getThreadName()
-//                def responseCode = prev.getResponseCode()
-//                def responseMessage = prev.getResponseMessage()
-//                def responseTime = prev.getTime()
-//                def status = prev.isSuccessful() ? "PASS" : "FAIL"
-//                def requestHeaders = prev.getRequestHeaders()
-//                def responseHeaders = prev.getResponseHeaders()
-//                def responseData = prev.getResponseDataAsString()
-//                def requestData = sampler.getArguments().getArgument(0).getValue()
-//        // Logging data
-//        println " ThreadName: ${threadName}, Sampler: ${samplerName}, Response Time: ${responseTime}ms, Status: ${status}, Message: ${responseMessage}"
-//        """;
         String groovyScript = """
-                import org.apache.jmeter.samplers.SampleResult
+            import java.io.File
+            import java.io.FileWriter
                 
-                // Fetch current sample details
-                SampleResult result = prev
-                if (result != null) {
-                    String samplerName = result.getSampleLabel()
-                    long avgTime = result.getTime()  // Average Response Time
-                    long minTime = result.getStartTime()  // Min Time
-                    long maxTime = result.getEndTime()  // Max Time
-                    long medianTime = result.getTime() // Approximate median (for demo)
-                    long latency = result.getLatency()
-                   \s
-                    // Print dynamic aggregate report in a single line using \r (carriage return)
-                    print "\rSampler: ${samplerName} | Avg: ${avgTime} ms | Median: ${medianTime} ms | Min: ${minTime} | Max: ${maxTime} | Latency: ${latency} ms      "
-                   \s
-                    // Flush the output to ensure it's visible in real-time
-                    System.out.flush()
-                }
+            // Define file path 
+            def filePath = "D:/github/PT_Jmeter/JmeterTestNGTesting/target/smokeLogs/jmeter_results.csv"  // Update this as needed
+            def file = new File(filePath)
                 
-                """;
+            // Check if file already exists to add header only once
+            def writeHeader = !file.exists()
+                
+            // Create writer in append mode
+            def writer = new FileWriter(file, true)
+                
+            // Write header if file is newly created
+            if (writeHeader) {
+               writer.write("SamplerName,Status,ResponseData,ResponseTime\\n")
+            }
+                
+            // Fetch values from the sample
+            def samplerName = sampler.getName()
+            def status = prev.isSuccessful() ? "Pass" : "Fail"
+            def responseData = prev.getResponseDataAsString().replaceAll("[\\\\r\\\\n]+", " ").replaceAll(",", ";")  // clean line breaks & commas
+            def responseTime = prev.getTime()
+                
+            // Write data line
+            writer.write("${samplerName},${status},\\"${responseData}\\",${responseTime}\\n")
+                
+            // Flush and close
+            writer.flush()
+            writer.close()
+            """;
         listener.setProperty("script", groovyScript);
         //println "Request Body: ${requestData}"
-        testplan.add(listener);
+        testPlan.add(listener);
     }
     public void backendListener(ListedHashTree tree){
         Properties file = new Properties();

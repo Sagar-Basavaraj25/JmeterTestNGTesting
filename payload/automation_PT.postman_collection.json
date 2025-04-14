@@ -1,0 +1,332 @@
+{
+	"info": {
+		"_postman_id": "94e952df-978e-4cdf-8b62-9e2bfee1e5a3",
+		"name": "automation_PT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31938130"
+	},
+	"item": [
+		{
+			"name": "CreateMsisdn",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "correlationId",
+						"value": "123454321",
+						"type": "text"
+					},
+					{
+						"key": "srdate",
+						"value": "23432132",
+						"type": "text"
+					},
+					{
+						"key": "source",
+						"value": "WEB",
+						"type": "text"
+					},
+					{
+						"key": "operation",
+						"value": "createMsisdn",
+						"type": "text"
+					},
+					{
+						"key": "destination",
+						"value": "brm",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"msisdn\": \"1382414468\",\r\n    \"resourceStatus\": \"F\",\r\n    \"typeId\": 1,\r\n    \"msisdnClass\":1,\r\n    \"hlrId\": \"1\",\r\n    \"mnpStatus\": \"\",\r\n    \"operatorCode\": \"0\",\r\n    \"vasType\": \"0\",\r\n    \"remark1\": \"remark1\",\r\n    \"remark2\": \"remark2\",\r\n    \"remark3\": \"remark3\",\r\n    \"liveIndicator\": \"Y\",\r\n    \"userId\": \"1832411251305\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/inventory/createMsisdn",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"inventory",
+						"createMsisdn"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateMsisdn",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "operation",
+						"value": "updateMsisdn"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "correlationId",
+						"value": "coor123"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "srDate",
+						"value": "fgg"
+					},
+					{
+						"key": "destination",
+						"value": "brm"
+					},
+					{
+						"key": "serviceProvider",
+						"value": "crm"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"actionId\": 1,\r\n    \"msisdn\": \"1382000124\",\r\n    \"inheritedInfo\": {\r\n        \"resourceStatus\": \"Free\",\r\n        \"typeId\": 1,\r\n        \"effectiveTime\": \"2024-10-16T10:00:00\",\r\n        \"phlr\": \"PHLR  ( Physical H L R ) ( SMC Network )\",\r\n        \"mnpStatus\": \"Port out\",\r\n        \"operatorCode\": \"Plane text (SMC user )\",\r\n        \"accountNumber\": \"45000001.00001\",\r\n        \"vasType\": \"Plane text (SMC user )\",\r\n        \"remark1\": \"Plane text (SMC user )\",\r\n        \"remark2\": \"Plane text (SMC user )\",\r\n        \"remark3\": \"Plane text (SMC user )\",\r\n        \"liveIndicator\": \"Y\",\r\n        \"userId\": \"John\",\r\n        \"expiryDate\": \"2024-10-16T10:00:00\",\r\n        \"dealerId\": \"343564356\",\r\n        \"quarantineDays\": 10\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/inventory/updateMsisdn",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"inventory",
+						"updateMsisdn"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createSim",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "correlationId",
+						"value": "123454321",
+						"type": "text"
+					},
+					{
+						"key": "srdate",
+						"value": "23432132",
+						"type": "text"
+					},
+					{
+						"key": "source",
+						"value": "WEB",
+						"type": "text"
+					},
+					{
+						"key": "operation",
+						"value": "createSim",
+						"type": "text"
+					},
+					{
+						"key": "destination",
+						"value": "brm",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"imsi\": \"312349009455\",\r\n    \"sim\": \"312349009712110478\",\r\n    \"pin1\": \"12345\",\r\n    \"pin2\": \"45678\",\r\n    \"puk1\": \"2024-06-25T10:00:00\",\r\n    \"puk2\": \"PUK2\",\r\n    \"ki\": \"0001\",\r\n    \"admin\": \"1\",\r\n    \"hlrId\": \"2\",\r\n    \"simTypeId\": \"89\",\r\n    \"vendorId\": \"990\",\r\n    \"model\": \"ESIM\",\r\n    \"esimType\": \"new\",\r\n    \"qrCode\": \"PA:1$sma.pd.ondemandconnectivity.com$2432432554354366lhjlhjjht67577dsf343\",\r\n    \"userId\": \"88102000\",\r\n    \"cancelFlag\": \"Y \"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/inventory/createSim",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"inventory",
+						"createSim"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateSim",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "correlationId",
+						"value": "123454321",
+						"type": "text"
+					},
+					{
+						"key": "srdate",
+						"value": "23432132",
+						"type": "text"
+					},
+					{
+						"key": "source",
+						"value": "WEB",
+						"type": "text"
+					},
+					{
+						"key": "operation",
+						"value": "updateSim",
+						"type": "text"
+					},
+					{
+						"key": "destination",
+						"value": "brm",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"actionId\": 1,\r\n    \"imsi\": \"1.928309821E10\",\r\n    \"inheritedInfo\": {\r\n        \"dealerId\": \"343564356\",\r\n        \"phlr\": \"phlr\",\r\n        \"paidFlag\": \"paidFlag\",\r\n        \"resourceStatus\": \"F\",\r\n        \"esimType\": \"esimType\",\r\n        \"qrCode\": \"qrCode\",\r\n        \"userId\": \"John\",\r\n        \"vasType\": \"SMC User\",\r\n        \"cancelFlag\": \"Y\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/inventory/updateSim",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"inventory",
+						"updateSim"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createPrepaidCustomer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "correlationId",
+						"value": "123454321"
+					},
+					{
+						"key": "srdate",
+						"value": "23432132"
+					},
+					{
+						"key": "source",
+						"value": "WEB"
+					},
+					{
+						"key": "operation",
+						"value": "createPrepaidCustomer"
+					},
+					{
+						"key": "destination",
+						"value": "brm"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"effectiveTime\": \"2024-10-16T10:00:00\",\r\n    \"programName\": \"BC\",\r\n    \"dealerCode\": \"D2408131023\",\r\n    \"activateFlag\": 0,\r\n    \"userName\": \"202408131023\",\r\n    \"msisdn\": \"1381706197\",\r\n    \"imsi\": \"183098920078845\",\r\n    \"plan\": [\r\n        {\r\n            \"elem\": \"0\",\r\n            \"services\": [\r\n                {\r\n                    \"elem\": \"0\",\r\n                    \"bundles\": [\r\n                        {\r\n                            \"elem\": \"0\",\r\n                            \"bundleInfo\": {\r\n                                \"bundleId\": \"0.0.0.1 /deal 6736219 2\",\r\n                                \"products\": [\r\n                                    {\r\n                                        \"elem\": \"0\",\r\n                                        \"status\": \"1\",\r\n                                        \"quantity\": 1,\r\n                                        \"productId\": \"0.0.0.1 /product 6756931 79\",\r\n                                        \"statusFlag\": 0,\r\n                                        \"description\": \"C48 :Admin Fee\"\r\n                                    }\r\n                                ],\r\n                                \"bundleName\": \"C48: C48 Bundle\"\r\n                            },\r\n                            \"attributeId\": \"0.0.0.0  0 0\"\r\n                        }\r\n                    ],\r\n                    \"serviceId\": \"0.0.0.1 /service/ccb/telco -1 0\"\r\n                }\r\n            ],\r\n            \"attributeId\": \"0.0.0.1 /offer_attribute_group 6775045 0\",\r\n            \"limits\": [\r\n                {\r\n                    \"elem\": \"1\",\r\n                    \"creditFloor\": 2,\r\n                    \"creditLimit\": 0,\r\n                    \"fixedCreditThresholds\": \"\",\r\n                    \"creditThresholds\": 0\r\n                }\r\n            ],\r\n            \"planName\": \"C48\",\r\n            \"planId\": \"0.0.0.1 /plan 6777093 14\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.161.175:9093/dx-sync/brm/v1/account/createPrepaidCustomer",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"161",
+						"175"
+					],
+					"port": "9093",
+					"path": [
+						"dx-sync",
+						"brm",
+						"v1",
+						"account",
+						"createPrepaidCustomer"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -36,7 +36,9 @@ public class JmeterAutomation {
         ListedHashTree testPlan = utils.testPlan(testName, hashTree);
         configUtils.addCookieManager(testPlan);
         configUtils.addCacheManager(testPlan);
-
+        if(configRootNode.get("includeJdbc").asText().equalsIgnoreCase("yes")){
+            configUtils.jdbcConnectionConfiguration(testPlan);
+        }
         // Process Scenarios
         JsonNode scenarios = configRootNode.get("scenario");
         for (JsonNode scenario : scenarios) {
