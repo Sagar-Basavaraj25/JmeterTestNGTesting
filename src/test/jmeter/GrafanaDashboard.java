@@ -17,6 +17,7 @@ public class GrafanaDashboard {
             WebDriver driver = new ChromeDriver();
             Thread.sleep(Duration.ofSeconds(20));
             driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+            driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
             driver.get("http://localhost:3000/login");
             driver.findElement(By.name("user")).sendKeys("admin");

@@ -1,13 +1,11 @@
 package org.base;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.github.javafaker.Faker;
-import kg.apc.jmeter.reporters.ConsoleStatusLogger;
-import kg.apc.jmeter.reporters.ConsoleStatusLoggerGui;
 import org.apache.jmeter.config.CSVDataSet;
+import org.apache.jmeter.config.ConfigTestElement;
+import org.apache.jmeter.protocol.jdbc.config.DataSourceElement;
 import org.apache.jmeter.protocol.http.control.CacheManager;
 import org.apache.jmeter.protocol.http.control.CookieManager;
 import org.apache.jmeter.protocol.http.control.Header;
@@ -15,6 +13,7 @@ import org.apache.jmeter.protocol.http.control.HeaderManager;
 import org.apache.jmeter.protocol.http.gui.CacheManagerGui;
 import org.apache.jmeter.protocol.http.gui.CookiePanel;
 import org.apache.jmeter.protocol.http.gui.HeaderPanel;
+import org.apache.jmeter.protocol.jdbc.config.DataSourceElement;
 import org.apache.jmeter.testbeans.gui.TestBeanGUI;
 import org.apache.jmeter.testelement.TestElement;
 import org.apache.jorphan.collections.ListedHashTree;
@@ -112,28 +111,52 @@ public class ConfigUtils {
         String headerValue="";
         Map<String,Set<String>> variables = new LinkedHashMap<String,Set<String>>();
         Random random = new Random();
+        int records=0;
         for(JsonNode csvVariable : csvVariables){
+            Long total=0L;
             String variableName = csvVariable.get("var_name").asText();
             Set<String> uniqueNames = new LinkedHashSet<String>();
-            Set<Integer> uniqueNumbers = new LinkedHashSet<Integer>();
             String prefix="";
             int min_len=csvVariable.get("min_len").asInt();
             int max_len=csvVariable.get("max_len").asInt();
+            int constant=0;
             if(!csvVariable.get("var_constant").isNull()){
                 prefix = csvVariable.get("var_constant").asText();
                 int prefix_len = prefix.length();
                 min_len = min_len-prefix_len;
                 max_len = max_len-prefix_len;
+                constant=1;
             }
             String varType = csvVariable.get("dynamic_type").asText();
+            if(varType.equalsIgnoreCase("String")) {
+                int alphabetSize = 26;
+                for (int len = min_len+constant; len <= max_len+constant; len++) {
+                    total += (long)Math.pow(alphabetSize, len);
+                }
+            } else if (varType.equalsIgnoreCase("Number")) {
+                for (int d = min_len+constant; d <= max_len+constant; d++) {
+                    long start = (long) Math.pow(10, d - 1); // e.g., 10
+                    long end = (long) Math.pow(10, d) - 1;   // e.g., 99
+                    total += (end - start + 1);
+                }
+            }
+            records = csvVariable.get("records").asInt();
+            log.info(total);
+            log.info(records);
+            if(total<records){
+                throw new RuntimeException("Unique number can't be for this much record");
+            }
             String uniqValue;
-            while (uniqueNames.size() < 1000) {
+            while (uniqueNames.size() < records) {
                 switch (varType.toLowerCase()){
                     case "string":
                         uniqValue = prefix+generateRandomName(random,min_len,max_len);
                         break;
                     case "number":
                         uniqValue = prefix + getRandomNumber(min_len,max_len);
+                        break;
+                    case "email":
+                        uniqValue = generateRandomEmail();
                         break;
                     default:
                         throw new RuntimeException("Enter Valid CSV datatype for "+variableName);
@@ -142,6 +165,7 @@ public class ConfigUtils {
             }
             variables.put(variableName,uniqueNames);
         }
+        log.info("Successfully created data");
         for(Map.Entry<String,Set<String>> entryset : variables.entrySet()){
             if(headerValue.equals("")){
                 headerValue=headerValue+entryset.getKey();
@@ -149,13 +173,14 @@ public class ConfigUtils {
                 headerValue=headerValue+","+entryset.getKey();
             }
         }
+        log.info("Successfully got CSV Variable headers");
         try (FileWriter writer = new FileWriter(fileName)) {
             writer.append(headerValue+"\n");
             List<List<String>> listOfValues = new ArrayList<>();
             for (Set<String> valueSet : variables.values()) {
                 listOfValues.add(new ArrayList<>(valueSet)); // Convert each Set to a List
             }
-            for (int i = 0; i < 1000; i++) {
+            for (int i = 0; i < records; i++) {
                 List<String> currentRow = new ArrayList<>();
                 // Iterate over all lists and fetch the i-th element if available
                 for (List<String> valueList : listOfValues) {
@@ -182,20 +207,45 @@ public class ConfigUtils {
         }
         return headerValue;
     }
-    public static int getRandomNumber(int minDigits, int maxDigits) {
+    public static Long getRandomNumber(int minDigits, int maxDigits) {
         Random random = new Random();
 
         // Compute min and max values based on the number of digits
-        int min = (int) Math.pow(10, minDigits - 1);
-        int max = (int) Math.pow(10, maxDigits) - 1;
+        long min = (long)Math.pow(10, minDigits - 1);
+        long max = (long)Math.pow(10, maxDigits) - 1;
 
-        return random.nextInt(max - min + 1) + min;
+        return random.nextLong(max - min + 1) + min;
     }
-    public void consoleLogger(ListedHashTree testplan){
-        ConsoleStatusLogger consoleLog = new ConsoleStatusLogger();
-        consoleLog.setProperty("TestElement.gui_class", ConsoleStatusLoggerGui.class.getName());
-        consoleLog.setProperty("TestElement.test_class", ConsoleStatusLogger.class.getName());
-        consoleLog.setName("jp@gc - Console Status Logger");
-        testplan.add(consoleLog);
+    public static String generateRandomEmail() {
+        String characters = "abcdefghijklmnopqrstuvwxyz0123456789";
+        String[] domains = {"gmail.com", "yahoo.com", "outlook.com", "example.com"};
+        int nameLength = 8;
+
+        StringBuilder username = new StringBuilder();
+        Random random = new Random();
+
+        // Generate random username
+        for (int i = 0; i < nameLength; i++) {
+            username.append(characters.charAt(random.nextInt(characters.length())));
+        }
+
+        // Pick a random domain
+        String domain = domains[random.nextInt(domains.length)];
+
+        return username + "@" + domain;
+    }
+    public void jdbcConnectionConfiguration(ListedHashTree testplan){
+        //ConfigTestElement jdbcConfig = new ConfigTestElement();
+        DataSourceElement jdbcConfig = new DataSourceElement();
+        jdbcConfig.setName("JDBC Connection Configuration");
+        jdbcConfig.setProperty(TestElement.TEST_CLASS,DataSourceElement.class.getName());
+        jdbcConfig.setProperty(TestElement.GUI_CLASS,TestBeanGUI.class.getName());
+        jdbcConfig.setAutocommit(true);
+        jdbcConfig.setCheckQuery("");
+        jdbcConfig.setConnectionAge("5000");
+        jdbcConfig.setConnectionProperties("");
+        jdbcConfig.setDataSource("jmeter");
+        jdbcConfig.setDbUrl("dbUrl");
+        testplan.add(jdbcConfig);
     }
 }

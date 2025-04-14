@@ -12,6 +12,7 @@ import org.apache.jmeter.sampler.gui.TestActionGui;
 import org.apache.jmeter.testbeans.gui.TestBeanGUI;
 import org.apache.jmeter.testelement.TestElement;
 import org.apache.jorphan.collections.ListedHashTree;
+import org.openqa.selenium.internal.Debug;
 
 public class SamplerUtils {
     public ListedHashTree httpSampler(JsonNode item, ListedHashTree threadGroup){
@@ -62,15 +63,18 @@ public class SamplerUtils {
     }
     public ListedHashTree flowControlActionSampler(ListedHashTree threadGroup){
         TestAction flowControlAction = new TestAction();
+        flowControlAction.setProperty(TestElement.TEST_CLASS,TestAction.class.getName());
         flowControlAction.setProperty(TestElement.GUI_CLASS, TestActionGui.class.getName());
         flowControlAction.setName("Flow Control Action");
         flowControlAction.setAction(1); //input
         flowControlAction.setTarget(0);
-        flowControlAction.setDuration("0");
+        flowControlAction.setDuration("");
         return threadGroup.add(flowControlAction);
     }
     public ListedHashTree debugSampler(ListedHashTree threadGroup){
         DebugSampler debugSampler = new DebugSampler();
+        debugSampler.setProperty(TestElement.TEST_CLASS, DebugSampler.class.getName());
+        debugSampler.setProperty(TestElement.GUI_CLASS,TestBeanGUI.class.getName());
         debugSampler.setName("Debug Sampler");
         debugSampler.setProperty("displayJMeterProperties", true);
         debugSampler.setProperty("displayJMeterVariables", true);

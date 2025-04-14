@@ -21,7 +21,7 @@ public class TimerUtils {
         timer.setProperty(TestElement.TEST_CLASS,ConstantThroughputTimer.class.getName());
         timer.setProperty(TestElement.GUI_CLASS, TestBeanGUI.class.getName());
         timer.setEnabled(true);
-        int tps = timers.get("delay/throughput").asInt();
+        double tps = timers.get("delay/throughput").asDouble();
         String calcMode = timers.get("throughput_base/groups").asText();
         int setCalcMode;
         switch (calcMode) {
@@ -46,7 +46,7 @@ public class TimerUtils {
         }
 
         timer.setCalcMode(setCalcMode);
-        timer.setThroughput(tps * 60);
+        timer.setThroughput(tps*60);
         tree.add(timer);
     }
     public void syncTimer(ListedHashTree tree,JsonNode timers){
@@ -70,12 +70,12 @@ public class TimerUtils {
         timer.setDelay(delay);
         tree.add(timer);
     }
-    public void uniformRandomTimer(ListedHashTree tree, JsonNode timers){
+    public void uniformRandomTimer(ListedHashTree tree, String delay){
         UniformRandomTimer uniformRandomTimer = new UniformRandomTimer();
         uniformRandomTimer.setName("Uniform Random Timer");
         uniformRandomTimer.setProperty(TestElement.TEST_CLASS,UniformRandomTimer.class.getName());
         uniformRandomTimer.setProperty(TestElement.GUI_CLASS, UniformRandomTimerGui.class.getName());
-        String delay = timers.get("delay/throughput").asText();
+        //String delay = timers.get("delay/throughput").asText();
         uniformRandomTimer.setDelay(delay);
         uniformRandomTimer.setRange(100.0);
         tree.add(uniformRandomTimer);

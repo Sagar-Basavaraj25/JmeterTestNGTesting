@@ -6,10 +6,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.base.ConfigUtils;
 import org.base.ListenerUtils;
+import org.base.ThreadGroupUtils;
 import org.base.Utils;
 import org.testng.annotations.Test;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
@@ -17,15 +21,14 @@ import java.util.regex.Pattern;
 
 import static org.base.Utils.addThreadGroup;
 
-public class JmxFileCreation {
-
-    private static final Logger log = LogManager.getLogger(JmxFileCreation.class);
-    public static String jmxFile = null,errorTolerance = null;
-
-    @Test(groups = {"jmx"},dependsOnGroups = {"smoke"})
-    public void jmxFileCreation(){
+public class SmokeTest {
+    private static final Logger log = LogManager.getLogger(SmokeTest.class);
+    public static String errorTolerance =null,jmxFile=null;
+    @Test(groups = {"smoke"})
+    public void jmxSmokeFileCreation(){
         try{
             Utils utils = new Utils();
+            ThreadGroupUtils threadGroupUtils = new ThreadGroupUtils();
             ListenerUtils listenerUtils = new ListenerUtils();
             ConfigUtils configUtils = new ConfigUtils();
             utils.initJmeter();
@@ -52,10 +55,11 @@ public class JmxFileCreation {
             JsonNode scenarios = configRootNode.get("scenario");
             for (JsonNode scenario : scenarios) {
                 JsonNode payloadRootNode1 = mapper.readTree(new File(payloadFile));
-                ListedHashTree threadGroup = addThreadGroup(testPlan,scenario);
+                ListedHashTree threadGroup = threadGroupUtils.smokeThreadGroup(testPlan);
                 utils.processScenario(threadGroup,scenario,payloadRootNode1,testName);
             }
-            listenerUtils.backendListener(testPlan);
+            //listenerUtils.backendListener(testPlan);
+            listenerUtils.addJsr223Listener(testPlan);
             // Save Test Plan to JMX File
             jmxFile = utils.JMXFileCreator(testName);
             FileOutputStream fos = new FileOutputStream(jmxFile);
@@ -66,8 +70,8 @@ public class JmxFileCreation {
         }
     }
 
-    @Test(dependsOnGroups = {"jmx"})
-    public void runJmxFile(){
+    @Test(groups = {"smoke"}, dependsOnMethods = {"jmxSmokeFileCreation"})
+    public void runSmoke(){
         try {
             Utils utils = new Utils();
             LocalDateTime today = LocalDateTime.now();
@@ -77,8 +81,6 @@ public class JmxFileCreation {
             String command = "jmeter -n -t "+jmxFile+" -l "+logs+" -e -o "+report;
 
             ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
-            String replace = errorTolerance.replace("%", "");
-            int error = Integer.parseInt(replace);
             Process process = processBuilder.start();
             processBuilder.redirectErrorStream(true);
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -90,18 +92,18 @@ public class JmxFileCreation {
                 matcher = pattern.matcher(line);
                 if (matcher.find()) {
                     String errorPercentage = matcher.group(1);
-                    if(((int)Double.parseDouble(errorPercentage))>=error){
+                    if(((int)Double.parseDouble(errorPercentage))>0){
                         process.destroy();
                         utils.failureReport(logs);
                         break;
                     }
                 }
             }
-            log.info("Jmeter Execution Ended");
+            log.info("Jmeter Smoke Ended Successfully");
             SharedStatus.jmxCompletedLatch.countDown();
             // Read the output of the command
             int exitCode = process.waitFor();
-            utils.aggregateReport(logs);
+            String fileName = utils.aggregateReport(logs);
             log.info("Command exited with code: " + exitCode);
         } catch (Exception e) {
             log.error("Error Occured while running the jmx : "+e.getMessage());
